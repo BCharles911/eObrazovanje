@@ -1,0 +1,13 @@
+
+
+To properly install Lombok Library, follow the next steps.
+
+1. Go where your Lombok jar is - 
+	C:\Users\User\.m2repository/org/projectlombok/lombok/1.16.10/lombok-1.16.10.jar
+	run it. A window should appear.
+	browse to your eclipse or sts.exe location
+	
+2. Click on Install
+
+3. Launch or restart Eclipse, clean and rebuild project, then right click on your project, 
+	maven -> update project.
