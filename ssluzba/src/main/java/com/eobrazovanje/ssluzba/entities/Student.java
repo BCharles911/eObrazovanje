@@ -16,7 +16,7 @@ import lombok.Setter;
 @Table(name = "student")
 @Getter
 @Setter
-public class Student {
+public class Student extends Person {
 
 	
 	@NotNull
@@ -74,6 +74,10 @@ public class Student {
 	public Student() {
 		
 	}
+	
+	
+	
+	
 
 	public Student(@NotNull @NotBlank String firstName, @NotBlank String lastName, @NotBlank String indexNumber,
 			String highSchool, String hsFinishYear, String parentName, int currentYear, Double avgGrade,
