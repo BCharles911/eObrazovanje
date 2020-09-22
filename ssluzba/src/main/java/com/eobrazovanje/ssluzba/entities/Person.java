@@ -7,6 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,10 +38,21 @@ public class Person {
 	@Setter
 	private Long id;
 	
+	@JsonIgnore
+	@NotNull
+	@Size(min = 6, max = 30)
+	@Column(name = "password")
+	@Getter
+	@Setter
+	private String password;
+	
+	
 	@Column(columnDefinition = "boolean default false")
 	@Getter
 	@Setter
 	private boolean deleted;
+	
+	
 	
 	
 	@Column(name = "gender")
@@ -100,6 +115,11 @@ public class Person {
 	@Getter
 	@Setter
 	private String ethnicity;
+	
+	@Column(name = "is_deleted")
+	@Getter
+	@Setter
+	private boolean isDeleted;
 	
 	
 	

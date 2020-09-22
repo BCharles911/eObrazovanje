@@ -4,15 +4,19 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
+
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "student")
 @Table(name = "student")
 @Getter
 @Setter
@@ -59,17 +63,29 @@ public class Student extends Person {
 	@Setter
 	private int currentYear;
 	
-	// da li dodati polje avg grade?
+	
 	@Column(name = "avg_grade")
 	@Getter
 	@Setter
 	private Double avgGrade;
 	
 	
+	@Enumerated(EnumType.STRING)
+	private STUDENT_STATUS studentStatus;
+	
+ 
+	
+	
 	@OneToMany(mappedBy = "student")
 	@Getter
 	@Setter
-	Set<StudentHasSubject> studentHasSubject;
+	private Set<StudentHasSubject> studentHasSubject;
+	
+	@OneToMany(mappedBy = "student")
+	@Getter
+	@Setter
+	private Set<StudentHasColloqium> studentHasColloqium;
+	
 
 	public Student() {
 		

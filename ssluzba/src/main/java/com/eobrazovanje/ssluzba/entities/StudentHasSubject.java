@@ -1,11 +1,14 @@
 package com.eobrazovanje.ssluzba.entities;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.eobrazovanje.ssluzba.entities.compositeKeys.StudentSubjectKey;
@@ -46,6 +49,19 @@ public class StudentHasSubject {
 	@Getter
 	@Setter
 	private int brPokusaja;
+	
+	
+	@Column(name =  "passed")
+	@Getter
+	@Setter
+	private boolean passed;
+	
+    @OneToMany(mappedBy="student_has_subject")
+    @Getter
+    @Setter
+    private Set<Exam> exam;
+	
+	
 
 	public StudentHasSubject() {
 		
@@ -65,6 +81,17 @@ public class StudentHasSubject {
 	public String toString() {
 		return "StudentHasSubject [id=" + id + ", student=" + student + ", subject=" + subject + ", ocena=" + ocena
 				+ ", brPokusaja=" + brPokusaja + "]";
+	}
+
+	public StudentHasSubject(StudentSubjectKey id, Student student, Subject subject, int ocena, int brPokusaja,
+			boolean passed) {
+		super();
+		this.id = id;
+		this.student = student;
+		this.subject = subject;
+		this.ocena = ocena;
+		this.brPokusaja = brPokusaja;
+		this.passed = passed;
 	}
 	
 	

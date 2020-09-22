@@ -8,13 +8,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@EqualsAndHashCode
 public class Privilege {
 
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id;
 
+@Getter
+@Setter
 private String name;
 
 @ManyToMany(mappedBy = "privileges")

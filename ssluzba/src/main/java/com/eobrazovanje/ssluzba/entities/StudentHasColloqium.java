@@ -1,5 +1,6 @@
 package com.eobrazovanje.ssluzba.entities;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -7,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import com.eobrazovanje.ssluzba.entities.compositeKeys.StudentColloqiumKey;
 import com.eobrazovanje.ssluzba.entities.compositeKeys.StudentSubjectKey;
 
 import lombok.Getter;
@@ -19,7 +21,7 @@ import lombok.Setter;
 public class StudentHasColloqium {
 	
 	@EmbeddedId
-	StudentSubjectKey id;
+	StudentColloqiumKey id;
 	
 	@ManyToOne
 	@MapsId("student_id")
@@ -34,8 +36,14 @@ public class StudentHasColloqium {
 	@Getter
 	@Setter
 	private Colloqium colloqium;
+	
+	@Column(name = "points_acquired")
+	@Getter
+	@Setter
+	private int pointsAcquired;
+	
 
-	public StudentHasColloqium(StudentSubjectKey id, Student student, Colloqium colloqium) {
+	public StudentHasColloqium(StudentColloqiumKey id, Student student, Colloqium colloqium) {
 		super();
 		this.id = id;
 		this.student = student;
