@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import lombok.Setter;
+
 @Embeddable
 public class StudentSubjectKey implements Serializable {
 	/**
@@ -13,8 +15,10 @@ public class StudentSubjectKey implements Serializable {
 	private static final long serialVersionUID = -41880636394685178L;
 
 	@Column(name = "student_id")
+	@Setter
 	private Long studentId;
 	
 	@Column(name = "subject_id")
+	@Setter
 	private Long subjectId;
 }

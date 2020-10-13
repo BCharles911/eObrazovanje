@@ -23,19 +23,7 @@ import lombok.Setter;
 public class Student extends Person {
 
 	
-	@NotNull
-	@NotBlank
-	@Column(name = "first_name", nullable = false)
-	@Getter
-	@Setter
-	private String firstName;
-	
 
-	@NotBlank
-	@Column(name = "last_name", nullable = false)
-	@Getter
-	@Setter
-	private String lastName;
 	
 	@NotBlank
 	@Column(name = "index_name", nullable = false, unique = true)
@@ -62,6 +50,12 @@ public class Student extends Person {
 	@Getter
 	@Setter
 	private int currentYear;
+	
+	
+	@Column(name = "course")
+	@Getter
+	@Setter
+	private String course;
 	
 	
 	@Column(name = "avg_grade")
@@ -95,12 +89,11 @@ public class Student extends Person {
 	
 	
 
-	public Student(@NotNull @NotBlank String firstName, @NotBlank String lastName, @NotBlank String indexNumber,
+	public Student( @NotBlank String indexNumber,
 			String highSchool, String hsFinishYear, String parentName, int currentYear, Double avgGrade,
 			Set<StudentHasSubject> studentHasSubject) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
+
 		this.indexNumber = indexNumber;
 		this.highSchool = highSchool;
 		this.hsFinishYear = hsFinishYear;
@@ -110,14 +103,39 @@ public class Student extends Person {
 		this.studentHasSubject = studentHasSubject;
 	}
 
+
+
+
+
 	@Override
 	public String toString() {
-		return "Student [firstName=" + firstName + ", lastName=" + lastName + ", indexNumber=" + indexNumber
-				+ ", highSchool=" + highSchool + ", hsFinishYear=" + hsFinishYear + ", parentName=" + parentName
-				+ ", currentYear=" + currentYear + ", avgGrade=" + avgGrade + ", studentHasSubject=" + studentHasSubject
-				+ "]";
+		return "Student [indexNumber=" + indexNumber + ", highSchool=" + highSchool + ", hsFinishYear=" + hsFinishYear
+				+ ", parentName=" + parentName + ", currentYear=" + currentYear + ", avgGrade=" + avgGrade
+				+ ", studentStatus=" + studentStatus + ", studentHasSubject=" + studentHasSubject
+				+ ", studentHasColloqium=" + studentHasColloqium + "]";
 	}
-	
+
+
+
+
+
+	public Student(@NotBlank String indexNumber, String highSchool, String hsFinishYear, String parentName,
+			int currentYear, String course, Double avgGrade, STUDENT_STATUS studentStatus,
+			Set<StudentHasSubject> studentHasSubject, Set<StudentHasColloqium> studentHasColloqium) {
+		super();
+		this.indexNumber = indexNumber;
+		this.highSchool = highSchool;
+		this.hsFinishYear = hsFinishYear;
+		this.parentName = parentName;
+		this.currentYear = currentYear;
+		this.course = course;
+		this.avgGrade = avgGrade;
+		this.studentStatus = studentStatus;
+		this.studentHasSubject = studentHasSubject;
+		this.studentHasColloqium = studentHasColloqium;
+	}
+
+
 	
 	
 	

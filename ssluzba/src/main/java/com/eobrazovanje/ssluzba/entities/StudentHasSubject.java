@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.eobrazovanje.ssluzba.entities.compositeKeys.StudentSubjectKey;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +32,7 @@ public class StudentHasSubject {
 	@JoinColumn(name = "student_id")
 	@Getter
 	@Setter
+	@JsonIgnore
 	private Student student;
 	
 	@ManyToOne

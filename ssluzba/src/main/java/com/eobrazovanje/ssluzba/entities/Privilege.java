@@ -26,4 +26,14 @@ private String name;
 
 @ManyToMany(mappedBy = "privileges")
 private Collection<Role> roles;
+
+public Privilege() {
+    super();
+}
+
+public Privilege(final String name) {
+    super();
+    this.name = name;
+}
+
 }

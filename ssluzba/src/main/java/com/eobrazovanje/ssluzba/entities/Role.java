@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +36,7 @@ public class Role {
 	@ManyToMany(mappedBy = "roles")
 	@Getter
 	@Setter
+	@JsonIgnore
 	private Collection<Lecturer> lecturers;
 	
 	
@@ -50,7 +53,13 @@ public class Role {
     private Collection<Privilege> privileges; 
 	
 	
-	
-    
+	public Role() {
+	    super();
+	}
+
+	public Role(final String name) {
+	    super();
+	    this.name = name;
+	}
 
 }

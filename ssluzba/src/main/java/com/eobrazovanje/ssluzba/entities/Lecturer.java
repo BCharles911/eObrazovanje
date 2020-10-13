@@ -25,19 +25,7 @@ public class Lecturer extends Person {
 	
 	
 	
-	@NotNull
-	@NotBlank
-	@Column(name = "first_name", nullable = false)
-	@Getter
-	@Setter
-	private String firstName;
-	
 
-	@NotBlank
-	@Column(name = "last_name", nullable = false)
-	@Getter
-	@Setter
-	private String lastName;
 	
 
     @OneToMany(mappedBy="lecturer")
@@ -52,17 +40,7 @@ public class Lecturer extends Person {
 	@ManyToMany
 	Set<Subject> subjects;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "lecturer_roles",
-			joinColumns = @JoinColumn(
-					name = "lecturer_id", referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(
-					name = "role_id", referencedColumnName = "id"
-					
-					)
-			)
-	private Collection<Role> roles;
+
 	
 	
 	
@@ -74,11 +52,6 @@ public class Lecturer extends Person {
 	
 	
 
-	@Override
-	public String toString() {
-		return "Lecturer [firstName=" + firstName + ", lastName=" + lastName + ", exam=" + exam + ", subjects="
-				+ subjects + ", roles=" + roles + "]";
-	}
 
 
 
@@ -92,14 +65,40 @@ public class Lecturer extends Person {
 	}
 
 
-	public Lecturer(@NotNull @NotBlank String firstName, @NotBlank String lastName, Set<Exam> exam,
-			Set<Subject> subjects, Collection<Role> roles) {
+
+
+
+
+
+
+
+
+
+	public Lecturer orElseThrow(Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Lecturer [exam=" + exam + ", subjects=" + subjects + "]";
+	}
+
+
+
+
+
+
+
+
+
+
+
+	public Lecturer(Set<Exam> exam, Set<Subject> subjects) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
 		this.exam = exam;
 		this.subjects = subjects;
-		this.roles = roles;
 	}
 	
 	

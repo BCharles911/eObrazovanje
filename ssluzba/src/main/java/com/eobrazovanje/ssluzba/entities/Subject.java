@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,11 +56,18 @@ public class Subject {
 	@Setter
 	private Set<Lecturer> lecturer;
 	
+	@ManyToMany
+	@Getter
+	@Setter
+	private Set<Course> course;
+	
 	
 	//mappedBy property koristimo da kazemo hibernateu
 	//koju varijablu koristimo da reprezentujemo roditeljsku
 	//klasu u children klasi
 	@OneToMany(mappedBy="subject")
+	@Getter
+	@Setter
 	private Set<Colloqium> colloqium;
 	
 	@OneToMany(mappedBy = "subject")
@@ -90,6 +98,9 @@ public class Subject {
 	}
 	
 	
-	
+	public void SetIfNotEmptyLecturer(Set<Lecturer> lecturer, Lecturer l) {
+		this.lecturer = lecturer;
+		lecturer.add(l);
+	}
 
 }

@@ -1,12 +1,17 @@
 package com.eobrazovanje.ssluzba.entities;
 
 import java.sql.Date;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -38,9 +43,22 @@ public class Person {
 	@Setter
 	private Long id;
 	
+	@NotNull
+	@NotBlank
+	@Column(name = "first_name", nullable = false)
+	@Getter
+	@Setter
+	private String firstName;
+	
+
+	@NotBlank
+	@Column(name = "last_name", nullable = false)
+	@Getter
+	@Setter
+	private String lastName;
+	
 	@JsonIgnore
 	@NotNull
-	@Size(min = 6, max = 30)
 	@Column(name = "password")
 	@Getter
 	@Setter
@@ -53,7 +71,10 @@ public class Person {
 	private boolean deleted;
 	
 	
-	
+	@Column
+	@Getter
+	@Setter
+	private String username;
 	
 	@Column(name = "gender")
 	@Getter
@@ -120,6 +141,18 @@ public class Person {
 	@Getter
 	@Setter
 	private boolean isDeleted;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "users_roles",
+			joinColumns = @JoinColumn(
+					name = "id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(
+					name = "role_id", referencedColumnName = "id"
+					
+					)
+			)
+	private Collection<Role> roles;
 	
 	
 	
