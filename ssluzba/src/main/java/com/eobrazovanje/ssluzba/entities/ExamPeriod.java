@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,9 +45,10 @@ public class ExamPeriod {
 	@Setter
 	private String examPeriodName;
 	
-	@Column(name = "isActive")
+	@Column(name = "is_active")
 	@Getter
 	@Setter
+	@Value("${exam_period.is_active:false}")
 	private boolean isActive;
 	
 	

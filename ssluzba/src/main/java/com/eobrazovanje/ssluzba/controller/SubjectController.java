@@ -20,6 +20,7 @@ import com.eobrazovanje.ssluzba.dto.converter.SubjectToDTO;
 import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToSubject;
 import com.eobrazovanje.ssluzba.entities.Lecturer;
 import com.eobrazovanje.ssluzba.entities.Subject;
+import com.eobrazovanje.ssluzba.entityManager.UtilManager;
 import com.eobrazovanje.ssluzba.repository.LecturerRepository;
 import com.eobrazovanje.ssluzba.repository.SubjectRepository;
 import com.eobrazovanje.ssluzba.services.LecturerService;
@@ -47,12 +48,20 @@ public class SubjectController {
 	@Autowired
 	DTOToSubject dtoToSubject;
 	
+	@Autowired
+	UtilManager utilManager;
+	
 
 	@GetMapping("/get-all")
 	public ResponseEntity<List<SubjectDTO>> getAllSubjects(){
 		return new ResponseEntity<>(subjectToDTO.convert(subjectRepository.findAll()), HttpStatus.OK);
 	}
 	
+	
+	@GetMapping("/test-for-student")
+	public ResponseEntity<List<SubjectDTO>> getAllSubjectsForStudent(){
+		return new ResponseEntity<List<SubjectDTO>>(subjectToDTO.convert(utilManager.queryForSubjectsForSpecificStudent()),HttpStatus.OK);
+	}
 	
 	@PostMapping(value="/admin/create-subject", consumes= "application/json")
 	public ResponseEntity<?> createSubject(@RequestBody SubjectDTO subjectDTO, Errors errors){

@@ -6,10 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.DynamicUpdate;
 
 import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
 
@@ -20,6 +25,7 @@ import lombok.Setter;
 @Table(name = "student")
 @Getter
 @Setter
+@DynamicUpdate
 public class Student extends Person {
 
 	
@@ -52,10 +58,11 @@ public class Student extends Person {
 	private int currentYear;
 	
 	
-	@Column(name = "course")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "course_id")
 	@Getter
 	@Setter
-	private String course;
+	private Course course;
 	
 	
 	@Column(name = "avg_grade")
@@ -120,7 +127,7 @@ public class Student extends Person {
 
 
 	public Student(@NotBlank String indexNumber, String highSchool, String hsFinishYear, String parentName,
-			int currentYear, String course, Double avgGrade, STUDENT_STATUS studentStatus,
+			int currentYear, Course course, Double avgGrade, STUDENT_STATUS studentStatus,
 			Set<StudentHasSubject> studentHasSubject, Set<StudentHasColloqium> studentHasColloqium) {
 		super();
 		this.indexNumber = indexNumber;

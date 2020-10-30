@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import com.eobrazovanje.ssluzba.entities.Course;
 import com.eobrazovanje.ssluzba.entities.Exam;
+import com.eobrazovanje.ssluzba.entities.ExamPeriod;
 import com.eobrazovanje.ssluzba.entities.Lecturer;
 import com.eobrazovanje.ssluzba.entities.Privilege;
 import com.eobrazovanje.ssluzba.entities.Role;
@@ -28,7 +29,9 @@ import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
 import com.eobrazovanje.ssluzba.entities.Subject;
 import com.eobrazovanje.ssluzba.entities.compositeKeys.StudentSubjectKey;
+import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
 import com.eobrazovanje.ssluzba.repository.CourseRepository;
+import com.eobrazovanje.ssluzba.repository.ExamPeriodRepository;
 import com.eobrazovanje.ssluzba.repository.ExamRepository;
 import com.eobrazovanje.ssluzba.repository.LecturerRepository;
 import com.eobrazovanje.ssluzba.repository.PrivilegeRepository;
@@ -73,6 +76,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     
     @Autowired
     private ExamRepository examRepository;
+    
+    
+    @Autowired
+    private ExamPeriodRepository examPeriodRepository;
 	
 	
 	@Override
@@ -122,6 +129,48 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 		
 		
+        
+        
+        
+        ExamPeriod januarskiRok = new ExamPeriod();
+        ExamPeriod februarskiRok = new ExamPeriod();
+        ExamPeriod aprilskiRok = new ExamPeriod();
+        ExamPeriod junskiRok = new ExamPeriod();
+        ExamPeriod septembarskiRok = new ExamPeriod();
+        
+        
+        		/*
+		 * 
+		 * januarskiRok.setExamPeriodName("Januarski rok");
+		 * januarskiRok.setActive(false);
+		 * januarskiRok.setStartDate(Date.valueOf("2021-01-25"));
+		 * januarskiRok.setEndDate(Date.valueOf("2021-01-30"));
+		 * 
+		 * februarskiRok.setExamPeriodName("Februarski rok");
+		 * februarskiRok.setActive(false);
+		 * februarskiRok.setStartDate(Date.valueOf("2021-02-20"));
+		 * februarskiRok.setEndDate(Date.valueOf("2021-02-25"));
+		 * 
+		 * aprilskiRok.setExamPeriodName("Aprilski rok"); aprilskiRok.setActive(false);
+		 * aprilskiRok.setStartDate(Date.valueOf("2021-04-15"));
+		 * aprilskiRok.setEndDate(Date.valueOf("2021-04-20"));
+		 * 
+		 * junskiRok.setExamPeriodName("Junski rok"); junskiRok.setActive(false);
+		 * junskiRok.setStartDate(Date.valueOf("2021-06-10"));
+		 * junskiRok.setEndDate(Date.valueOf("2021-06-15"));
+		 * 
+		 * septembarskiRok.setExamPeriodName("Septembarski rok");
+		 * septembarskiRok.setActive(false);
+		 * septembarskiRok.setStartDate(Date.valueOf("2021-09-05"));
+		 * septembarskiRok.setEndDate(Date.valueOf("2021-09-10"));
+		 * 
+		 * createExamPeriodIfNotFound(januarskiRok);
+		 * createExamPeriodIfNotFound(februarskiRok);
+		 * createExamPeriodIfNotFound(aprilskiRok);
+		 * createExamPeriodIfNotFound(junskiRok);
+		 * createExamPeriodIfNotFound(septembarskiRok);
+		 */
+		
 		/*
 		 * Role adminRole = roleRepository.findByName("ROLE_ADMIN"); Lecturer lecturer =
 		 * new Lecturer(); lecturer.setFirstName("Test"); lecturer.setLastName("Test");
@@ -155,6 +204,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		 * studentRepository.save(student);
 		 */
 		 
+		 
         
 		
 		/*
@@ -163,14 +213,15 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		 * course.setCourseName("Softverske i informacione tehnologije");
 		 * course.setShortName("SIT"); course.getStudent().add(student);
 		 * courseRepository.save(course);
-		 */
-        
-		
-	/*	  Subject subject = new Subject(); long id = 1;
-		  subject.setSubjectName("Matematika 1"); subject.setShortName("M1");
-		  subject.setEctsPoints(8); subjectRepository.save(subject);*/
-		  
-		/*
+		 * 
+		 * 
+		 * 
+		 * 
+		 * Subject subject = new Subject(); subject.setSubjectName("Matematika 1");
+		 * subject.setShortName("M1"); subject.setEctsPoints(8);
+		 * subjectRepository.save(subject);
+		 * 
+		 * 
 		 * Role adminRole = roleRepository.findByName("ROLE_ADMIN"); Lecturer lecturer =
 		 * new Lecturer(); lecturer.setFirstName("Milan");
 		 * lecturer.setLastName("Milkovic");
@@ -184,8 +235,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		 * lecturer.setMobilePhoneNumber("0611180389"); lecturer.setDeleted(false);
 		 * lecturerRepository.save(lecturer);
 		 */
+		 
         
         
+		
 		/*
 		 * Role studentRole = roleRepository.findByName("STUDENT"); Student student =new
 		 * Student(); student.setFirstName("Petar"); student.setLastName("Petrovic");
@@ -203,9 +256,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		 * student.setParentName("Mitar Mitra Mitar");
 		 * student.setStudentStatus(STUDENT_STATUS.ADVANCED_UNIVERSITY_STUDENT);
 		 * studentRepository.save(student);
-		 */
-        
-		/*
+		 * 
+		 * 
+		 * 
 		 * long idd = 1; long idd2 = 2; Lecturer lecturer =
 		 * lecturerRepository.findByFirstName("Milan"); System.out.println("lecturer");
 		 * Subject subject = new Subject(); long id = 1;
@@ -213,10 +266,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		 * subject.setEctsPoints(6); Set<Lecturer> lect =
 		 * Stream.of(lecturer).collect(Collectors.toSet()); subject.setLecturer(lect);
 		 * subjectRepository.save(subject);
-		 */
-		  
-        	long idd = 1; long idd2 = 2; long idd6 = 6; long idd8 = 8;
-		/*
+		 * 
+		 * 
+		 * 
+		 * 
 		 * Student stud1 = studentRepository.getOne(idd); Student stud2 =
 		 * studentRepository.getOne(idd2); Course course = new Course(); Subject
 		 * subjectt = subjectRepository.getOne(idd);
@@ -226,40 +279,133 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		 * Stream.of(stud1,stud2).collect(Collectors.toSet());
 		 * course.getSubject().add(subjectt); courseRepository.save(course);
 		 */
-        	
+
+
+		/*
+		 * long idd = 1; long idd2 = 2; Lecturer lecturer =
+		 * lecturerRepository.findByFirstName("Milan"); System.out.println("lecturer");
+		 * Subject subject = new Subject(); long id = 1;
+		 * subject.setSubjectName("Matematika 1"); subject.setShortName("M1");
+		 * subject.setEctsPoints(6); Set<Lecturer> lect =
+		 * Stream.of(lecturer).collect(Collectors.toSet()); subject.setLecturer(lect);
+		 * subjectRepository.save(subject);
+		 * 
+		 * 
+		 * lecturerRepository.findByFirstName("Milan"); System.out.println("lecturer");
+		 * Subject subject2 = new Subject(); subject2.setSubjectName("Internet Mreze");
+		 * subject2.setShortName("IM1"); subject2.setEctsPoints(6); Set<Lecturer> lect2
+		 * = Stream.of(lecturer).collect(Collectors.toSet());
+		 * subject2.setLecturer(lect2); subjectRepository.save(subject2);
+		 * 
+		 * 
+		 * lecturerRepository.findByFirstName("Milan"); System.out.println("lecturer");
+		 * Subject subject3 = new Subject(); subject3.setSubjectName("eUprava");
+		 * subject3.setShortName("EUP"); subject3.setEctsPoints(6); Set<Lecturer> lect3
+		 * = Stream.of(lecturer).collect(Collectors.toSet());
+		 * subject3.setLecturer(lect3); subjectRepository.save(subject3);
+		 * 
+		 * 
+		 * lecturerRepository.findByFirstName("Milan"); System.out.println("lecturer");
+		 * Subject subject4 = new Subject();
+		 * subject4.setSubjectName("Poslovna Informatika");
+		 * subject4.setShortName("PINF"); subject4.setEctsPoints(6); Set<Lecturer> lect4
+		 * = Stream.of(lecturer).collect(Collectors.toSet());
+		 * subject4.setLecturer(lect4); subjectRepository.save(subject4);
+		 * 
+		 * 
+		 * 
+		 * lecturerRepository.findByFirstName("Milan"); System.out.println("lecturer");
+		 * Subject subject5 = new Subject(); subject5.setSubjectName("Engleski 1");
+		 * subject5.setShortName("ENG1"); subject5.setEctsPoints(6); Set<Lecturer> lect5
+		 * = Stream.of(lecturer).collect(Collectors.toSet());
+		 * subject5.setLecturer(lect5); subjectRepository.save(subject5);
+		 * 
+		 * 
+		 * 
+		 * 
+		 * lecturerRepository.findByFirstName("Milan"); System.out.println("lecturer");
+		 * Subject subject6 = new Subject();
+		 * subject6.setSubjectName("Upravljanje datotekama");
+		 * subject6.setShortName("UDO"); subject6.setEctsPoints(6); Set<Lecturer> lect6
+		 * = Stream.of(lecturer).collect(Collectors.toSet());
+		 * subject6.setLecturer(lect6); subjectRepository.save(subject6);
+		 * 
+		 * 
+		 * 
+		 * lecturerRepository.findByFirstName("Milan"); System.out.println("lecturer");
+		 * Subject subject7 = new Subject(); subject7.setSubjectName("Baze Podataka 1");
+		 * subject7.setShortName("BZP"); subject7.setEctsPoints(6); Set<Lecturer> lect7
+		 * = Stream.of(lecturer).collect(Collectors.toSet());
+		 * subject6.setLecturer(lect7); subjectRepository.save(subject7);
+		 * 
+		 * 
+		 * 
+		 * lecturerRepository.findByFirstName("Milan"); System.out.println("lecturer");
+		 * Subject subject8 = new Subject();
+		 * subject8.setSubjectName("Osnove Racunarstva"); subject8.setShortName("ORS");
+		 * subject8.setEctsPoints(6); Set<Lecturer> lect8 =
+		 * Stream.of(lecturer).collect(Collectors.toSet()); subject8.setLecturer(lect8);
+		 * subjectRepository.save(subject8);
+		 * 
+		 */
         
         	
-        	
-        Student stud1 = studentRepository.getOne(idd2);	
-        Subject subbj = subjectRepository.getOne(idd8);
-        Lecturer lect = lecturerRepository.getOne(idd6);
-        Course crs = courseRepository.getOne(idd);
+		/*
+		 * long idd6 = 6; long idd8 = 8; long idd2 = 2; long idd = 1; long id5 = 5;
+		 * Student stud1 = studentRepository.getOne(idd2); Subject subbj =
+		 * subjectRepository.getOne(idd8); Lecturer lectr =
+		 * lecturerRepository.getOne(id5); Course crs = courseRepository.getOne(idd);
+		 * 
+		 * StudentHasSubject studHasSub =
+		 * studentHasSubjectRespository.findStudentHasSubjectByStudentId();
+		 * 
+		 * subbj.getCourse().add(crs);
+		 * 
+		 * 
+		 * Exam exam = examRepository.getOne(idd);
+		 * exam.setStudent_has_subject(studHasSub); examRepository.save(exam);
+		 */
+		 
         
-        StudentHasSubject studHasSub = studentHasSubjectRespository.findStudentHasSubjectByStudentId();
+		/*
+		 * Role adminRole = roleRepository.findByName("ROLE_ADMIN"); Lecturer lecturer =
+		 * new Lecturer(); lecturer.setFirstName("Marko");
+		 * lecturer.setLastName("Markovic");
+		 * lecturer.setPassword(passwordEncoder.encode("test"));
+		 * lecturer.setEmailAddress("marko@test.com");
+		 * lecturer.setRoles(Arrays.asList(adminRole));
+		 * lecturer.setCitizenship("Serbian"); lecturer.setCity("Novi Sad");
+		 * lecturer.setDateOfBirth(new Date(1986, 3, 21));
+		 * lecturer.setPhoneNumber("0604435531"); lecturer.setPlaceOfBirth("Novi Sad");
+		 * lecturer.setResidence_address("Bulevar Oslobodjenja 21");
+		 * lecturer.setStateOfBirth("Srbija"); lecturer.setEthnicity("Serbian");
+		 * lecturer.setGender("male"); lecturer.setMobilePhoneNumber("0611180389");
+		 * lecturer.setDeleted(false); lecturerRepository.save(lecturer);
+		 */
+		  
+        long idd = 1; long idd6 = 6;
+        Subject subbj =
+       	 subjectRepository.getOne(idd); Lecturer lectr =
+       		 lecturerRepository.getOne(idd6);
+       	 subbj.getLecturer().add(lectr);
+       	 subjectRepository.save(subbj);
+        
 		
-        subbj.getCourse().add(crs);
-        /*
-		 * Exam exam = new Exam(); exam.setHasPassed(false); exam.setDeleted(false);
-		 * exam.setLecturer(lect); exam.setStudent_has_subject(studHasSub);
-		 * examRepository.save(exam);
-		 */
-        
-		/*
-		 * crs.getSubject().add(subbj); courseRepository.save(crs);
-		 */
-		/*
-		 * crs.getStudent().add(stud1); courseRepository.save(crs);
-		 */
+		  //crs.getSubject().add(subbj); courseRepository.save(crs);
+		 
+		
+		 // crs.getStudent().add(stud1); courseRepository.save(crs);
+		 
 		//System.out.println(crs.getStudent().toString());
 		
 		
-		/*
-		 * StudentHasSubject sths = new StudentHasSubject(); StudentSubjectKey ssk = new
-		 * StudentSubjectKey(); ssk.setStudentId(stud1.getId());
-		 * ssk.setSubjectId(subbj.getId()); sths.setId(ssk); sths.setStudent(stud1);
-		 * sths.setSubject(subbj); sths.setBrPokusaja(0); sths.setPassed(false);
-		 * 
-		 * sths.setOcena(0); studentHasSubjectRespository.save(sths);
+		
+/*		  StudentHasSubject sths = new StudentHasSubject(); StudentSubjectKey ssk = new
+		  StudentSubjectKey(); ssk.setStudentId(stud1.getId());
+		  ssk.setSubjectId(subbj.getId()); sths.setId(ssk); sths.setStudent(stud1);
+		  sths.setSubject(subbj); sths.setBrPokusaja(0); sths.setPassed(false);
+		  
+		  sths.setOcena(0); studentHasSubjectRespository.save(sths);
 		 */
 		
 		  
@@ -274,6 +420,18 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			privilegeRepository.save(privilege);
 		}
 		return privilege;
+	}
+	
+	
+	@Transactional
+	ExamPeriod createExamPeriodIfNotFound(ExamPeriod examPeriod) {
+		ExamPeriod examPeriodNew = examPeriodRepository.findByExamPeriodName(examPeriod.getExamPeriodName());
+		if(examPeriodNew == null) {
+			examPeriodNew = examPeriod;
+			examPeriodRepository.save(examPeriodNew);
+		}
+		
+		return examPeriodNew;
 	}
 	
     @Transactional

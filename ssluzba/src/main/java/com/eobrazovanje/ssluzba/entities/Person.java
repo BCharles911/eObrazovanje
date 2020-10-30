@@ -58,8 +58,7 @@ public class Person {
 	private String lastName;
 	
 	@JsonIgnore
-	@NotNull
-	@Column(name = "password")
+	@Column(name = "password", length=250)
 	@Getter
 	@Setter
 	private String password;

@@ -20,7 +20,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "course")
-@EqualsAndHashCode
+//@EqualsAndHashCode
 @Getter
 @Setter
 public class Course {
