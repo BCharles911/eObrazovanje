@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/manager")
 public class AdminController {
 	
-	//11111111111
+	//1111111111122222
 	
 	
 	// upravlja  ispitima (student polozio ili ne)
