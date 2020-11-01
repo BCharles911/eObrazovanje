@@ -39,7 +39,7 @@ public class SubjectToDTO implements Converter<Subject, SubjectDTO> {
 		subjectDTO.setSubjectName(source.getSubjectName());
 		subjectDTO.setShortName(source.getShortName());
 		subjectDTO.setEctsPoints(source.getEctsPoints());
-		
+	
 		if(source.getLecturer() != null) {
 			subjectDTO.setLecturerDTO(lecturerToDTO.convert(lecturerToDTO.convertSetToList(source.getLecturer())));
 

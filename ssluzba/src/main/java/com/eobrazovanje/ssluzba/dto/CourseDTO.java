@@ -6,23 +6,20 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 public class CourseDTO implements Serializable {
 	
 	
-	@Getter
-	@Setter
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8485305822931255056L;
+
 	private Long id;
-	@Getter
-	@Setter
 	private String courseName;
-	@Getter
-	@Setter
 	private String shortName;
-	@Getter
-	@Setter
 	private String description;
-	@Getter
-	@Setter
 	private List<SubjectDTO> subjects;
 	
 	public CourseDTO() {

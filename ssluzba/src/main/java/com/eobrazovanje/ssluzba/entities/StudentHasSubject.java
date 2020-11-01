@@ -54,6 +54,11 @@ public class StudentHasSubject {
 	private int brPokusaja;
 	
 	
+	@Column(name = "prijavio")
+	@Getter
+	@Setter
+	private boolean prijavio;
+	
 	@Column(name =  "passed")
 	@Getter
 	@Setter
@@ -64,6 +69,8 @@ public class StudentHasSubject {
     @Setter
     private Set<Exam> exam;
 	
+    
+    
 	
 
 	public StudentHasSubject() {

@@ -9,9 +9,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import com.eobrazovanje.ssluzba.dto.CourseDTO;
-import com.eobrazovanje.ssluzba.dto.SubjectDTO;
 import com.eobrazovanje.ssluzba.entities.Course;
-import com.eobrazovanje.ssluzba.entities.Subject;
 
 @Component
 public class CoursesToDTO implements Converter<Course, CourseDTO> {

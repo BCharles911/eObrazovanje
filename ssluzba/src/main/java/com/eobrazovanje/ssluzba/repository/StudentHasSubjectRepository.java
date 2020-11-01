@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
 import com.eobrazovanje.ssluzba.entities.Subject;
@@ -13,11 +14,15 @@ import com.eobrazovanje.ssluzba.entities.Subject;
 public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSubject, Long> {
 	
 	
-	@Query("SELECT s FROM student_has_subject s WHERE s.student = 2")
-	StudentHasSubject findStudentHasSubjectByStudentId();
+	@Query("SELECT s FROM student_has_subject s WHERE s.student = ?1")
+	StudentHasSubject findStudentHasSubjectByStudentId(Long id);
 	
 	@Query("SELECT s FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 0")
 	List<StudentHasSubject> findByStudentId(Long id);
+	
+	
+	@Query("SELECT s FROM student_has_subject s WHERE s.student.id = ?1 and s.subject.id = ?2")
+	StudentHasSubject findStudentHasSubjectByStudentIdAndSubjectId(Long id, Long id2);
 	
 	
 	@Query("SELECT s.subject FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 0")
@@ -33,6 +38,8 @@ public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSub
 	
 	
 	
+	@Query("UPDATE student_has_subject s set s.prijavio = 1 where s.student.id = :studentId and s.subject.id = :subjectId")
+	void updatePrijavio(@Param("studentId") Long studentId, @Param("subjectId") Long subjectId);
 
 
 

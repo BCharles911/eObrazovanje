@@ -33,7 +33,8 @@ public class StudentHasSubjectToDTO implements Converter<StudentHasSubject, Stud
 		studentHasSubjectDTO.setOcena(source.getOcena());
 		studentHasSubjectDTO.setBrPokusaja(source.getBrPokusaja());
 		studentHasSubjectDTO.setPassed(source.isPassed());
-		studentHasSubjectDTO.setExams(examToDTO.convert(examToDTO.convertSetToList(source.getExam())));		
+		studentHasSubjectDTO.setExams(examToDTO.convert(examToDTO.convertSetToList(source.getExam())));
+		studentHasSubjectDTO.setPrijavio(source.isPrijavio());
 		return studentHasSubjectDTO;
 		
 	}

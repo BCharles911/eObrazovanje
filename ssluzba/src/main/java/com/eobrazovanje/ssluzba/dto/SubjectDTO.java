@@ -36,6 +36,7 @@ public class SubjectDTO implements Serializable {
 	@Getter
 	@Setter
 	private List<StudentHasSubjectDTO> studentHasSubDTO;
+
 	
 	
 	
@@ -57,6 +58,7 @@ public class SubjectDTO implements Serializable {
 		this.coursesDTO = coursesDTO;
 		this.colloqiumsDTO = colloqiumsDTO;
 		this.studentHasSubDTO = studentHasSubDTO;
+		
 	}
 	
 	

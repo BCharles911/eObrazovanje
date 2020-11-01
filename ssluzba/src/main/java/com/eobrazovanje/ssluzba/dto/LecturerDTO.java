@@ -3,10 +3,7 @@ package com.eobrazovanje.ssluzba.dto;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Collection;
-import java.util.List;
-
 import com.eobrazovanje.ssluzba.entities.Role;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,17 +20,11 @@ public class LecturerDTO implements Serializable {
 
 	
 	private Long id;
-	
 	private String firstName;
-	
-	private String lastName;
-	
+	private String lastName;	
 	private boolean deleted;
-	
-	private String username;
-	
+	private String username;	
 	private String gender;
-	
 	private Date dateOfBirth;
 	private String placeOfBirth;
 	private String stateOfBirth;
@@ -46,8 +37,7 @@ public class LecturerDTO implements Serializable {
 	private String citizenship;
 	private String ethnicity;
 	private Collection<Role> roles;
-	//private List<ExamDTO> exams;
-	//stprivate List<SubjectDTO> subjects;
+
 	
 	public LecturerDTO() {
 		super();

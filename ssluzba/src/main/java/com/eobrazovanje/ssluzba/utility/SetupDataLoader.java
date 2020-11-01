@@ -1,45 +1,26 @@
 package com.eobrazovanje.ssluzba.utility;
 
-import java.sql.Date;
+
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import com.eobrazovanje.ssluzba.entities.Course;
-import com.eobrazovanje.ssluzba.entities.Exam;
 import com.eobrazovanje.ssluzba.entities.ExamPeriod;
-import com.eobrazovanje.ssluzba.entities.Lecturer;
 import com.eobrazovanje.ssluzba.entities.Privilege;
 import com.eobrazovanje.ssluzba.entities.Role;
-import com.eobrazovanje.ssluzba.entities.Student;
-import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
-import com.eobrazovanje.ssluzba.entities.Subject;
-import com.eobrazovanje.ssluzba.entities.compositeKeys.StudentSubjectKey;
-import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
 import com.eobrazovanje.ssluzba.repository.CourseRepository;
 import com.eobrazovanje.ssluzba.repository.ExamPeriodRepository;
-import com.eobrazovanje.ssluzba.repository.ExamRepository;
 import com.eobrazovanje.ssluzba.repository.LecturerRepository;
 import com.eobrazovanje.ssluzba.repository.PrivilegeRepository;
 import com.eobrazovanje.ssluzba.repository.RoleRepository;
-import com.eobrazovanje.ssluzba.repository.StudentHasSubjectRepository;
 import com.eobrazovanje.ssluzba.repository.StudentRepository;
-import com.eobrazovanje.ssluzba.repository.SubjectRepository;
-import com.eobrazovanje.ssluzba.services.StudentService;
 
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -62,20 +43,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	@Autowired
 	CourseRepository courseRepository;
 	
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    private StudentService studentService;
-    
-    @Autowired
-    private SubjectRepository subjectRepository;
-    
-    @Autowired
-    private StudentHasSubjectRepository studentHasSubjectRespository;
-    
-    @Autowired
-    private ExamRepository examRepository;
+
     
     
     @Autowired
@@ -204,7 +172,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		 * studentRepository.save(student);
 		 */
 		 
-		 
+		
         
 		
 		/*
@@ -383,12 +351,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		 * lecturer.setDeleted(false); lecturerRepository.save(lecturer);
 		 */
 		  
-        long idd = 1; long idd6 = 6;
-        Subject subbj =
-       	 subjectRepository.getOne(idd); Lecturer lectr =
-       		 lecturerRepository.getOne(idd6);
-       	 subbj.getLecturer().add(lectr);
-       	 subjectRepository.save(subbj);
+		/*
+		 * long idd = 1; long idd6 = 6; Subject subbj = subjectRepository.getOne(idd);
+		 * Lecturer lectr = lecturerRepository.getOne(idd6);
+		 * subbj.getLecturer().add(lectr); subjectRepository.save(subbj);
+		 */
         
 		
 		  //crs.getSubject().add(subbj); courseRepository.save(crs);

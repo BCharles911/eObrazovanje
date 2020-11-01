@@ -3,15 +3,11 @@ package com.eobrazovanje.ssluzba.dto.converter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
 import com.eobrazovanje.ssluzba.dto.ExamDTO;
-import com.eobrazovanje.ssluzba.dto.LecturerDTO;
 import com.eobrazovanje.ssluzba.entities.Exam;
-import com.eobrazovanje.ssluzba.entities.Lecturer;
 
 @Component
 public class ExamToDTO implements Converter<Exam, ExamDTO> {

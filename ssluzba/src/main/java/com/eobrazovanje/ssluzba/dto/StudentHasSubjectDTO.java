@@ -27,6 +27,7 @@ public class StudentHasSubjectDTO implements Serializable {
 	private boolean passed;
 	@JsonIgnore
 	private List<ExamDTO> exams;
+	private boolean prijavio;
 	
 	
 	public StudentHasSubjectDTO() {
@@ -35,7 +36,7 @@ public class StudentHasSubjectDTO implements Serializable {
 
 
 	public StudentHasSubjectDTO(Long studentId, Long subjectId, int ocena, int brPokusaja, boolean passed,
-			List<ExamDTO> exams) {
+			List<ExamDTO> exams, boolean prijavio) {
 		super();
 		this.studentId = studentId;
 		this.subjectId = subjectId;
@@ -43,6 +44,7 @@ public class StudentHasSubjectDTO implements Serializable {
 		this.brPokusaja = brPokusaja;
 		this.passed = passed;
 		this.exams = exams;
+		this.prijavio = prijavio;
 	}
 	
 	

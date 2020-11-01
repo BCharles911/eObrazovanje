@@ -9,7 +9,6 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import com.eobrazovanje.ssluzba.entities.compositeKeys.StudentColloqiumKey;
-import com.eobrazovanje.ssluzba.entities.compositeKeys.StudentSubjectKey;
 
 import lombok.Getter;
 import lombok.Setter;
