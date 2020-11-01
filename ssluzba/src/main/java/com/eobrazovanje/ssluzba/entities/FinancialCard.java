@@ -6,7 +6,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,8 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.eobrazovanje.ssluzba.entities.enumerations.CARD_TYPE;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
@@ -43,10 +46,19 @@ public class FinancialCard {
 	@Setter
 	private Double balance;
 	
-	@Column(name = "card_type", nullable = false)
+	
+	@Column(name = "card_number", nullable = false)
 	@Getter
 	@Setter
 	private int cardNumber;
+	
+	
+/*	@Column(name = "card_type", nullable = false)
+	@Getter
+	@Setter
+	*/
+	@Enumerated(EnumType.STRING)
+	private CARD_TYPE cardType;
 	
 	
 	@Column(name = "is_blocked", nullable = false)
@@ -71,18 +83,25 @@ public class FinancialCard {
 	
 	
 	
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "student_id", nullable = false)
+	private Student student;
+	
+	
+	
 	public FinancialCard() {
 		
 	}
 
 
 
-	public FinancialCard(Long id, Double balance, int cardNumber, boolean isBlocked, Set<Transaction> transaction,
+	public FinancialCard(Long id, Double balance, int cardNumber, CARD_TYPE cardType, boolean isBlocked, Set<Transaction> transaction,
 			Set<FinancialCardStatus> financialStatus) {
 		super();
 		this.id = id;
 		this.balance = balance;
 		this.cardNumber = cardNumber;
+		this.cardType = cardType;
 		this.isBlocked = isBlocked;
 		this.transaction = transaction;
 		this.financialStatus = financialStatus;
@@ -92,8 +111,9 @@ public class FinancialCard {
 
 	@Override
 	public String toString() {
-		return "FinancialCard [id=" + id + ", balance=" + balance + ", cardNumber=" + cardNumber + ", isBlocked="
-				+ isBlocked + ", transaction=" + transaction + ", financialStatus=" + financialStatus + "]";
+		return "FinancialCard [id=" + id + ", balance=" + balance + ", cardNumber=" + cardNumber + ", "
+				+ "cardType=" + cardType + ", isBlocked=" + isBlocked + ", transaction=" + transaction + ", "
+						+ "financialStatus=" + financialStatus + "]";
 	}
 
 

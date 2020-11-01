@@ -2,6 +2,7 @@ package com.eobrazovanje.ssluzba.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -86,6 +88,13 @@ public class Student extends Person {
 	@Getter
 	@Setter
 	private Set<StudentHasColloqium> studentHasColloqium;
+	
+	
+	
+	@OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "student")
+	private FinancialCard financialCard;
 	
 
 	public Student() {
