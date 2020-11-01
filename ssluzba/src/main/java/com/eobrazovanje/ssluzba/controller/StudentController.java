@@ -99,8 +99,8 @@ public class StudentController {
 	}
 	
 	
-	@PutMapping(value= "/exam-check", consumes="application/json")	
-	public void prijaviIspit(@RequestBody List<SubjectDTO> checkedSubjects) {
+	@PostMapping(value= "/exam-check", consumes="application/json")	
+	public ResponseEntity<?> prijaviIspit(@RequestBody List<SubjectDTO> checkedSubjects) {
 		//List<Subject> convertedSubjects = dtoToSubject.convert(checkedSubjects);
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -115,7 +115,7 @@ public class StudentController {
 			
 		}
 	
-		
+		return new ResponseEntity<String>("ispiti prijavljeni", HttpStatus.OK);
 		
 		
 	}
