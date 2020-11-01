@@ -55,6 +55,8 @@ public class StudentController {
 	StudentHasSubjectRepository studentHasSubjectRepository;
 
 	
+	//brat moooj
+	
 	@GetMapping("/get-all")
 	public ResponseEntity<List<StudentDTO>> getAllStudents(){
 		return new ResponseEntity<>(studentToDTO.convert(studentRepository.findAll()), HttpStatus.OK);
