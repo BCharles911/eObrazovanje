@@ -62,13 +62,13 @@ public class StudentController {
 	
 	
 	
-	@GetMapping(value ="/get-student-status",produces = MediaType.TEXT_PLAIN_VALUE)
-	public String getLoggedStudentStatus(){
+	@GetMapping(value ="/get-student-status")
+	public ResponseEntity<StudentDTO> getLoggedStudentStatus(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String loggedStudentUsername = authentication.getName();
 		Student loggedStudent = studentRepository.getByUsername(loggedStudentUsername);
 		
-		return loggedStudent.getStudentStatus().toString();
+		return new ResponseEntity<StudentDTO>(studentToDTO.convert(loggedStudent), HttpStatus.OK);
 		
 	}
 	
