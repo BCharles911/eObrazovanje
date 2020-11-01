@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/manager")
 public class AdminController {
 	
-	
+	//1111111111122222
 	
 	
 	
