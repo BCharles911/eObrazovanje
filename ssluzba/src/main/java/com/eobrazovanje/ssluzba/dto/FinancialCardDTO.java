@@ -23,8 +23,8 @@ public class FinancialCardDTO implements Serializable {
 	private int cardNumber;
 	private CARD_TYPE cardType;
 	private boolean isBlocked;
-	private Long idStudenta;
-	private List<TransactionDTO> transaction;
+	private StudentDTO studentDTO;
+	private List<TransactionDTO> transactionDTO;
 	
 	public FinancialCardDTO() {
 		
@@ -32,15 +32,15 @@ public class FinancialCardDTO implements Serializable {
 	
 	
 	public FinancialCardDTO(Long id, Double balance, int cardNumber, CARD_TYPE cardType, boolean isBlocked,
-			Long idStudenta, List<TransactionDTO> transaction) {
+			StudentDTO studentDTO, List<TransactionDTO> transactionDTO) {
 		super();
 		this.id = id;
 		this.balance = balance;
 		this.cardNumber = cardNumber;
 		this.cardType = cardType;
 		this.isBlocked = isBlocked;
-		this.idStudenta = idStudenta;
-		this.transaction = transaction;
+		this.studentDTO = studentDTO;
+		this.transactionDTO = transactionDTO;
 	}
 	
 }
