@@ -14,59 +14,21 @@ import lombok.Setter;
 @Table(name = "lecturer")
 @Getter
 @Setter
-public class Lecturer extends Person {
-	
-	
-	
-	
-
-	
+public class Lecturer extends Person {	
 
     @OneToMany(mappedBy="lecturer")
     @Getter
     @Setter
     private Set<Exam> exam;
 	
-
-
 	
-	
-	@ManyToMany
+	@ManyToMany(mappedBy= "lecturer")
 	Set<Subject> subjects;
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
 
 
 	public Lecturer() {
 		
 	}
-
-
-
-
-
-
-
-
-
-
 
 	public Lecturer orElseThrow(Object object) {
 		// TODO Auto-generated method stub
@@ -80,26 +42,11 @@ public class Lecturer extends Person {
 	}
 
 
-
-
-
-
-
-
-
-
-
 	public Lecturer(Set<Exam> exam, Set<Subject> subjects) {
 		super();
 		this.exam = exam;
 		this.subjects = subjects;
 	}
-	
-	
-	
-	
-	
-	
 	
 
 }
