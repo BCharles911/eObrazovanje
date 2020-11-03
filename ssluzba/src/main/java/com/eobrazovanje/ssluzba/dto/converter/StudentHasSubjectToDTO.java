@@ -9,9 +9,8 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import com.eobrazovanje.ssluzba.dto.StudentHasSubjectDTO;
-import com.eobrazovanje.ssluzba.dto.SubjectDTO;
 import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
-import com.eobrazovanje.ssluzba.entities.Subject;
+
 
 @Component
 public class StudentHasSubjectToDTO implements Converter<StudentHasSubject, StudentHasSubjectDTO> {
@@ -36,7 +35,6 @@ public class StudentHasSubjectToDTO implements Converter<StudentHasSubject, Stud
 		studentHasSubjectDTO.setBrPokusaja(source.getBrPokusaja());
 		studentHasSubjectDTO.setPassed(source.isPassed());
 		studentHasSubjectDTO.setExams(examToDTO.convert(examToDTO.convertSetToList(source.getExam())));
-		//studentHasSubjectDTO.setSubjects(toSpecial.convert());
 		studentHasSubjectDTO.setPrijavio(source.isPrijavio());
 		return studentHasSubjectDTO;
 		

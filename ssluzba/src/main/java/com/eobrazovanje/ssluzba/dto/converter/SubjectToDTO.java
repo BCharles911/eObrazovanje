@@ -44,15 +44,17 @@ public class SubjectToDTO implements Converter<Subject, SubjectDTO> {
 			subjectDTO.setLecturerDTO(lecturerToDTO.convert(lecturerToDTO.convertSetToList(source.getLecturer())));
 
 		}
-		if(source.getLecturer() != null) {
-			subjectDTO.setCoursesDTO(coursesToDTO.convert(coursesToDTO.convertSetToList((source.getCourse()))));
-
-			}
-		if(source.getLecturer() != null) {
+//		if(source.getCourse() != null) {
+//			subjectDTO.setCoursesDTO(coursesToDTO.convert(coursesToDTO.convertSetToList((source.getCourse()))));
+//
+//			}
+		
+		
+		if(source.getStudentHasSubject() != null) {
 			subjectDTO.setStudentHasSubDTO((studentHasSubjectToDTO.convert(studentHasSubjectToDTO.convertSetToList(source.getStudentHasSubject()))));
 
 		}
-		if(source.getLecturer() != null) {
+		if(source.getColloqium() != null) {
 			subjectDTO.setColloqiumsDTO(colloqiumToDTO.convert(colloqiumToDTO.convertSetToList(source.getColloqium())));
 			
 		}
