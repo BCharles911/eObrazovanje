@@ -10,6 +10,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
 	Set<Subject> findAllById(Long id);
 
-
+	Subject findSubjectById(Long id);
 
 }

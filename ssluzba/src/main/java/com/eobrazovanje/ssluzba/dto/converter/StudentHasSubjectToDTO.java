@@ -19,6 +19,8 @@ public class StudentHasSubjectToDTO implements Converter<StudentHasSubject, Stud
 	@Autowired
 	ExamToDTO examToDTO;
 	
+
+	
 	@Override
 	public StudentHasSubjectDTO convert(StudentHasSubject source) {
 		
@@ -34,6 +36,7 @@ public class StudentHasSubjectToDTO implements Converter<StudentHasSubject, Stud
 		studentHasSubjectDTO.setBrPokusaja(source.getBrPokusaja());
 		studentHasSubjectDTO.setPassed(source.isPassed());
 		studentHasSubjectDTO.setExams(examToDTO.convert(examToDTO.convertSetToList(source.getExam())));
+		//studentHasSubjectDTO.setSubjects(toSpecial.convert());
 		studentHasSubjectDTO.setPrijavio(source.isPrijavio());
 		return studentHasSubjectDTO;
 		

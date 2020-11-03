@@ -46,6 +46,7 @@ public class DTOToStudent  implements Converter<StudentDTO, Student>{
 		student.setHsFinishYear(source.getHsFinishYear());
 		student.setParentName(source.getParentName());
 		student.setRoles(source.getRoles());
+		student.setCurrentYear(source.getCurrentYear());
 		student.setCourse(toCourse.convert(source.getCourse()));
 		student.setStudentStatus(source.getStudentStatus());
 		

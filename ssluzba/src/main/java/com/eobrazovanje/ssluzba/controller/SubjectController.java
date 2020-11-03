@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,6 +74,17 @@ public class SubjectController {
 		Subject newSubject = subjectRepository.save(dtoToSubject.convert(subjectDTO));
 		return new ResponseEntity<>(subjectToDTO.convert(newSubject), HttpStatus.OK);
 		
+	}
+	
+	@PutMapping(value="/update/{id}", consumes="application/json")
+	public ResponseEntity<SubjectDTO> updateSubject(@RequestBody SubjectDTO subjectDTO, @PathVariable("id") Long id){
+		Subject subject = subjectRepository.getOne(id);
+		if(subject == null) {
+			return new ResponseEntity<SubjectDTO>(HttpStatus.NOT_FOUND);
+		}
+		Subject updatedSubject = dtoToSubject.convert(subjectDTO);
+		subjectService.edit(subjectToDTO.convert(updatedSubject), id);		
+		return new ResponseEntity<SubjectDTO>(subjectToDTO.convert(updatedSubject), HttpStatus.OK);
 	}
 	
 	

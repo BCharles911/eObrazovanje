@@ -75,13 +75,24 @@ public class StudentController {
 	}
 	
 	
+	@GetMapping(value ="/get-logged-student")
+	public ResponseEntity<StudentDTO> getLoggedStudent(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String loggedStudentUsername = authentication.getName();
+		Student loggedStudent = studentRepository.getByUsername(loggedStudentUsername);
+		
+		return new ResponseEntity<StudentDTO>(studentToDTO.convert(loggedStudent), HttpStatus.OK);
+		
+	}
+	
+	
 	@PutMapping(value="/update/{id}", consumes="application/json")
-	public ResponseEntity<StudentDTO> updateAccount(@RequestBody StudentDTO studentDTO, @PathVariable("id") Long id){
+	public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO, @PathVariable("id") Long id){
 		Student student = studentRepository.getOne(id);
 		if(student == null){
 			return new ResponseEntity<StudentDTO>(HttpStatus.NOT_FOUND);
 		}
-		
+		System.out.println(studentDTO.getCurrentYear());
 		Student updatedStudent = toStudent.convert(studentDTO);
 		studentService.edit(studentToDTO.convert(updatedStudent), id);
 		return new ResponseEntity<StudentDTO>(studentToDTO.convert(updatedStudent),HttpStatus.OK);
@@ -99,7 +110,7 @@ public class StudentController {
 	}
 	
 	
-	@PostMapping(value= "/exam-check", consumes="application/json")	
+	@PostMapping(value= "/exam-check", consumes="application/json", produces="text/plain")	
 	public ResponseEntity<?> prijaviIspit(@RequestBody List<SubjectDTO> checkedSubjects) {
 		//List<Subject> convertedSubjects = dtoToSubject.convert(checkedSubjects);
 		

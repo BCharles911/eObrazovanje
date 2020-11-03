@@ -30,6 +30,7 @@ public class StudentHasSubjectDTO implements Serializable {
 	private boolean prijavio;
 	
 	
+	
 	public StudentHasSubjectDTO() {
 		super();
 	}
@@ -45,6 +46,7 @@ public class StudentHasSubjectDTO implements Serializable {
 		this.passed = passed;
 		this.exams = exams;
 		this.prijavio = prijavio;
+		
 	}
 	
 	

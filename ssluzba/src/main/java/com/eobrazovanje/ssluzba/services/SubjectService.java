@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.eobrazovanje.ssluzba.dto.SubjectDTO;
+import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToLecturer;
+import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToStudentHasSubject;
 import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToSubject;
 import com.eobrazovanje.ssluzba.entities.Subject;
 import com.eobrazovanje.ssluzba.interfaces.SubjectInterface;
@@ -21,6 +23,12 @@ public class SubjectService implements SubjectInterface {
 	
 	@Autowired
 	DTOToSubject toSubject;
+	
+	@Autowired
+	DTOToLecturer toLecturer;
+	
+	@Autowired
+	DTOToStudentHasSubject toStudentHasSubject;
 	
 	@Override
 	public Subject getOne(Long subjectId) {
@@ -37,10 +45,14 @@ public class SubjectService implements SubjectInterface {
 
 	@Override
 	public Subject edit(SubjectDTO subject, Long id) {
-		subject.setId(id);
-		Subject editedSubject = toSubject.convert(subject);
-		subjectRepository.save(editedSubject);
-		return editedSubject;
+		
+		Subject subjectEdit = subjectRepository.findSubjectById(subject.getId());
+		subjectEdit.setSubjectName(subject.getSubjectName());
+		subjectEdit.setShortName(subject.getShortName());
+		subjectEdit.setEctsPoints(subject.getEctsPoints());
+		//subjectEdit.setStudentHasSubject(toStudentHasSubject.convert(subject.getStudentHasSubDTO()));
+		subjectRepository.save(subjectEdit);
+		return subjectEdit;
 	}
 
 	@Override
