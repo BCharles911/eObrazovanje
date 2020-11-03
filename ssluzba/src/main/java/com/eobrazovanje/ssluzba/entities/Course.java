@@ -48,7 +48,7 @@ public class Course {
 	@Setter
 	private String description;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy= "course")
 	@Getter
 	@Setter
 	private Set<Subject> subject;

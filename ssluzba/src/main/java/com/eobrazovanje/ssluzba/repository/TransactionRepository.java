@@ -6,4 +6,5 @@ import com.eobrazovanje.ssluzba.entities.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
+	Transaction findTransactionById(Long id);
 }

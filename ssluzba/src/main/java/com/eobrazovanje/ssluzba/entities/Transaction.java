@@ -1,6 +1,7 @@
 package com.eobrazovanje.ssluzba.entities;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,9 +48,9 @@ public class Transaction {
 	@Setter
 	private Date transactionDate;
 	
-	  @ManyToOne(fetch = FetchType.LAZY)
-	  @JoinColumn (name="financial_card_id",referencedColumnName="id",nullable=false,unique=true)
-	  private FinancialCard financial_card;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn (name="financial_card_id",referencedColumnName="id",nullable=false,unique=true)
+	private FinancialCard financial_card;
 	
 	
 	public Transaction() {
@@ -57,19 +58,20 @@ public class Transaction {
 	}
 
 
-	public Transaction(Long id, Double amount, String paymentPurpose, Date transactionDate) {
+	public Transaction(Long id, Double amount, String paymentPurpose, Date transactionDate, FinancialCard financial_card) {
 		super();
 		this.id = id;
 		this.amount = amount;
 		this.paymentPurpose = paymentPurpose;
 		this.transactionDate = transactionDate;
+		this.financial_card = financial_card;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Transaction [id=" + id + ", amount=" + amount + ", paymentPurpose=" + paymentPurpose
-				+ ", transactionDate=" + transactionDate + "]";
+				+ ", transactionDate=" + transactionDate + ", financialCard=" + financial_card + "]";
 	}
 	
 	

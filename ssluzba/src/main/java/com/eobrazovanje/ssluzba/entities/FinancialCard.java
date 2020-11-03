@@ -50,7 +50,7 @@ public class FinancialCard {
 	@Column(name = "card_number", nullable = false)
 	@Getter
 	@Setter
-	private int cardNumber;
+	private String cardNumber;
 	
 	
 /*	@Column(name = "card_type", nullable = false)
@@ -95,7 +95,7 @@ public class FinancialCard {
 
 
 
-	public FinancialCard(Long id, Double balance, int cardNumber, CARD_TYPE cardType, boolean isBlocked, Set<Transaction> transaction,
+	public FinancialCard(Long id, Double balance, String cardNumber, CARD_TYPE cardType, boolean isBlocked, Set<Transaction> transaction,
 			Set<FinancialCardStatus> financialStatus) {
 		super();
 		this.id = id;

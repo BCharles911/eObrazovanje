@@ -53,7 +53,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	@Override
 	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		
+/*		
 		if(alreadySetup)
 			return;
 		Privilege readPrivilege
@@ -105,7 +105,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         ExamPeriod aprilskiRok = new ExamPeriod();
         ExamPeriod junskiRok = new ExamPeriod();
         ExamPeriod septembarskiRok = new ExamPeriod();
-        
+        */
         
         /*		
 		  

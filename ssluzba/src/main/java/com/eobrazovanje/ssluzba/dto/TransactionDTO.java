@@ -21,19 +21,19 @@ public class TransactionDTO implements Serializable {
 	private Double amount;
 	private String paymentPurpose;
 	private Date transactionDate;
-	private Long idFinancialCard;
+	private FinancialCardDTO financialCard;
 	
 	public TransactionDTO() {
 		
 	}
 
-	public TransactionDTO(Long id, Double amount, String paymentPurpose, Date transactionDate, Long idFinancialCard) {
+	public TransactionDTO(Long id, Double amount, String paymentPurpose, Date transactionDate, FinancialCardDTO financialCard) {
 		super();
 		this.id = id;
 		this.amount = amount;
 		this.paymentPurpose = paymentPurpose;
 		this.transactionDate = transactionDate;
-		this.idFinancialCard = idFinancialCard;
+		this.financialCard = financialCard;
 	}
 	
 	
