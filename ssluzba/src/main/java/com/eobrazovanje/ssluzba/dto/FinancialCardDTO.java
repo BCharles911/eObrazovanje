@@ -20,7 +20,7 @@ public class FinancialCardDTO implements Serializable {
 
 	private Long id;
 	private Double balance;
-	private int cardNumber;
+	private String cardNumber;
 	private CARD_TYPE cardType;
 	private boolean isBlocked;
 	private StudentDTO studentDTO;
@@ -31,7 +31,7 @@ public class FinancialCardDTO implements Serializable {
 	}
 	
 	
-	public FinancialCardDTO(Long id, Double balance, int cardNumber, CARD_TYPE cardType, boolean isBlocked,
+	public FinancialCardDTO(Long id, Double balance, String cardNumber, CARD_TYPE cardType, boolean isBlocked,
 			StudentDTO studentDTO, List<TransactionDTO> transactionDTO) {
 		super();
 		this.id = id;
