@@ -23,7 +23,7 @@ public class Lecturer extends Person {
 	
 	
 	@ManyToMany(mappedBy= "lecturer")
-	Set<Subject> subjects;
+	private Set<Subject> subjects;
 
 
 	public Lecturer() {

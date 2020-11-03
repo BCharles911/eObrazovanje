@@ -45,7 +45,7 @@ public class ExamPeriod {
 	@Setter
 	private String examPeriodName;
 	
-	@Column(name = "is_active")
+	@Column(name = "is_active", nullable = false, columnDefinition = "TINYINT(1)")
 	@Getter
 	@Setter
 	@Value("${exam_period.is_active:false}")

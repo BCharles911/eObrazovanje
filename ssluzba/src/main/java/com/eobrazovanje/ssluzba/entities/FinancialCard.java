@@ -38,15 +38,13 @@ public class FinancialCard {
 	@Getter
 	@Setter
 	private Long id;
-	
-	
+		
 	
 	@Column(name = "balance", nullable = false)
 	@Getter
 	@Setter
 	private Double balance;
-	
-	
+		
 	@Column(name = "card_number", nullable = false)
 	@Getter
 	@Setter
@@ -61,7 +59,7 @@ public class FinancialCard {
 	private CARD_TYPE cardType;
 	
 	
-	@Column(name = "is_blocked", nullable = false)
+	@Column(name = "is_blocked", nullable = false, columnDefinition = "TINYINT(1)")
 	@Getter
 	@Setter
 	private boolean isBlocked;

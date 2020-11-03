@@ -64,7 +64,7 @@ public class Person {
 	private String password;
 	
 	
-	@Column(columnDefinition = "boolean default false")
+	@Column(nullable = false, columnDefinition = "TINYINT(1)")
 	@Getter
 	@Setter
 	private boolean deleted;
@@ -136,7 +136,7 @@ public class Person {
 	@Setter
 	private String ethnicity;
 	
-	@Column(name = "is_deleted")
+	@Column(name = "is_deleted", nullable = false, columnDefinition = "TINYINT(1)")
 	@Getter
 	@Setter
 	private boolean isDeleted;

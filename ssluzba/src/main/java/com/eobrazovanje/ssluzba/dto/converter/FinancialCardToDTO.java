@@ -24,7 +24,6 @@ public class FinancialCardToDTO implements Converter<FinancialCard, FinancialCar
 	@Autowired
 	StudentToDTO studentToDTO;
 	
-	@Override
 	public FinancialCardDTO convert(FinancialCard source) {
 		
 		

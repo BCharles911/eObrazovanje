@@ -84,7 +84,7 @@ public class Subject {
 	private Set<Colloqium> colloqium;
 	
 	@OneToMany(mappedBy = "subject")
-	Set<StudentHasSubject> studentHasSubject;
+	private Set<StudentHasSubject> studentHasSubject;
 
 	public Subject() {
 		

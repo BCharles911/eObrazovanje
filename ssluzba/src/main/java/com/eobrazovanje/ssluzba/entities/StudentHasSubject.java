@@ -54,12 +54,12 @@ public class StudentHasSubject {
 	private int brPokusaja;
 	
 	
-	@Column(name = "prijavio")
+	@Column(name = "prijavio", nullable = false, columnDefinition = "TINYINT(1)")
 	@Getter
 	@Setter
 	private boolean prijavio;
 	
-	@Column(name =  "passed")
+	@Column(name =  "passed", nullable = false, columnDefinition = "TINYINT(1)")
 	@Getter
 	@Setter
 	private boolean passed;

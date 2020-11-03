@@ -33,7 +33,7 @@ public class Exam {
 	private Long id;
 	
 	
-	@Column(name  = "passed")
+	@Column(name  = "passed", nullable = false, columnDefinition = "TINYINT(1)")
 	@Getter
 	@Setter
 	private boolean hasPassed;
@@ -45,7 +45,7 @@ public class Exam {
 	private int pointsNumber;
 	
 	
-	@Column(name = "isDeleted")
+	@Column(name = "isDeleted", nullable = false, columnDefinition = "TINYINT(1)")
 	@Getter
 	@Setter
 	private boolean isDeleted;
