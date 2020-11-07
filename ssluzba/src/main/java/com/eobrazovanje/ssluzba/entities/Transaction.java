@@ -49,7 +49,7 @@ public class Transaction {
 	private Date transactionDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn (name="financial_card_id",referencedColumnName="id",nullable=false,unique=true)
+	@JoinColumn (name="financial_card_id",referencedColumnName="id",nullable=false)
 	private FinancialCard financial_card;
 	
 	

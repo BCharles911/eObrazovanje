@@ -1,5 +1,6 @@
 package com.eobrazovanje.ssluzba.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import com.eobrazovanje.ssluzba.entities.Lecturer;
 import com.eobrazovanje.ssluzba.entities.Person;
 import com.eobrazovanje.ssluzba.entities.Role;
 import com.eobrazovanje.ssluzba.entities.Student;
+import com.eobrazovanje.ssluzba.entities.Transaction;
 import com.eobrazovanje.ssluzba.entities.enumerations.CARD_TYPE;
 import com.eobrazovanje.ssluzba.entities.enumerations.ROLES;
 import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
@@ -34,6 +36,7 @@ import com.eobrazovanje.ssluzba.repository.FinancialCardRepository;
 import com.eobrazovanje.ssluzba.repository.LecturerRepository;
 import com.eobrazovanje.ssluzba.repository.RoleRepository;
 import com.eobrazovanje.ssluzba.repository.StudentRepository;
+import com.eobrazovanje.ssluzba.repository.TransactionRepository;
 
 @RestController
 @RequestMapping("api/manager")
@@ -50,6 +53,9 @@ public class AdminController {
 	
 	@Autowired
 	FinancialCardRepository financialRepository;
+	
+	@Autowired
+	TransactionRepository transactionRepository;
 	
 	@Autowired
 	RoleRepository roleRepository;
@@ -164,6 +170,29 @@ public class AdminController {
 		
 	}
 	
+	
+	@PostMapping(value="/deposit-amount")
+	public ResponseEntity<?> depositAmount(@RequestBody Student student, @RequestParam("amount") double amount){
+		
+		Transaction newTransaction = new Transaction();
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		newTransaction.setAmount(amount);
+		newTransaction.setPaymentPurpose("Dodavanje sredstava");
+		newTransaction.setTransactionDate(date);
+		newTransaction.setFinancial_card(student.getFinancialCard());
+		transactionRepository.save(newTransaction);
+		
+		FinancialCard fc = financialRepository.findFinancialCardById(student.getFinancialCard().getId());
+		
+		
+		fc.setBalance(fc.getBalance() + amount);
+		
+		financialRepository.save(fc);
+		
+		//studentRepository.save(student);
+	
+		return null;
+	}
 	
 	
 	

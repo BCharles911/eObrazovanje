@@ -28,7 +28,6 @@ import lombok.Setter;
 
 @Entity(name = "financial_card")
 @Table(name = "financial_card")
-@EqualsAndHashCode
 @Getter
 @Setter
 public class FinancialCard {

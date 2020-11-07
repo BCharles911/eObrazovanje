@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.eobrazovanje.ssluzba.entities.Role;
 import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,10 +18,15 @@ import lombok.ToString;
 @ToString
 public class TransactionDTO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9067616250604800401L;
 	private Long id;
 	private Double amount;
 	private String paymentPurpose;
 	private Date transactionDate;
+	@JsonIgnore
 	private FinancialCardDTO financialCard;
 	
 	public TransactionDTO() {
