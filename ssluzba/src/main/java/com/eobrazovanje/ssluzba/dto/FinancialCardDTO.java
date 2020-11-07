@@ -8,6 +8,7 @@ import java.util.List;
 import com.eobrazovanje.ssluzba.entities.Role;
 import com.eobrazovanje.ssluzba.entities.enumerations.CARD_TYPE;
 import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class FinancialCardDTO implements Serializable {
 	private String cardNumber;
 	private CARD_TYPE cardType;
 	private boolean isBlocked;
+	@JsonIgnore
 	private StudentDTO studentDTO;
 	private List<TransactionDTO> transactionDTO;
 	

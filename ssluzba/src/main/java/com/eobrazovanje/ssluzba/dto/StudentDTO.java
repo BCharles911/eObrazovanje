@@ -46,6 +46,7 @@ public class StudentDTO implements Serializable {
 	private int currentYear;
 	private CourseDTO course;
 	private double avgGrade;
+	private FinancialCardDTO financialCard;
 	private STUDENT_STATUS studentStatus;
 	private List<StudentHasSubjectDTO> studentHasSubjectDTO;
 	private Collection<Role> roles;
@@ -59,7 +60,7 @@ public class StudentDTO implements Serializable {
 			String city, String phoneNumber, String mobilePhoneNumber, String citizenship, String ethnicity,
 			String indexNumber, String highSchool, String hsFinishYear, String parentName, int currentYear,
 			CourseDTO course, double avgGrade, STUDENT_STATUS studentStatus,
-			List<StudentHasSubjectDTO> studentHasSubjectDTO, Collection<Role> roles) {
+			List<StudentHasSubjectDTO> studentHasSubjectDTO, Collection<Role> roles , FinancialCardDTO financialCard) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -87,6 +88,7 @@ public class StudentDTO implements Serializable {
 		this.studentStatus = studentStatus;
 		this.studentHasSubjectDTO = studentHasSubjectDTO;
 		this.roles = roles;
+		this.financialCard = financialCard;
 	}
 	
 	

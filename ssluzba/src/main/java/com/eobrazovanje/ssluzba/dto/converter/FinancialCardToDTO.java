@@ -35,6 +35,7 @@ public class FinancialCardToDTO implements Converter<FinancialCard, FinancialCar
 		
 		financialCardDTO.setId(source.getId());
 		financialCardDTO.setCardNumber(source.getCardNumber());
+		financialCardDTO.setCardType(source.getCardType());
 		financialCardDTO.setBalance(source.getBalance());
 		financialCardDTO.setBlocked(source.isBlocked());
 		
@@ -42,7 +43,7 @@ public class FinancialCardToDTO implements Converter<FinancialCard, FinancialCar
 			financialCardDTO.setTransactionDTO(transactionToDTO.convert(transactionToDTO.convertSetToList(source.getTransaction())));
 		}
 		
-		financialCardDTO.setStudentDTO(studentToDTO.convert(source.getStudent()));
+		//financialCardDTO.setStudentDTO(studentToDTO.convert(source.getStudent()));
 		
 		
 		return financialCardDTO;

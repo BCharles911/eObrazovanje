@@ -14,18 +14,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eobrazovanje.ssluzba.dto.FinancialCardDTO;
 import com.eobrazovanje.ssluzba.dto.StudentDTO;
 import com.eobrazovanje.ssluzba.dto.SubjectDTO;
+import com.eobrazovanje.ssluzba.dto.converter.FinancialCardToDTO;
 import com.eobrazovanje.ssluzba.dto.converter.StudentToDTO;
 import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToStudent;
 import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToSubject;
+import com.eobrazovanje.ssluzba.entities.FinancialCard;
 import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
 import com.eobrazovanje.ssluzba.entities.Subject;
 import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
 import com.eobrazovanje.ssluzba.interfaces.CustomMapper;
+import com.eobrazovanje.ssluzba.repository.FinancialCardRepository;
 import com.eobrazovanje.ssluzba.repository.StudentHasSubjectRepository;
 import com.eobrazovanje.ssluzba.repository.StudentRepository;
 import com.eobrazovanje.ssluzba.services.StudentService;
@@ -52,7 +57,13 @@ public class StudentController {
 	DTOToStudent toStudent;
 	
 	@Autowired
+	FinancialCardToDTO financialToDTO;
+	
+	@Autowired
 	StudentHasSubjectRepository studentHasSubjectRepository;
+	
+	@Autowired
+	FinancialCardRepository financialRepository;
 
 	
 	//brat moooj
@@ -64,7 +75,7 @@ public class StudentController {
 	
 	
 	
-	@GetMapping(value ="/get-student-status")
+	@GetMapping(value ="/get-student-status", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<StudentDTO> getLoggedStudentStatus(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String loggedStudentUsername = authentication.getName();
@@ -75,12 +86,26 @@ public class StudentController {
 	}
 	
 	
+	@GetMapping(value="/get-financial-card")
+		public ResponseEntity<FinancialCardDTO> getFinancialCard(@RequestParam("studentId") long id){
+			
+			FinancialCard financialCard = financialRepository.findFinancialCardByStudentId(id);
+		
+		
+			return new ResponseEntity<FinancialCardDTO>(financialToDTO.convert(financialCard), HttpStatus.OK);
+		}
+	
+	
+	
+
+	
+	
 	@GetMapping(value ="/get-logged-student")
 	public ResponseEntity<StudentDTO> getLoggedStudent(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String loggedStudentUsername = authentication.getName();
 		Student loggedStudent = studentRepository.getByUsername(loggedStudentUsername);
-		
+		System.out.println(loggedStudent.getUsername());
 		return new ResponseEntity<StudentDTO>(studentToDTO.convert(loggedStudent), HttpStatus.OK);
 		
 	}
@@ -130,6 +155,10 @@ public class StudentController {
 		
 		
 	}
+	
+	
+	
+	
 	
 	
 	@PutMapping(value="/update/custom/{id}", consumes="application/json")

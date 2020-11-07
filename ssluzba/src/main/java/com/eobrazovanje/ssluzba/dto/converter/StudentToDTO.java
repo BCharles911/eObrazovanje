@@ -20,6 +20,8 @@ public class StudentToDTO implements Converter<Student, StudentDTO> {
 	@Autowired
 	CoursesToDTO courseToDTO;
 	
+	@Autowired
+	FinancialCardToDTO financialToDTO;
 	
 	@Override
 	public StudentDTO convert(Student source) {
@@ -53,6 +55,7 @@ public class StudentToDTO implements Converter<Student, StudentDTO> {
 		studentDTO.setParentName(source.getParentName());
 		studentDTO.setCurrentYear(source.getCurrentYear());
 		studentDTO.setRoles(source.getRoles());
+		studentDTO.setFinancialCard(financialToDTO.convert(source.getFinancialCard()));
 		studentDTO.setCourse(courseToDTO.convert(source.getCourse()));
 		studentDTO.setStudentStatus(source.getStudentStatus());
 		if(source.getStudentHasSubject() != null) {

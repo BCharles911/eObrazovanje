@@ -49,7 +49,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private ExamPeriodRepository examPeriodRepository;
 	
-	
+ 
 	@Override
 	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
