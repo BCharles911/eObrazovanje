@@ -95,7 +95,9 @@ public class Student extends Person {
 	@Setter
 	private Set<StudentHasColloqium> studentHasColloqium;
 	
-	
+	@OneToMany(mappedBy="student")
+	private Set<Document> documents;
+
 	
 	@OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
