@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.eobrazovanje.ssluzba.dto.DocumentResponseDTO;
 import com.eobrazovanje.ssluzba.dto.ResponseMessage;
 import com.eobrazovanje.ssluzba.entities.Document;
+import com.eobrazovanje.ssluzba.repository.DocumentRepository;
 import com.eobrazovanje.ssluzba.services.DocumentService;
 
 @RestController
@@ -28,6 +29,9 @@ public class DocumentController {
 	
 	@Autowired
 	private DocumentService documentService;
+	
+	@Autowired
+	private DocumentRepository documentRepository;
 	
 	@PostMapping(value="/upload")
 	public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
@@ -50,7 +54,27 @@ public class DocumentController {
 	    List<DocumentResponseDTO> files = documentService.getAllFiles().map(dbFile -> {
 	      String fileDownloadUri = ServletUriComponentsBuilder
 	          .fromCurrentContextPath()
-	          .path("/files/")
+	          .path("/api/document/files/")
+	          .path(dbFile.getId())
+	          .toUriString();
+
+	      return new DocumentResponseDTO(
+	          dbFile.getDocumentName(),
+	          fileDownloadUri,
+	          dbFile.getType(),
+	          dbFile.getData().length);
+	    }).collect(Collectors.toList());
+
+	    return ResponseEntity.status(HttpStatus.OK).body(files);
+	  }
+	 
+	 
+	 @GetMapping("/files-for-student")
+	  public ResponseEntity<List<DocumentResponseDTO>> getStudentFiles(@RequestParam("id") Long id) {
+	    List<DocumentResponseDTO> files = documentService.getAllStudentFiles(id).map(dbFile -> {
+	      String fileDownloadUri = ServletUriComponentsBuilder
+	          .fromCurrentContextPath()
+	          .path("/api/document/files/")
 	          .path(dbFile.getId())
 	          .toUriString();
 
@@ -67,7 +91,7 @@ public class DocumentController {
 	  @GetMapping("/files/{id}")
 	  public ResponseEntity<byte[]> getFile(@PathVariable String id) {
 	    Document fileDB = documentService.getFile(id);
-
+	    System.out.println(fileDB.toString());
 	    return ResponseEntity.ok()
 	        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getDocumentName() + "\"")
 	        .body(fileDB.getData());

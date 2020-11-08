@@ -31,5 +31,9 @@ public class DocumentService  {
 		  public Stream<Document> getAllFiles() {
 		    return documentRepository.findAll().stream();
 		  }
+		  
+		  public Stream<Document> getAllStudentFiles(Long id) {
+			  return documentRepository.findDocumentByStudentId(id).stream();
+		  }
 	
 }

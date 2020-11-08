@@ -15,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.eobrazovanje.ssluzba.interfaces.CustomMapper;
 import com.eobrazovanje.ssluzba.security.JwtAuthenticationEntryPoint;
@@ -23,6 +24,7 @@ import com.eobrazovanje.ssluzba.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@CrossOrigin("http://localhost:4200")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	
@@ -91,7 +93,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/swagger-ui/html",
 							"/swagger-resources/**",
 							"/v2/api-docs",
-							"/webjars/**").permitAll()
+							"/webjars/**",
+							"/api/document/files/**").permitAll()
                     .anyRequest()
                         .authenticated();
 
