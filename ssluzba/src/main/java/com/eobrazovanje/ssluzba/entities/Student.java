@@ -60,6 +60,12 @@ public class Student extends Person {
 	private int currentYear;
 	
 	
+	@Column(name = "ects_total", nullable = false)
+	@Getter
+	@Setter
+	private int ectsTotal = 0;
+	
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "course_id")
 	@Getter
