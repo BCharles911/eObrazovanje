@@ -1,7 +1,11 @@
 package com.eobrazovanje.ssluzba.controller;
 
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,26 +13,27 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eobrazovanje.ssluzba.dto.CourseDTO;
+import com.eobrazovanje.ssluzba.dto.LecturerDTO;
+import com.eobrazovanje.ssluzba.dto.SubjectDTO;
 import com.eobrazovanje.ssluzba.dto.converter.CoursesToDTO;
+import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToLecturer;
 import com.eobrazovanje.ssluzba.entities.Course;
 import com.eobrazovanje.ssluzba.entities.FinancialCard;
 import com.eobrazovanje.ssluzba.entities.Lecturer;
 import com.eobrazovanje.ssluzba.entities.Person;
 import com.eobrazovanje.ssluzba.entities.Role;
 import com.eobrazovanje.ssluzba.entities.Student;
+import com.eobrazovanje.ssluzba.entities.Subject;
 import com.eobrazovanje.ssluzba.entities.Transaction;
 import com.eobrazovanje.ssluzba.entities.enumerations.CARD_TYPE;
-import com.eobrazovanje.ssluzba.entities.enumerations.ROLES;
 import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
 import com.eobrazovanje.ssluzba.exceptions.UsernameExistsException;
 import com.eobrazovanje.ssluzba.repository.CourseRepository;
@@ -36,6 +41,7 @@ import com.eobrazovanje.ssluzba.repository.FinancialCardRepository;
 import com.eobrazovanje.ssluzba.repository.LecturerRepository;
 import com.eobrazovanje.ssluzba.repository.RoleRepository;
 import com.eobrazovanje.ssluzba.repository.StudentRepository;
+import com.eobrazovanje.ssluzba.repository.SubjectRepository;
 import com.eobrazovanje.ssluzba.repository.TransactionRepository;
 
 @RestController
@@ -70,6 +76,13 @@ public class AdminController {
 	PasswordEncoder passwordEncoder;
 	
 	
+	@Autowired
+	SubjectRepository subjectRepository;
+	
+	
+	@Autowired
+	DTOToLecturer dtoToLect;
+	
 	//private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	
@@ -100,9 +113,7 @@ public class AdminController {
 	
 	@PostMapping(value="/create-user", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createNewUser(@RequestBody Person person,@RequestParam("indexNumber") String indexNumber, @RequestParam("courseName") String courseName,@RequestParam("role") String role, @RequestParam("cardType") String cardType){
-		
-		switch (role) {
-		case "STUDENT":
+
 			System.out.println(person.getFirstName() + "HAHASHAHs");
 			System.out.println(person.getDateOfBirth().toString());
 			if(studentRepository.existsByUsername(person.getUsername()) == true ) {
@@ -111,9 +122,7 @@ public class AdminController {
 				throw new UsernameExistsException();
 			}
 			
-			
 	
-			Role studentRole = roleRepository.getOne(USER_ROLE);
 			Course course = courseRepository.getByCourseName(courseName);
 			
 			Student student = new Student();
@@ -153,22 +162,95 @@ public class AdminController {
 			financialRepository.save(newFinancialCard);
 			
 			
-			break;
-		default:
-			Lecturer lecturer = new Lecturer();
-			lecturer.setFirstName(person.getFirstName());
-			lecturer.setLastName(person.getLastName());
-			lecturer.setEmailAddress(person.getEmailAddress());
-			lecturer.setDateOfBirth(person.getDateOfBirth());
-			lecturer.setCity(person.getCity());
+
+	
 			
 			
-		}
+		
 		
 		return null;
 		
 		
 	}
+
+		@PostMapping(value="/create-lecturer",  consumes = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<?> createNewLecturer(@RequestBody Lecturer person){
+			
+				Lecturer lecturer = new Lecturer();
+				if(lecturerRepository.existsByUsername(person.getUsername()) == true ) {
+					System.out.println(person.getUsername());
+					System.out.println(studentRepository.existsByUsername(person.getUsername()));
+					throw new UsernameExistsException();
+				}
+				
+				lecturer.setFirstName(person.getFirstName());
+				lecturer.setLastName(person.getLastName());
+				lecturer.setEmailAddress(person.getEmailAddress());
+				lecturer.setDateOfBirth(person.getDateOfBirth());
+				lecturer.setCity(person.getCity());
+				lecturer.setPassword(person.getPassword());
+				lecturer.setUsername(person.getUsername());
+				lecturer.setDeleted(false);
+				lecturer.setEmailAddress(person.getEmailAddress());
+				lecturer.setGender(person.getGender());
+				lecturer.setPlaceOfBirth(person.getPlaceOfBirth());
+				lecturer.setStateOfBirth(person.getStateOfBirth());
+				lecturer.setResidence_address(person.getResidence_address());
+				lecturer.setPhoneNumber(person.getPhoneNumber());
+				lecturer.setMobilePhoneNumber(person.getMobilePhoneNumber());
+				lecturer.setCitizenship(person.getCitizenship());
+				Collection<Role> list = new LinkedList<Role>(); 
+				for(Role r : person.getRoles()) {
+					list.add(r);
+				}
+				lecturer.setRoles(list);
+				lecturerRepository.save(lecturer);
+				Lecturer l = lecturerRepository.getByUsername(lecturer.getUsername());
+				Set<Subject> subs = new HashSet<Subject>();
+				for(Subject sub : person.getSubjects()) {
+					System.out.println(sub);
+					Subject s = subjectRepository.getOne(sub.getId());
+					s.getLecturer().add(l);
+					subjectRepository.save(s);
+				}
+				//lecturer.setSubjects(subs);
+				
+				
+		
+			return new ResponseEntity<String>("All ok", HttpStatus.OK);
+	}
+		
+	
+	@PostMapping(value="/create-subject",  consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> createNewSubject(@RequestBody SubjectDTO subject){
+		System.out.println(subject.getShortName());
+		System.out.println(subject.getSubjectName());
+		System.out.println(subject.getLecturerDTO());
+		
+		Subject subj = new Subject();
+		
+		subj.setSubjectName(subject.getSubjectName());
+		subj.setShortName(subject.getShortName());
+		subj.setEctsPoints(subject.getEctsPoints());
+		Set<Lecturer> lectSet = new HashSet<Lecturer>();
+		for(LecturerDTO lecturer: subject.getLecturerDTO()) {
+	
+			lectSet.add(lecturerRepository.getOne(lecturer.getId()));
+			
+		}
+		subj.setLecturer(lectSet);
+		
+		subjectRepository.save(subj);
+		
+//		newSub.setSubjectName(subject.getSubjectName());
+//		newSub.setShortName(subject.getShortName());
+//		newSub.setEctsPoints(subject.getEctsPoints());
+//		newSub.setLecturer(subject.getLecturer());
+//		subjectRepository.save(subject);
+//		
+		return new ResponseEntity<String>("Uspesno kreiran predmet", HttpStatus.OK);
+	}
+
 	
 	
 	@PostMapping(value="/deposit-amount")

@@ -8,6 +8,12 @@ import com.eobrazovanje.ssluzba.entities.Lecturer;
 
 @Component
 public class DTOToLecturer implements Converter<LecturerDTO, Lecturer> {
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public Lecturer convert(LecturerDTO source) {
@@ -17,6 +23,12 @@ public class DTOToLecturer implements Converter<LecturerDTO, Lecturer> {
 		}
 		
 		Lecturer lecturer = new Lecturer();
+		
+		lecturer.setId(source.getId());
+		lecturer.setFirstName(source.getFirstName());
+		lecturer.setLastName(source.getLastName());
+		lecturer.setDeleted(source.isDeleted());
+
 		
 		
 		return lecturer;
