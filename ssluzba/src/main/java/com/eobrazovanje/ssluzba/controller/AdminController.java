@@ -261,7 +261,7 @@ public class AdminController {
 		newTransaction.setAmount(amount);
 		newTransaction.setPaymentPurpose("Dodavanje sredstava");
 		newTransaction.setTransactionDate(date);
-		newTransaction.setFinancial_card(student.getFinancialCard());
+		newTransaction.setFinancialCard(student.getFinancialCard());
 		transactionRepository.save(newTransaction);
 		
 		FinancialCard fc = financialRepository.findFinancialCardById(student.getFinancialCard().getId());

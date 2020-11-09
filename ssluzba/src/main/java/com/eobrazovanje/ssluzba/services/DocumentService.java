@@ -9,7 +9,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eobrazovanje.ssluzba.entities.Document;
+import com.eobrazovanje.ssluzba.entities.Lecturer;
+import com.eobrazovanje.ssluzba.entities.Person;
+import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.repository.DocumentRepository;
+import com.eobrazovanje.ssluzba.repository.LecturerRepository;
+import com.eobrazovanje.ssluzba.repository.StudentRepository;
 
 @Service
 public class DocumentService  {
@@ -17,11 +22,27 @@ public class DocumentService  {
 	@Autowired
 	DocumentRepository documentRepository;
 	
-	  public Document store(MultipartFile file) throws IOException {
-		    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		    Document Document = new Document(fileName, file.getContentType(), file.getBytes());
+	@Autowired
+	StudentRepository studentRepository;
+	
+	@Autowired
+	LecturerRepository lecturerRepository;
+	
+	  public Document store(MultipartFile file,  Person person) throws IOException {
+		  	if(studentRepository.getByUsername(person.getUsername()) != null) {
+		  		Student st = studentRepository.getByUsername(person.getUsername());
+		  	    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+			    Document document = new Document(fileName, file.getContentType(), file.getBytes());
+			    document.setStudent(st);
+			    return documentRepository.save(document);
+		  	}else {
+		  		Lecturer lecturer = lecturerRepository.getByUsername(person.getUsername());
+			    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+			    Document document = new Document(fileName, file.getContentType(), file.getBytes());
+			    document.setLecturer(lecturer);
+			    return documentRepository.save(document);
+		  	}
 
-		    return documentRepository.save(Document);
 		  }
 
 		  public Document getFile(String id) {

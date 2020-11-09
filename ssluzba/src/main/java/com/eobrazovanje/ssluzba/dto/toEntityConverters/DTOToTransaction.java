@@ -30,7 +30,7 @@ public class DTOToTransaction implements Converter<TransactionDTO, Transaction> 
 		transaction.setAmount(source.getAmount());
 		transaction.setPaymentPurpose(source.getPaymentPurpose());
 		transaction.setTransactionDate(source.getTransactionDate());
-		transaction.setFinancial_card(toFinancialCard.convert(source.getFinancialCard()));
+		transaction.setFinancialCard(toFinancialCard.convert(source.getFinancialCard()));
 		
 		return transaction;
 	}

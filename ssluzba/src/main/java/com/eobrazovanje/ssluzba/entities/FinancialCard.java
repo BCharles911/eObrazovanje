@@ -65,7 +65,7 @@ public class FinancialCard {
 	
 
 	
-	@OneToMany(mappedBy = "financial_card")
+	@OneToMany(mappedBy = "financialCard")
 	@Getter
 	@Setter
 	private Set<Transaction> transaction;

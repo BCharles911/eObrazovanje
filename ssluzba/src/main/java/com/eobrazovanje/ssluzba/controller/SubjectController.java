@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eobrazovanje.ssluzba.dto.LecturerDTO;
 import com.eobrazovanje.ssluzba.dto.SubjectDTO;
 import com.eobrazovanje.ssluzba.dto.converter.SubjectToDTO;
 import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToSubject;

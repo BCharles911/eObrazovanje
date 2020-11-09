@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,8 +51,9 @@ public class Transaction {
 	private Date transactionDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
 	@JoinColumn (name="financial_card_id",referencedColumnName="id",nullable=false)
-	private FinancialCard financial_card;
+	private FinancialCard financialCard;
 	
 	
 	public Transaction() {
@@ -64,14 +67,14 @@ public class Transaction {
 		this.amount = amount;
 		this.paymentPurpose = paymentPurpose;
 		this.transactionDate = transactionDate;
-		this.financial_card = financial_card;
+		this.financialCard = financialCard;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Transaction [id=" + id + ", amount=" + amount + ", paymentPurpose=" + paymentPurpose
-				+ ", transactionDate=" + transactionDate + ", financialCard=" + financial_card + "]";
+				+ ", transactionDate=" + transactionDate + ", financialCard=" + financialCard + "]";
 	}
 	
 	
