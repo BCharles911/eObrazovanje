@@ -15,8 +15,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.eobrazovanje.ssluzba.exceptions.CustomLogoutSuccessHandler;
 import com.eobrazovanje.ssluzba.interfaces.CustomMapper;
 import com.eobrazovanje.ssluzba.security.JwtAuthenticationEntryPoint;
 import com.eobrazovanje.ssluzba.security.JwtAuthenticationFilter;
@@ -55,8 +57,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public BCryptPasswordEncoder passwordEncoder() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder;
+    }
+    
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+    	return new CustomLogoutSuccessHandler();
     }
 
     
@@ -96,7 +104,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 							"/webjars/**",
 							"/api/document/files/**").permitAll()
                     .anyRequest()
-                        .authenticated();
+                        .authenticated().and().logout()
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessHandler(logoutSuccessHandler());
+        
+    
 
         // Add our custom JWT security filter
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

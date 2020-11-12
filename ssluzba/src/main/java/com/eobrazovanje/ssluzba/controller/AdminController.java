@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -73,8 +75,7 @@ public class AdminController {
 	CoursesToDTO courseToDTO;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;
-	
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	SubjectRepository subjectRepository;
@@ -129,7 +130,7 @@ public class AdminController {
 			student.setFirstName(person.getFirstName());
 			student.setIndexNumber(indexNumber);
 			student.setLastName(person.getLastName());
-			student.setPassword(person.getPassword());
+			student.setPassword(passwordEncoder.encode(person.getPassword()));
 			student.setUsername(person.getUsername());
 			student.setDeleted(false);
 			student.setCurrentYear(1);
@@ -182,13 +183,13 @@ public class AdminController {
 					System.out.println(studentRepository.existsByUsername(person.getUsername()));
 					throw new UsernameExistsException();
 				}
-				
+				System.out.println(person.getPassword() + "ha");
 				lecturer.setFirstName(person.getFirstName());
 				lecturer.setLastName(person.getLastName());
 				lecturer.setEmailAddress(person.getEmailAddress());
 				lecturer.setDateOfBirth(person.getDateOfBirth());
 				lecturer.setCity(person.getCity());
-				lecturer.setPassword(person.getPassword());
+				lecturer.setPassword(passwordEncoder.encode(person.getPassword()));
 				lecturer.setUsername(person.getUsername());
 				lecturer.setDeleted(false);
 				lecturer.setEmailAddress(person.getEmailAddress());
