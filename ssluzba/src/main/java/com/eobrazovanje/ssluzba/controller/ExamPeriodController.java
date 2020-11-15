@@ -69,6 +69,21 @@ public class ExamPeriodController {
 		
 	}
 	
+	@GetMapping("/get-subjects-prijavio")
+	public ResponseEntity<List<SubjectDTO>> getSubjectsPrijavio(@RequestParam("id") Long id){
+		
+		List<Subject> studentSubjects = studentHasSubjectRepository.findSubjectsPrijavioTrue(id);
+		
+		
+		
+		
+
+		return new ResponseEntity<List<SubjectDTO>>(subjectToDTO.convert(studentSubjects), HttpStatus.OK);
+		
+		
+	}
+	
+	
 	
 	@GetMapping("/get-active-exam-period")
 	public ResponseEntity<Optional<List<ExamPeriod>>> getExamPeriod(){

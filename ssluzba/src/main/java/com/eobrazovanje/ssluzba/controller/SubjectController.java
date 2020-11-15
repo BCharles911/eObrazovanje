@@ -15,13 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eobrazovanje.ssluzba.dto.StudentDTO;
 import com.eobrazovanje.ssluzba.dto.SubjectDTO;
+import com.eobrazovanje.ssluzba.dto.converter.StudentToDTO;
 import com.eobrazovanje.ssluzba.dto.converter.SubjectToDTO;
 import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToSubject;
 import com.eobrazovanje.ssluzba.entities.Lecturer;
+import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.entities.Subject;
 import com.eobrazovanje.ssluzba.entityManager.UtilManager;
 import com.eobrazovanje.ssluzba.repository.LecturerRepository;
+import com.eobrazovanje.ssluzba.repository.StudentHasSubjectRepository;
 import com.eobrazovanje.ssluzba.repository.SubjectRepository;
 import com.eobrazovanje.ssluzba.services.LecturerService;
 import com.eobrazovanje.ssluzba.services.SubjectService;
@@ -49,6 +53,12 @@ public class SubjectController {
 	DTOToSubject dtoToSubject;
 	
 	@Autowired
+	StudentToDTO studentToDTO;
+	
+	@Autowired
+	StudentHasSubjectRepository studentHasSubjectRepository;
+	
+	@Autowired
 	UtilManager utilManager;
 	
 
@@ -57,10 +67,27 @@ public class SubjectController {
 		return new ResponseEntity<>(subjectToDTO.convert(subjectRepository.findAll()), HttpStatus.OK);
 	}
 	
+
 	
-	@GetMapping("/test-for-student")
+	
+	@GetMapping(value="/get-subjects-for-lecturer")
+	public ResponseEntity<List<SubjectDTO>> getAllForLecturer(@RequestParam("lecturerId") Long id){
+		List<Subject> subjects = subjectRepository.findAllByLecturerId(id);
+		
+		return new ResponseEntity<List<SubjectDTO>>(subjectToDTO.convert(subjects), HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/test-for-student")
 	public ResponseEntity<List<SubjectDTO>> getAllSubjectsForStudent(){
 		return new ResponseEntity<List<SubjectDTO>>(subjectToDTO.convert(utilManager.queryForSubjectsForSpecificStudent()),HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/get-students-prijavio")
+	public ResponseEntity<List<StudentDTO>> getAllSutdentsPrijavio(@RequestParam("subjectId") Long subjectId){
+		List<Student> students = studentHasSubjectRepository.findStudentsBySubjectId(subjectId);
+		
+		return new ResponseEntity<List<StudentDTO>>(studentToDTO.convert(students), HttpStatus.OK);
+		
 	}
 	
 	@PostMapping(value="/admin/create-subject", consumes= "application/json")
@@ -95,6 +122,9 @@ public class SubjectController {
 		subjectService.save(subject);
 		return new ResponseEntity<>("all good!", HttpStatus.OK);
 	}
+	
+	
+
 	
 	
 	//vrati sve studente koji pohadjaju predmet

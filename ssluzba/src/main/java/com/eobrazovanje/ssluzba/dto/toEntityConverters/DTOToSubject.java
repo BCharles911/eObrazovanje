@@ -34,6 +34,8 @@ public class DTOToSubject implements Converter<SubjectDTO, Subject> {
 		subject.setSubjectName(source.getSubjectName());
 		subject.setShortName(source.getShortName());
 		subject.setEctsPoints(source.getEctsPoints());
+		subject.setExamDate(source.getExamDate());
+		subject.setPlaceOfExam(source.getPlaceOfExam());
 		
 		if(source.getColloqiumsDTO() != null) {
 			

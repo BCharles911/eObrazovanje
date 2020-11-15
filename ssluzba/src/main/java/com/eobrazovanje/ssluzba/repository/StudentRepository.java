@@ -18,7 +18,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 	boolean existsByUsername(@Param("username") String username);
 	
 	
-	
+
 	
 
 }

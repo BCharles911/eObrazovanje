@@ -111,6 +111,8 @@ public class StudentController {
 	}
 	
 	
+	
+	
 	@PutMapping(value="/update/{id}", consumes="application/json")
 	public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO, @PathVariable("id") Long id){
 		Student student = studentRepository.getOne(id);
@@ -125,6 +127,36 @@ public class StudentController {
 	}
 	
 	
+	@PutMapping(value="/update-partial/{id}", consumes="application/json")
+	public ResponseEntity<StudentDTO> updatePartial(@RequestBody StudentDTO studentDTO, @PathVariable("id") Long id){
+		Student student = studentRepository.getOne(id);
+		if(student == null){
+			return new ResponseEntity<StudentDTO>(HttpStatus.NOT_FOUND);
+		}
+		System.out.println(studentDTO.getCurrentYear());
+		if(studentDTO.getUsername() != "") {
+			student.setUsername(studentDTO.getUsername());
+		}
+		
+		if(studentDTO.getPhoneNumber() != "") {
+			student.setPhoneNumber(studentDTO.getPhoneNumber());
+
+		}
+		if(studentDTO.getMobilePhoneNumber() != "") {
+			student.setMobilePhoneNumber(studentDTO.getMobilePhoneNumber());
+
+		}
+		
+		if(studentDTO.getResidence_address() != "") {
+			student.setResidence_address(studentDTO.getResidence_address());
+
+		}
+		studentRepository.save(student);
+		return new ResponseEntity<StudentDTO>(studentToDTO.convert(student),HttpStatus.OK);
+
+	}
+	
+	
 	@PutMapping(value="/exam-check-test")
 	public void testIspit() {
 		Long id = (long) 2;
@@ -135,8 +167,8 @@ public class StudentController {
 	}
 	
 	
-	@PostMapping(value= "/exam-check", consumes="application/json", produces="text/plain")	
-	public ResponseEntity<?> prijaviIspit(@RequestBody List<SubjectDTO> checkedSubjects) {
+	@PostMapping(value= "/exam-check", consumes="application/json", produces="application/json")	
+	public ResponseEntity<?> prijaviIspit(@RequestBody List<SubjectDTO> checkedSubjects, @RequestParam("totalPrice") Double totalPrice) {
 		//List<Subject> convertedSubjects = dtoToSubject.convert(checkedSubjects);
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -150,6 +182,9 @@ public class StudentController {
 			studentHasSubjectRepository.save(shs);
 			
 		}
+		FinancialCard financialCard = financialRepository.findFinancialCardByStudentId(loggedStudent.getId());
+		financialCard.setBalance(financialCard.getBalance() - totalPrice);
+		financialRepository.save(financialCard);
 	
 		return new ResponseEntity<String>("ispiti prijavljeni", HttpStatus.OK);
 		
@@ -157,6 +192,25 @@ public class StudentController {
 	}
 	
 	
+	@PostMapping(value="/exam-check-out", consumes="application/json")
+	public ResponseEntity<?> odjaviIspit(@RequestBody List<SubjectDTO> checkedSubjects, @RequestParam("returnAmount") Double returnAmount){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String loggedStudentUsername = authentication.getName();
+		Student loggedStudent = studentRepository.getByUsername(loggedStudentUsername);
+		
+		for(SubjectDTO subject : checkedSubjects) {
+			
+			StudentHasSubject shs = studentHasSubjectRepository.findStudentHasSubjectByStudentIdAndSubjectId(loggedStudent.getId(), subject.getId());
+			shs.setPrijavio(false);
+			studentHasSubjectRepository.save(shs);
+			
+		}
+		FinancialCard financialCard = financialRepository.findFinancialCardByStudentId(loggedStudent.getId());
+		financialCard.setBalance(financialCard.getBalance() + returnAmount);
+		financialRepository.save(financialCard);
+	
+		return new ResponseEntity<String>("ispiti prijavljeni", HttpStatus.OK);
+	}
 	
 	
 	
