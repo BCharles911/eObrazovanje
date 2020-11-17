@@ -22,8 +22,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.eobrazovanje.ssluzba.dto.DocumentResponseDTO;
 import com.eobrazovanje.ssluzba.dto.ResponseMessage;
 import com.eobrazovanje.ssluzba.entities.Document;
+import com.eobrazovanje.ssluzba.entities.Lecturer;
+import com.eobrazovanje.ssluzba.entities.Person;
 import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.entities.Transaction;
+import com.eobrazovanje.ssluzba.repository.LecturerRepository;
 import com.eobrazovanje.ssluzba.repository.StudentRepository;
 import com.eobrazovanje.ssluzba.repository.TransactionRepository;
 import com.eobrazovanje.ssluzba.services.DocumentService;
@@ -42,6 +45,9 @@ public class DocumentController {
 	@Autowired
 	private StudentRepository studentRepository;
 	
+	@Autowired
+	private LecturerRepository lecturerRepository;
+	
 	
 	@Autowired
 	private TransactionRepository transRepos;
@@ -57,7 +63,14 @@ public class DocumentController {
 		Student loggedStudent = studentRepository.getByUsername(loggedStudentUsername);
 	    String message = "";
 	    try {
-	    	documentService.store(file, loggedStudent);
+	    	if(loggedStudent != null) {
+	    		documentService.store(file, loggedStudent);
+	    	}
+	    	else {
+	    		Lecturer lect = lecturerRepository.getByUsername(loggedStudentUsername);
+	    		documentService.store(file, lect);
+	    	}
+	    	
 
 	      message = "Uploaded the file successfully: " + file.getOriginalFilename();
 	      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
@@ -92,6 +105,25 @@ public class DocumentController {
 	 @GetMapping("/files-for-student")
 	  public ResponseEntity<List<DocumentResponseDTO>> getStudentFiles(@RequestParam("id") Long id) {
 	    List<DocumentResponseDTO> files = documentService.getAllStudentFiles(id).map(dbFile -> {
+	      String fileDownloadUri = ServletUriComponentsBuilder
+	          .fromCurrentContextPath()
+	          .path("/api/document/files/")
+	          .path(dbFile.getId())
+	          .toUriString();
+
+	      return new DocumentResponseDTO(
+	          dbFile.getDocumentName(),
+	          fileDownloadUri,
+	          dbFile.getType(),
+	          dbFile.getData().length);
+	    }).collect(Collectors.toList());
+
+	    return ResponseEntity.status(HttpStatus.OK).body(files);
+	  }
+	 
+	 @GetMapping("/files-for-lecturer")
+	  public ResponseEntity<List<DocumentResponseDTO>> getLecturerFiles(@RequestParam("id") Long id) {
+	    List<DocumentResponseDTO> files = documentService.getAllLecturerFiles(id).map(dbFile -> {
 	      String fileDownloadUri = ServletUriComponentsBuilder
 	          .fromCurrentContextPath()
 	          .path("/api/document/files/")

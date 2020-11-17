@@ -30,12 +30,15 @@ public class DocumentService  {
 	
 	  public Document store(MultipartFile file,  Person person) throws IOException {
 		  	if(studentRepository.getByUsername(person.getUsername()) != null) {
+		  		System.out.println("whtsda");
 		  		Student st = studentRepository.getByUsername(person.getUsername());
 		  	    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 			    Document document = new Document(fileName, file.getContentType(), file.getBytes());
 			    document.setStudent(st);
 			    return documentRepository.save(document);
 		  	}else {
+		  		System.out.println("DOMACI SIR");
+
 		  		Lecturer lecturer = lecturerRepository.getByUsername(person.getUsername());
 			    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 			    Document document = new Document(fileName, file.getContentType(), file.getBytes());
@@ -55,6 +58,10 @@ public class DocumentService  {
 		  
 		  public Stream<Document> getAllStudentFiles(Long id) {
 			  return documentRepository.findDocumentByStudentId(id).stream();
+		  }
+		  
+		  public Stream<Document> getAllLecturerFiles(Long id){
+			  return documentRepository.findDocumentByLecturerId(id).stream();
 		  }
 	
 }
