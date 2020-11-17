@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -173,6 +174,8 @@ public class AdminController {
 		
 		
 	}
+	
+	
 
 		@PostMapping(value="/create-lecturer",  consumes = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<?> createNewLecturer(@RequestBody Lecturer person){
@@ -189,7 +192,7 @@ public class AdminController {
 				lecturer.setEmailAddress(person.getEmailAddress());
 				lecturer.setDateOfBirth(person.getDateOfBirth());
 				lecturer.setCity(person.getCity());
-				lecturer.setPassword(passwordEncoder.encode(person.getPassword()));
+				lecturer.setPassword(passwordEncoder.encode("lozinka123"));
 				lecturer.setUsername(person.getUsername());
 				lecturer.setDeleted(false);
 				lecturer.setEmailAddress(person.getEmailAddress());

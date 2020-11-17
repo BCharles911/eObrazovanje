@@ -29,6 +29,10 @@ public class Lecturer extends Person {
 	@OneToMany(mappedBy="lecturer")
 	private Set<Document> documents;
 
+	
+	@OneToMany(mappedBy="lecturer")
+	private Set<Article> articles;
+
 
 	public Lecturer() {
 		

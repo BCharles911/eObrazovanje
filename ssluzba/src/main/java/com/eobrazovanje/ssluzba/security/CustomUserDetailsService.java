@@ -47,10 +47,19 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Transactional
     public UserDetails loadUserById(Long id) {
-    	Student user = studentRepository.findById(id).orElseThrow(
-            () -> new ResourceNotFoundException()
-        );
-
-        return UserPrincipal.create(user);
-    }
+    	
+    	
+    	
+    		try {
+    			Student user = studentRepository.getOne(id);
+    			return UserPrincipal.create(user);
+			} catch (Exception e) {
+				Lecturer lecturer = lecturerRepository.getOne(id);
+				return UserPrincipal.create(lecturer);
+				
+				// TODO: handle exception
+			}
+    	}
+        
+    
 }
