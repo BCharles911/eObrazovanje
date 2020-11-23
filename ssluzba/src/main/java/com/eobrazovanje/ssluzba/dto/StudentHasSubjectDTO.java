@@ -1,6 +1,7 @@
 package com.eobrazovanje.ssluzba.dto;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,9 +23,12 @@ public class StudentHasSubjectDTO implements Serializable {
 	
 	private Long studentId;
 	private Long subjectId;
+	private String studentName;
 	private int ocena;
 	private int brPokusaja;
 	private boolean passed;
+	private String indexNumber;
+	private Date examDate;
 	@JsonIgnore
 	private List<ExamDTO> exams;
 	private boolean prijavio;
@@ -37,7 +41,7 @@ public class StudentHasSubjectDTO implements Serializable {
 
 
 	public StudentHasSubjectDTO(Long studentId, Long subjectId, int ocena, int brPokusaja, boolean passed,
-			List<ExamDTO> exams, boolean prijavio) {
+			List<ExamDTO> exams, boolean prijavio, String studentName, String indexNumber, Date examDate) {
 		super();
 		this.studentId = studentId;
 		this.subjectId = subjectId;
@@ -46,6 +50,9 @@ public class StudentHasSubjectDTO implements Serializable {
 		this.passed = passed;
 		this.exams = exams;
 		this.prijavio = prijavio;
+		this.studentName = studentName;
+		this.indexNumber = indexNumber;
+		this.examDate = examDate;
 		
 	}
 	

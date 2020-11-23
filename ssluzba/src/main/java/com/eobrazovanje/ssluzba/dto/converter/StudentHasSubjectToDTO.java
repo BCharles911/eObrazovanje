@@ -18,6 +18,8 @@ public class StudentHasSubjectToDTO implements Converter<StudentHasSubject, Stud
 	@Autowired
 	ExamToDTO examToDTO;
 	
+	@Autowired
+	StudentToDTO studentToDTO;
 
 	
 	@Override
@@ -33,7 +35,10 @@ public class StudentHasSubjectToDTO implements Converter<StudentHasSubject, Stud
 		studentHasSubjectDTO.setSubjectId(source.getSubject().getId());
 		studentHasSubjectDTO.setOcena(source.getOcena());
 		studentHasSubjectDTO.setBrPokusaja(source.getBrPokusaja());
+		studentHasSubjectDTO.setIndexNumber(source.getStudent().getIndexNumber());
+		studentHasSubjectDTO.setStudentName(source.getStudent().getFirstName() + " " + source.getStudent().getLastName());
 		studentHasSubjectDTO.setPassed(source.isPassed());
+		studentHasSubjectDTO.setExamDate(source.getSubject().getExamDate());
 		studentHasSubjectDTO.setExams(examToDTO.convert(examToDTO.convertSetToList(source.getExam())));
 		studentHasSubjectDTO.setPrijavio(source.isPrijavio());
 		return studentHasSubjectDTO;

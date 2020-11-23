@@ -1,15 +1,19 @@
 package com.eobrazovanje.ssluzba.entities;
 
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Value;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,32 +28,31 @@ public class ExamPeriod {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter
-	@Setter
 	private Long id;
 	
 	
 	@Column(name = "start_date", nullable = false)
-	@Getter
-	@Setter
 	private Date startDate;
 	
 	
 	@Column(name = "end_date", nullable = false)
-	@Getter
-	@Setter
 	private Date endDate;
 	
 	@Column(name = "exam_period_name", nullable = false)
-	@Getter
-	@Setter
 	private String examPeriodName;
 	
 	@Column(name = "is_active", nullable = false, columnDefinition = "TINYINT(1)")
-	@Getter
-	@Setter
 	@Value("${exam_period.is_active:false}")
 	private boolean isActive;
+	
+	
+	@OneToMany(mappedBy="examPeriod")
+	@JsonIgnore
+	private Set<ExamRecord> examRecords;
+	
+	
+	
+	
 	
 	
 	

@@ -69,7 +69,9 @@ public class StudentHasSubject {
     @Setter
     private Set<Exam> exam;
 	
-    
+    @OneToMany(mappedBy="studentHasSubject")
+    @JsonIgnore
+    private Set<ExamRecord> examRecords;
     
 	
 

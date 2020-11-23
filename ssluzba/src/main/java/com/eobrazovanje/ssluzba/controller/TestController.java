@@ -9,17 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eobrazovanje.ssluzba.dto.ExamRecordDTO;
 import com.eobrazovanje.ssluzba.dto.LecturerDTO;
 import com.eobrazovanje.ssluzba.dto.StudentHasSubjectDTO;
 import com.eobrazovanje.ssluzba.dto.SubjectDTO;
+import com.eobrazovanje.ssluzba.dto.converter.ExamRecordToDTO;
 import com.eobrazovanje.ssluzba.dto.converter.LecturerToDTO;
 import com.eobrazovanje.ssluzba.dto.converter.StudentHasSubjectToDTO;
 import com.eobrazovanje.ssluzba.dto.converter.SubjectToDTO;
 import com.eobrazovanje.ssluzba.entities.Course;
+import com.eobrazovanje.ssluzba.entities.ExamRecord;
 import com.eobrazovanje.ssluzba.entities.Lecturer;
 import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
 import com.eobrazovanje.ssluzba.entities.Subject;
 import com.eobrazovanje.ssluzba.repository.CourseRepository;
+import com.eobrazovanje.ssluzba.repository.ExamRecordRepository;
 import com.eobrazovanje.ssluzba.repository.LecturerRepository;
 import com.eobrazovanje.ssluzba.repository.StudentHasSubjectRepository;
 import com.eobrazovanje.ssluzba.repository.SubjectRepository;
@@ -53,6 +57,12 @@ public class TestController {
 	
 	@Autowired
 	LecturerToDTO lecturerToDTO;
+	
+	@Autowired
+	ExamRecordToDTO examRecordToDTO;
+	
+	@Autowired
+	ExamRecordRepository exRecRepository;
 	
 	
 	
@@ -108,6 +118,13 @@ public class TestController {
 		}
 		
 		return new ResponseEntity<List<SubjectDTO>>(subjectToDTO.convert(allStudhas), HttpStatus.OK);
+	}
+	
+	@GetMapping("/getRecords")
+	public ResponseEntity<List<ExamRecordDTO>> getRecords(){
+		List<ExamRecord> exRec = exRecRepository.findAll();
+		
+		return new ResponseEntity<List<ExamRecordDTO>>(examRecordToDTO.convert(exRec), HttpStatus.OK);
 	}
 	
 }
