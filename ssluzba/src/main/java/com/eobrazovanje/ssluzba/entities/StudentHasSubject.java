@@ -68,11 +68,11 @@ public class StudentHasSubject {
     @Getter
     @Setter
     private Set<Exam> exam;
-	
+	/*
     @OneToMany(mappedBy="studentHasSubject")
     @JsonIgnore
     private Set<ExamRecord> examRecords;
-    
+    */
 	
 
 	public StudentHasSubject() {

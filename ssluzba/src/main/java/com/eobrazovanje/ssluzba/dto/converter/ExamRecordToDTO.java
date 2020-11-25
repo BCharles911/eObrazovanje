@@ -18,6 +18,11 @@ public class ExamRecordToDTO  implements Converter<ExamRecord, ExamRecordDTO>  {
 	
 	@Autowired
 	StudentHasSubjectToDTO stHasSubToDTO;
+	
+	@Autowired
+	LecturerToDTO lecturerToDTO;
+	
+	
 
 	@Override
 	public ExamRecordDTO convert(ExamRecord source) {
@@ -30,13 +35,27 @@ public class ExamRecordToDTO  implements Converter<ExamRecord, ExamRecordDTO>  {
 		ExamRecordDTO exRecordDTO = new ExamRecordDTO();
 		
 		exRecordDTO.setExamPeriod(source.getExamPeriod());
-		exRecordDTO.setStudentHasSubject(stHasSubToDTO.convert(source.getStudentHasSubject()));
+		//exRecordDTO.setStudentHasSubject(stHasSubToDTO.convert(source.getStudentHasSubject()));
+		exRecordDTO.setStudentId(source.getStudent().getId());
+		exRecordDTO.setSubjectId(source.getSubject().getId());
+		exRecordDTO.setSubjectShortName(source.getSubject().getShortName());
+		exRecordDTO.setSubjectName(source.getSubject().getSubjectName());
+		
+		
+		exRecordDTO.setLecturerName(source.getLecturer().getFirstName() + " " + source.getLecturer().getLastName());
+		//exRecordDTO.setLecturers(lecturerToDTO.convert(lecturerToDTO.convertSetToList(source.getSubject().getLecturer())));
+		
+		
+		//exRecordDTO.setLecturerName(source.getSubject().getLecturer());
+		//exRecordDTO.setStudentId(source.getStudent().getId());
+		//exRecordDTO.setSubjectId(source.getSubject().getId());
 		exRecordDTO.setNote(source.getNote());
 		exRecordDTO.setExamDate(source.getExamDate());
 		exRecordDTO.setOcena(source.getOcena());
 		
 		return exRecordDTO;
 	}
+	
 	
 	
 	public List<ExamRecord> convertSetToList(Set<ExamRecord> set){

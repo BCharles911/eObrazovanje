@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.eobrazovanje.ssluzba.entities.ExamRecord;
 import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
 import com.eobrazovanje.ssluzba.entities.Subject;
@@ -37,6 +38,9 @@ public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSub
 	
 	@Query("SELECT s.subject FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 1 and s.prijavio = 1")
 	List<Subject> findPassedSubject(Long id);
+	
+	@Query("SELECT s FROM exam_record s WHERE s.student.id = ?1")
+	List<ExamRecord> findPassedSubjectHistory(Long id);
 	
 	
 /*	@Query("SELECT s from subject s\r\n" + 
