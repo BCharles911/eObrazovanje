@@ -34,6 +34,11 @@ public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSub
 	@Query("SELECT s.subject FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 0 and s.prijavio = 1")
 	List<Subject> findSubjectsPrijavioTrue(Long id);
 	
+	
+	@Query("SELECT s.subject FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 1 and s.prijavio = 1")
+	List<Subject> findPassedSubject(Long id);
+	
+	
 /*	@Query("SELECT s from subject s\r\n" + 
 			"inner JOIN student_has_subject ON s.id=student_has_subject.subject_id\r\n" + 
 			"INNER JOIN student ON student.id = student_has_subject.student_id\r\n" + 
@@ -49,5 +54,5 @@ public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSub
 	@Query("SELECT s.student from student_has_subject s where prijavio = 1 and s.subject.id= ?1")
 	List<Student> findStudentsBySubjectId(Long id);
 	
-
+	
 }

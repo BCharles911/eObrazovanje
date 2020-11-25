@@ -28,8 +28,7 @@ public class FinancialCardService implements FinancialCardInterface {
 	
 	@Override
 	public FinancialCard save(FinancialCard financialCard) {
-		// TODO Auto-generated method stub
-		return null;
+		return financialCardRepository.save(financialCard);
 	}
 	
 	@Override

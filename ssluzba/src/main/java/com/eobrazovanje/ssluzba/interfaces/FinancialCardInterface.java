@@ -9,4 +9,5 @@ public interface FinancialCardInterface {
 	FinancialCard save(FinancialCard financialCard);
 	FinancialCard edit(FinancialCardDTO financialCard, Long id);
 	void delete(Long id);
+	
 }

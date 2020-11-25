@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -44,18 +45,25 @@ public class ExamRecord {
 	@Column(columnDefinition = "TEXT", name="note")
 	private String note;
 	
+	@Column(name= "exam_date")
+	private Date examDate;
+	
+	@Column(name= "ocena")
+	private int ocena;
 	
 	public ExamRecord() {
 		super();
 	}
 
 
-	public ExamRecord(String id, ExamPeriod examPeriod, StudentHasSubject studentHasSubject, String note) {
+	public ExamRecord(String id, ExamPeriod examPeriod, StudentHasSubject studentHasSubject, String note, Date examDate, Integer ocena) {
 		super();
 		this.id = id;
 		this.examPeriod = examPeriod;
 		this.studentHasSubject = studentHasSubject;
 		this.note = note;
+		this.examDate = examDate;
+		this.ocena = ocena;
 	}
 	
 	

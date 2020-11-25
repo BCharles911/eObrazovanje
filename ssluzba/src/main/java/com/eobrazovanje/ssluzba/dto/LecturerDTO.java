@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Collection;
 import com.eobrazovanje.ssluzba.entities.Role;
+import com.eobrazovanje.ssluzba.entities.Subject;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -66,7 +68,7 @@ public class LecturerDTO implements Serializable {
 		this.citizenship = citizenship;
 		this.ethnicity = ethnicity;
 		this.roles = roles;
-		
+			
 		
 	}
 	

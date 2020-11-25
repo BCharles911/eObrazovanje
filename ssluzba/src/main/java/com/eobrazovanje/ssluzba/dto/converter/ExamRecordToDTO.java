@@ -32,6 +32,8 @@ public class ExamRecordToDTO  implements Converter<ExamRecord, ExamRecordDTO>  {
 		exRecordDTO.setExamPeriod(source.getExamPeriod());
 		exRecordDTO.setStudentHasSubject(stHasSubToDTO.convert(source.getStudentHasSubject()));
 		exRecordDTO.setNote(source.getNote());
+		exRecordDTO.setExamDate(source.getExamDate());
+		exRecordDTO.setOcena(source.getOcena());
 		
 		return exRecordDTO;
 	}
