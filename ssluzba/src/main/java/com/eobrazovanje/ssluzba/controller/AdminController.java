@@ -126,7 +126,7 @@ public class AdminController {
 			
 	
 			Course course = courseRepository.getByCourseName(courseName);
-			
+			System.out.println(person.getPassword());
 			Student student = new Student();
 			student.setFirstName(person.getFirstName());
 			student.setIndexNumber(indexNumber);

@@ -57,7 +57,7 @@ public class Person {
 	@Setter
 	private String lastName;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Column(name = "password", length=250)
 	@Getter
 	@Setter

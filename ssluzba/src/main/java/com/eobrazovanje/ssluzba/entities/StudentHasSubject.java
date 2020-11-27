@@ -1,5 +1,6 @@
 package com.eobrazovanje.ssluzba.entities;
 
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -54,6 +55,9 @@ public class StudentHasSubject {
 	private int brPokusaja;
 	
 	
+	@Column(name = "lecturer_name")
+	private String lecturerName;
+	
 	@Column(name = "prijavio", nullable = false, columnDefinition = "TINYINT(1)")
 	@Getter
 	@Setter
@@ -68,6 +72,9 @@ public class StudentHasSubject {
     @Getter
     @Setter
     private Set<Exam> exam;
+    
+    @Column(name = "exam_date")
+    private Date examDate;
 	/*
     @OneToMany(mappedBy="studentHasSubject")
     @JsonIgnore
@@ -96,15 +103,21 @@ public class StudentHasSubject {
 	}
 
 	public StudentHasSubject(StudentSubjectKey id, Student student, Subject subject, int ocena, int brPokusaja,
-			boolean passed) {
+			String lecturerName, boolean prijavio, boolean passed, Set<Exam> exam, Date examDate) {
 		super();
 		this.id = id;
 		this.student = student;
 		this.subject = subject;
 		this.ocena = ocena;
 		this.brPokusaja = brPokusaja;
+		this.lecturerName = lecturerName;
+		this.prijavio = prijavio;
 		this.passed = passed;
+		this.exam = exam;
+		this.examDate = examDate;
 	}
+
+	
 	
 	
 	

@@ -52,11 +52,11 @@ public class ExamRecordController {
 	}
 	
 	@GetMapping("/get-passed-subjects")
-	public ResponseEntity<List<SubjectDTO>> getSubjectsPassed(@RequestParam("id") Long id) {
+	public ResponseEntity<List<StudentHasSubjectDTO>> getSubjectsPassed(@RequestParam("id") Long id) {
 		
-		List<Subject> studentPassedSubjects = studentHasSubjectRepository.findPassedSubject(id);
+		List<StudentHasSubject> studentPassedSubjects = studentHasSubjectRepository.findPassedSubject(id);
 		
-		return new ResponseEntity<List<SubjectDTO>>(subjectToDTO.convert(studentPassedSubjects), HttpStatus.OK);
+		return new ResponseEntity<List<StudentHasSubjectDTO>>(subToDTO.convert(studentPassedSubjects), HttpStatus.OK);
 	}
 	
 	@GetMapping("/get-passed-subjects-history")

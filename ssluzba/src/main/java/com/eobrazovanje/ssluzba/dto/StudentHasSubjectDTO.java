@@ -28,6 +28,10 @@ public class StudentHasSubjectDTO implements Serializable {
 	private int brPokusaja;
 	private boolean passed;
 	private String indexNumber;
+	private String shortName;
+	private String subjectName;
+	private int ectsPoints;
+	private String lecturerName;
 	private Date examDate;
 	@JsonIgnore
 	private List<ExamDTO> exams;
@@ -40,22 +44,28 @@ public class StudentHasSubjectDTO implements Serializable {
 	}
 
 
-	public StudentHasSubjectDTO(Long studentId, Long subjectId, int ocena, int brPokusaja, boolean passed,
-			List<ExamDTO> exams, boolean prijavio, String studentName, String indexNumber, Date examDate) {
+
+	public StudentHasSubjectDTO(Long studentId, Long subjectId, String studentName, int ocena, int brPokusaja,
+			boolean passed, String indexNumber, String shortName, String subjectName, String lecturerName,
+			Date examDate, List<ExamDTO> exams, boolean prijavio, int ectsPoints) {
 		super();
 		this.studentId = studentId;
 		this.subjectId = subjectId;
+		this.studentName = studentName;
 		this.ocena = ocena;
 		this.brPokusaja = brPokusaja;
 		this.passed = passed;
+		this.indexNumber = indexNumber;
+		this.shortName = shortName;
+		this.subjectName = subjectName;
+		this.lecturerName = lecturerName;
+		this.examDate = examDate;
 		this.exams = exams;
 		this.prijavio = prijavio;
-		this.studentName = studentName;
-		this.indexNumber = indexNumber;
-		this.examDate = examDate;
-		
+		this.ectsPoints = ectsPoints;
 	}
-	
+
+
 	
 	
 	
