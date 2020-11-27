@@ -1,7 +1,9 @@
 package com.eobrazovanje.ssluzba.utility;
 
 
+import com.eobrazovanje.ssluzba.entities.Lecturer;
 import com.eobrazovanje.ssluzba.entities.Person;
+import com.eobrazovanje.ssluzba.entities.Student;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,8 @@ public class UserPrincipal implements UserDetails {
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
+    
+    private GrantedAuthority authority;
 
     public UserPrincipal(Long id, String firstname, String lastname, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
@@ -41,22 +45,47 @@ public class UserPrincipal implements UserDetails {
         this.password = password;
         this.authorities = authorities;
     }
+    
+    public UserPrincipal(Long id, String firstname, String lastname, String username, String password, GrantedAuthority authority) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+       
+        this.password = password;
+        this.authority = authority;
+    }
 
-    public static UserPrincipal create(Person person) {
-        List<GrantedAuthority> authorities = person.getRoles().stream().map(authority ->
+
+    public static UserPrincipal createLecturer(Lecturer lecturer) {
+        List<GrantedAuthority> authorities = lecturer.getRoles().stream().map(authority ->
                 new SimpleGrantedAuthority(authority.getName())
         ).collect(Collectors.toList());
 
         return new UserPrincipal(
-                person.getId(),
-                person.getFirstName(),
-                person.getLastName(),
-                person.getUsername(),                     
-                person.getPassword(),
+        		lecturer.getId(),
+        		lecturer.getFirstName(),
+        		lecturer.getLastName(),
+        		lecturer.getUsername(),                     
+        		lecturer.getPassword(),
                 authorities
         );
     }
 
+    public static UserPrincipal createStudent(Student student) {
+        List<GrantedAuthority> authorities = student.getRoles().stream().map(authority ->
+        new SimpleGrantedAuthority(authority.getName())
+        		).collect(Collectors.toList());
+
+        return new UserPrincipal(
+        		student.getId(),
+        		student.getFirstName(),
+        		student.getLastName(),
+        		student.getUsername(),                     
+        		student.getPassword(),
+                authorities
+        );
+    }
 
     public Long getId() {
         return id;

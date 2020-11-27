@@ -32,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if(user == null) {
         	try {
 				Lecturer lecturer = lecturerRepository.getByUsername(username);
-				return UserPrincipal.create(lecturer);
+				return UserPrincipal.createLecturer(lecturer);
 			} catch (Exception e) {
 				System.out.println("user not found");
 			}
@@ -40,7 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
      
 
-        return UserPrincipal.create(user);
+        return UserPrincipal.createStudent(user);
     }
     
     
@@ -52,10 +52,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     	
     		try {
     			Student user = studentRepository.getOne(id);
-    			return UserPrincipal.create(user);
+    			return UserPrincipal.createStudent(user);
 			} catch (Exception e) {
 				Lecturer lecturer = lecturerRepository.getOne(id);
-				return UserPrincipal.create(lecturer);
+				return UserPrincipal.createLecturer(lecturer);
 				
 				// TODO: handle exception
 			}

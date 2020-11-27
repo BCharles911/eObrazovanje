@@ -124,7 +124,7 @@ public class AdminController {
 				throw new UsernameExistsException();
 			}
 			
-	
+			Role r = roleRepository.findByName("STUDENT");
 			Course course = courseRepository.getByCourseName(courseName);
 			System.out.println(person.getPassword());
 			Student student = new Student();
@@ -148,6 +148,7 @@ public class AdminController {
 			student.setCitizenship(person.getCitizenship());
 			student.setStudentStatus(STUDENT_STATUS.REGULAR);
 			student.setCourse(course);
+			student.getRoles().add(r);
 			student.setHighSchool("Srednja skola");
 			//student.getRoles().add(studentRole);
 			student.setUsername(person.getUsername());		
