@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eobrazovanje.ssluzba.dto.FinancialCardDTO;
@@ -21,7 +22,7 @@ import com.eobrazovanje.ssluzba.repository.FinancialCardRepository;
 import com.eobrazovanje.ssluzba.services.FinancialCardService;
 
 @RestController
-@RequestMapping("api/financialCard")
+@RequestMapping("api/financial-card")
 public class FinancialCardController {
 
 	@Autowired
@@ -43,6 +44,13 @@ public class FinancialCardController {
 	public ResponseEntity<List<FinancialCardDTO>> getAllFinancialCard(){
 		return new ResponseEntity<>(financialCardToDTO.convert(financialCardRepository.findAll()), HttpStatus.OK);
 	}
+	
+/*	GetMapping("/get-fcard-for-student")
+	public ResponseEntity<List<FinancialCardDTO>> getFinancialCardForStudent(@RequestParam("studentId") Long id) {
+		FinancialCard financialCard = financialCardRepository.findFinancialCardByStudentId(id);
+		
+		return new ResponseEntity<>(financialCardToDTO)
+	}*/
 	
 	@PostMapping(value= "/create", consumes= "application/json")
 	public ResponseEntity<?> createFinancialCard(@RequestBody FinancialCardDTO financialCardDTO, Errors errors){

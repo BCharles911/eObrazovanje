@@ -43,6 +43,7 @@ public class FinancialCardToDTO implements Converter<FinancialCard, FinancialCar
 			financialCardDTO.setTransactionDTO(transactionToDTO.convert(transactionToDTO.convertSetToList(source.getTransaction())));
 		}
 		
+		
 		//financialCardDTO.setStudentDTO(studentToDTO.convert(source.getStudent()));
 		
 		

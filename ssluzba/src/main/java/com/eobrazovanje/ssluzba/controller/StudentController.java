@@ -87,7 +87,7 @@ public class StudentController {
 	
 	
 	@GetMapping(value="/get-financial-card")
-		public ResponseEntity<FinancialCardDTO> getFinancialCard(@RequestParam("studentId") long id){
+		public ResponseEntity<FinancialCardDTO> getFinancialCard(@RequestParam("studentId") Long id){
 			
 			FinancialCard financialCard = financialRepository.findFinancialCardByStudentId(id);
 		
