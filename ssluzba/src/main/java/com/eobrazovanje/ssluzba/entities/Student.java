@@ -1,5 +1,6 @@
 package com.eobrazovanje.ssluzba.entities;
 
+import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,6 +10,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -98,6 +101,17 @@ public class Student extends Person {
 	@OneToMany(mappedBy="student")
 	private Set<Document> documents;
 
+	@ManyToMany
+	@JoinTable(
+			name = "student_roles",
+			joinColumns = @JoinColumn(
+					name = "id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(
+					name = "role_id", referencedColumnName = "id"
+					
+					)
+			)
+	private Collection<Role> roles;
 	
 	@OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,

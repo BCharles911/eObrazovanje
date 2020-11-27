@@ -141,17 +141,7 @@ public class Person {
 	@Setter
 	private boolean isDeleted;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "users_roles",
-			joinColumns = @JoinColumn(
-					name = "id", referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(
-					name = "role_id", referencedColumnName = "id"
-					
-					)
-			)
-	private Collection<Role> roles;
+
 	
 	
 	
