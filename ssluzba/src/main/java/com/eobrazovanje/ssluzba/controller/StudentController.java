@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eobrazovanje.ssluzba.dto.FinancialCardDTO;
 import com.eobrazovanje.ssluzba.dto.StudentDTO;
+import com.eobrazovanje.ssluzba.dto.StudentHasSubjectDTO;
 import com.eobrazovanje.ssluzba.dto.SubjectDTO;
 import com.eobrazovanje.ssluzba.dto.converter.FinancialCardToDTO;
+import com.eobrazovanje.ssluzba.dto.converter.StudentHasSubjectToDTO;
 import com.eobrazovanje.ssluzba.dto.converter.StudentToDTO;
 import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToStudent;
 import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToSubject;
@@ -57,6 +59,9 @@ public class StudentController {
 	
 	@Autowired
 	DTOToStudent toStudent;
+	
+	@Autowired
+	StudentHasSubjectToDTO sthsToDTO;
 	
 	@Autowired
 	FinancialCardToDTO financialToDTO;
@@ -108,6 +113,13 @@ public class StudentController {
 	
 	
 
+	}
+	
+	@GetMapping(value="get-all-for-subject")
+	public ResponseEntity<List<StudentHasSubjectDTO>> getAllForSubject(@RequestParam("subjectId") Long id){
+		List<StudentHasSubject> students = studentHasSubjectRepository.findAllBySubjectId(id);
+		
+		return new ResponseEntity<List<StudentHasSubjectDTO>>(sthsToDTO.convert(students), HttpStatus.OK);
 	}
 	
 	@GetMapping(value ="/get-logged-student")
