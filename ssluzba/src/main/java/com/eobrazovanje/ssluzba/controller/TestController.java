@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eobrazovanje.ssluzba.dto.ExamRecordDTO;
@@ -79,18 +80,18 @@ public class TestController {
 		return courseRepository.findAll();
 	}
 	
-	@GetMapping("/getLecturers")
-	public ResponseEntity<List<LecturerDTO>> getUsers() {
-		
-		
-		List<Lecturer> allUsers = lecturerRepository.findAll();
-		if(allUsers == null) {
-			return new ResponseEntity<List<LecturerDTO>>(HttpStatus.NOT_FOUND);
-
-		}
-		
-		return new ResponseEntity<List<LecturerDTO>>(lecturerToDTO.convert(allUsers), HttpStatus.OK);
-	}
+//	@GetMapping("/getLecturers")
+//	public ResponseEntity<List<LecturerDTO>> getUsers(@RequestParam("id") Long id) {
+//		
+//		
+//		List<Lecturer> allUsers = lecturerRepository.findById(id);
+//		if(allUsers == null) {
+//			return new ResponseEntity<List<LecturerDTO>>(HttpStatus.NOT_FOUND);
+//
+//		}
+//		
+//		return new ResponseEntity<List<LecturerDTO>>(lecturerToDTO.convert(allUsers), HttpStatus.OK);
+//	}
 	
 	
 	@GetMapping("/getStudentSubjects")
