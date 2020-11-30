@@ -47,7 +47,7 @@ public class ExamRecord {
 */	
 	
 	@ManyToOne
-	@MapsId("student_id")
+	//@MapsId("student_id")
 	@JoinColumn(name = "student_id")
 	@Getter
 	@Setter
@@ -55,7 +55,7 @@ public class ExamRecord {
 	private Student student;
 	
 	@ManyToOne
-	@MapsId("subject_id")
+	//@MapsId("subject_id")
 	@JoinColumn(name = "subject_id")
 	@Getter
 	@Setter
@@ -63,7 +63,7 @@ public class ExamRecord {
 	
 	
 	@ManyToOne
-	@MapsId("lecturer_id")
+	//@MapsId("lecturer_id")
 	@JoinColumn(name = "lecturer_id")
 	@Getter
 	@Setter

@@ -34,6 +34,8 @@ import com.eobrazovanje.ssluzba.repository.FinancialCardRepository;
 import com.eobrazovanje.ssluzba.repository.StudentHasSubjectRepository;
 import com.eobrazovanje.ssluzba.repository.StudentRepository;
 import com.eobrazovanje.ssluzba.services.StudentService;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @RestController
 @RequestMapping("api/student")
@@ -176,7 +178,10 @@ public class StudentController {
 	
 	
 	@PostMapping(value= "/exam-check", consumes="application/json", produces="application/json")	
-	public ResponseEntity<?> prijaviIspit(@RequestBody List<SubjectDTO> checkedSubjects, @RequestParam("totalPrice") Double totalPrice) {
+	public ResponseEntity<?> prijaviIspit(@RequestBody 
+			
+			List<SubjectDTO> checkedSubjects, 
+			@RequestParam("totalPrice") Double totalPrice) {
 		//List<Subject> convertedSubjects = dtoToSubject.convert(checkedSubjects);
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

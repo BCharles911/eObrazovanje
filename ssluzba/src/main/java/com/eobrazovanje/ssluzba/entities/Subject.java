@@ -1,6 +1,7 @@
 package com.eobrazovanje.ssluzba.entities;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -82,6 +83,12 @@ public class Subject {
 	@Getter
 	@Setter
 	private Set<Colloqium> colloqium;
+	
+	@OneToMany(mappedBy="subject")
+	@Getter
+	@Setter
+	private List<ExamRecord> examRecord;
+	
 	
 	@OneToMany(mappedBy = "subject")
 	private Set<StudentHasSubject> studentHasSubject;

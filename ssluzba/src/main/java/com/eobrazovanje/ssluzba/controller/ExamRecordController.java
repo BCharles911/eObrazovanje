@@ -20,14 +20,18 @@ import com.eobrazovanje.ssluzba.dto.converter.ExamRecordToDTO;
 import com.eobrazovanje.ssluzba.dto.converter.StudentHasSubjectToDTO;
 import com.eobrazovanje.ssluzba.dto.converter.SubjectToDTO;
 import com.eobrazovanje.ssluzba.entities.ExamRecord;
+import com.eobrazovanje.ssluzba.entities.Lecturer;
 import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
 import com.eobrazovanje.ssluzba.entities.Subject;
 import com.eobrazovanje.ssluzba.repository.ExamRecordRepository;
+import com.eobrazovanje.ssluzba.repository.LecturerRepository;
 import com.eobrazovanje.ssluzba.repository.StudentHasSubjectRepository;
 import com.eobrazovanje.ssluzba.repository.StudentRepository;
 import com.eobrazovanje.ssluzba.repository.SubjectRepository;
 import com.eobrazovanje.ssluzba.services.ExamRecordService;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @RestController
 @RequestMapping("api/exam-record")
@@ -54,6 +58,9 @@ public class ExamRecordController {
 	@Autowired
 	private SubjectRepository subjectRepository;
 	
+	@Autowired
+	private LecturerRepository lecturerRepository;
+	
 	
 	@Autowired
 	private StudentRepository studentRepository;
@@ -79,17 +86,21 @@ public class ExamRecordController {
 		return new ResponseEntity<List<ExamRecordDTO>>(examRecordToDTO.convert(studentPassedSubjects), HttpStatus.OK);
 	}
 	
-	@PostMapping("/send-students")
-	public ResponseEntity<?> sendStudents(@RequestBody List<ExamObject> examObjectList, @RequestParam("subjectId") Long subjectId){
-		
+	@PostMapping(value="/send-students", consumes="application/json")
+	public ResponseEntity<?> sendStudents(@RequestBody 
+			List<ExamObject> examObjectList, @RequestParam("subjectId") Long subjectId){
+		Long idd = (long) 3;
 		Subject subject = subjectRepository.getOne(subjectId);
+		Lecturer lecturer = lecturerRepository.getOne(idd);
 		for(ExamObject examObject : examObjectList) {
-			Student student = studentRepository.getOne(examObject.getStudent().getId());
+			Student student = studentRepository.getOne(examObject.getStudentId());
 			ExamRecord examRecord = new ExamRecord();
 			examRecord.setStudent(student);
+			examRecord.setLecturer(lecturer);
 			examRecord.setOcena(examObject.getGrade());
 			examRecord.setSubject(subject);
-			StudentHasSubject sths = studentHasSubjectRepository.findStudentHasSubjectByStudentIdAndSubjectId(examObject.getStudent().getId(), subjectId);
+			
+			StudentHasSubject sths = studentHasSubjectRepository.findStudentHasSubjectByStudentIdAndSubjectId(examObject.getStudentId(), subjectId);
 			sths.setBrPokusaja(sths.getBrPokusaja() + 1);
 			sths.setOcena(examObject.getGrade());
 			sths.setPrijavio(false);

@@ -27,6 +27,8 @@ public class ExamRecordDTO implements Serializable{
 	private String id;
 	private String note;
 	//private StudentHasSubjectDTO studentHasSubject;
+	private Student student;
+	private Subject subject;
 	private Long studentId;
 	private Long subjectId;
 	private String subjectShortName;
@@ -64,6 +66,23 @@ public class ExamRecordDTO implements Serializable{
 		
 		//this.student = student;
 		//subject = subject;
+		this.examPeriod = examPeriod;
+		this.examDate = examDate;
+		this.ocena = ocena;
+	}
+
+
+	public ExamRecordDTO(String id, String note, Student student, Subject subject, String subjectShortName,
+			String subjectName, Long lecturerId, String lecturerName, ExamPeriod examPeriod, Date examDate, int ocena) {
+		super();
+		this.id = id;
+		this.note = note;
+		this.student = student;
+		this.subject = subject;
+		this.subjectShortName = subjectShortName;
+		this.subjectName = subjectName;
+		this.lecturerId = lecturerId;
+		this.lecturerName = lecturerName;
 		this.examPeriod = examPeriod;
 		this.examDate = examDate;
 		this.ocena = ocena;

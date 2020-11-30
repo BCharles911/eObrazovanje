@@ -1,5 +1,6 @@
 package com.eobrazovanje.ssluzba.dto;
 
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,15 +10,18 @@ import lombok.ToString;
 @ToString
 public class ExamObject {
 	
-	private StudentDTO student;
+
+	private Long studentId;
 	private int grade;
+	private int pointNumber;
 	private boolean passed;
 	
 	
-	public ExamObject(StudentDTO student, int grade, boolean passed) {
+	public ExamObject(Long studentId, int grade, boolean passed, int pointNumber) {
 		super();
-		this.student = student;
+		this.studentId = studentId;
 		this.grade = grade;
+		this.pointNumber = pointNumber;
 		this.passed = passed;
 	}
 	
