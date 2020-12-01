@@ -1,5 +1,6 @@
 package com.eobrazovanje.ssluzba.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,13 @@ import com.eobrazovanje.ssluzba.entities.FinancialCard;
 import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
 import com.eobrazovanje.ssluzba.entities.Subject;
+import com.eobrazovanje.ssluzba.entities.Transaction;
 import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
 import com.eobrazovanje.ssluzba.interfaces.CustomMapper;
 import com.eobrazovanje.ssluzba.repository.FinancialCardRepository;
 import com.eobrazovanje.ssluzba.repository.StudentHasSubjectRepository;
 import com.eobrazovanje.ssluzba.repository.StudentRepository;
+import com.eobrazovanje.ssluzba.repository.TransactionRepository;
 import com.eobrazovanje.ssluzba.services.StudentService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -71,6 +74,9 @@ public class StudentController {
 	
 	@Autowired
 	FinancialCardRepository financialRepository;
+	
+	@Autowired
+	TransactionRepository transactionRepository;
 
 	
 	//brat moooj
@@ -210,6 +216,19 @@ public class StudentController {
 		FinancialCard financialCard = financialRepository.findFinancialCardByStudentId(loggedStudent.getId());
 		financialCard.setBalance(financialCard.getBalance() - totalPrice);
 		financialRepository.save(financialCard);
+		
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		Transaction transaction = new Transaction();
+		transaction.setAmount(0 - totalPrice);
+		transaction.setFinancialCard(financialCard);
+		String subjects = " ";
+		for(SubjectDTO subject : checkedSubjects) {
+			subjects  = subjects + "/ " + subject.getSubjectName();
+		}
+		transaction.setPaymentPurpose("Student prijavio ispit: " + subjects );
+
+		transaction.setTransactionDate(date);
+		transactionRepository.save(transaction);
 	
 		return new ResponseEntity<String>("ispiti prijavljeni", HttpStatus.OK);
 		
@@ -233,8 +252,22 @@ public class StudentController {
 		FinancialCard financialCard = financialRepository.findFinancialCardByStudentId(loggedStudent.getId());
 		financialCard.setBalance(financialCard.getBalance() + returnAmount);
 		financialRepository.save(financialCard);
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		Transaction transaction = new Transaction();
+		transaction.setAmount(returnAmount);
+		transaction.setFinancialCard(financialCard);
+		String subjects = " ";
+		for(SubjectDTO subject : checkedSubjects) {
+			subjects  = subjects + "/ " + subject.getSubjectName();
+		}
+		transaction.setPaymentPurpose("Student odjavio ispit-e: " + subjects );
+
+		transaction.setTransactionDate(date);
+		transactionRepository.save(transaction);
 	
-		return new ResponseEntity<String>("ispiti prijavljeni", HttpStatus.OK);
+
+		
+		return new ResponseEntity<String>("ispiti odjavljeni", HttpStatus.OK);
 	}
 	
 	
