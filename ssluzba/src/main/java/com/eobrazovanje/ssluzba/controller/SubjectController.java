@@ -1,5 +1,6 @@
 package com.eobrazovanje.ssluzba.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,6 +114,20 @@ public class SubjectController {
 		return new ResponseEntity<SubjectDTO>(subjectToDTO.convert(updatedSubject), HttpStatus.OK);
 	}
 	
+	@PutMapping(value="/update-place-date")
+	public ResponseEntity<?> updatePlaceDate(
+			@RequestParam("subjectId") Long id,
+			@RequestParam("examPlace") String place){
+		
+		Subject subject = subjectRepository.getOne(id);
+		subject.setPlaceOfExam(place);
+		subjectRepository.save(subject);
+		
+		
+		return new ResponseEntity<>("all good!", HttpStatus.OK);
+	}
+	
+	
 	
 	@PostMapping(value="/admin/add-lecturer")
 	public ResponseEntity<?> addLecturerToSubject(@RequestParam Long subjectId, @RequestParam Long id){
@@ -122,6 +137,8 @@ public class SubjectController {
 		subjectService.save(subject);
 		return new ResponseEntity<>("all good!", HttpStatus.OK);
 	}
+	
+	
 	
 	
 
