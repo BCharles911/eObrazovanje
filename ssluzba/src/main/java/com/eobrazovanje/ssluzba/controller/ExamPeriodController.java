@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -94,6 +95,24 @@ public class ExamPeriodController {
 		return new ResponseEntity<Optional<List<ExamPeriod>>>(examPeriod, HttpStatus.OK);
 
 			
+		
+	}
+	
+	@PostMapping(value="/deactivate")
+	public ResponseEntity<?> deactivateExamPeriod(@RequestParam("examPeriodId") Long examPeriodId){
+		
+		ExamPeriod examPeriod = examPeriodRepository.getOne(examPeriodId);
+		examPeriod.setActive(false);
+		List<StudentHasSubject> sths = studentHasSubjectRepository.findAll();
+		for(StudentHasSubject s : sths) {
+			s.setPrijavio(false);
+			studentHasSubjectRepository.save(s);
+		}
+		examPeriodRepository.save(examPeriod);
+		
+		return new ResponseEntity<ExamPeriod>(examPeriod, HttpStatus.OK);
+		
+		
 		
 	}
 	
