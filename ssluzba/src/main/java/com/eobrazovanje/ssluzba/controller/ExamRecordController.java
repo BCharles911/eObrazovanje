@@ -94,10 +94,11 @@ public class ExamRecordController {
 		return new ResponseEntity<List<ExamRecordDTO>>(examRecordToDTO.convert(studentPassedSubjects), HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/send-students", consumes="application/json")
+	@PostMapping(value="/send-students", consumes="application/json", produces="application/json")
 	public ResponseEntity<?> sendStudents(
 			@RequestBody 
-			List<ExamObject> examObjectList, @RequestParam("subjectId") Long subjectId){
+			List<ExamObject> examObjectList, 
+			@RequestParam("subjectId") Long subjectId){
 		Long idd = (long) 3;
 		Subject subject = subjectRepository.getOne(subjectId);
 		Lecturer lecturer = lecturerRepository.getOne(idd);

@@ -41,7 +41,7 @@ public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSub
 	List<Subject> findSubjectsPrijavioTrue(Long id);
 	
 	
-	@Query("SELECT s FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 1 and s.prijavio = 1")
+	@Query("SELECT s FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 1 and s.prijavio = 0")
 	List<StudentHasSubject> findPassedSubject(Long id);
 	
 	@Query("SELECT s FROM exam_record s WHERE s.student.id = ?1")
