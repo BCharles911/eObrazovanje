@@ -27,6 +27,7 @@ import com.eobrazovanje.ssluzba.dto.converter.StudentHasSubjectToDTO;
 import com.eobrazovanje.ssluzba.dto.converter.StudentToDTO;
 import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToStudent;
 import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToSubject;
+import com.eobrazovanje.ssluzba.entities.ExamPeriod;
 import com.eobrazovanje.ssluzba.entities.FinancialCard;
 import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
@@ -34,6 +35,7 @@ import com.eobrazovanje.ssluzba.entities.Subject;
 import com.eobrazovanje.ssluzba.entities.Transaction;
 import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
 import com.eobrazovanje.ssluzba.interfaces.CustomMapper;
+import com.eobrazovanje.ssluzba.repository.ExamPeriodRepository;
 import com.eobrazovanje.ssluzba.repository.FinancialCardRepository;
 import com.eobrazovanje.ssluzba.repository.StudentHasSubjectRepository;
 import com.eobrazovanje.ssluzba.repository.StudentRepository;
@@ -77,6 +79,9 @@ public class StudentController {
 	
 	@Autowired
 	TransactionRepository transactionRepository;
+	
+	@Autowired
+	ExamPeriodRepository examPeriodRepository;
 
 	
 	//brat moooj
@@ -196,20 +201,27 @@ public class StudentController {
 	
 	
 	@PostMapping(value= "/exam-check", consumes="application/json", produces="application/json")	
-	public ResponseEntity<?> prijaviIspit(@RequestBody 
-			
+	public ResponseEntity<?> prijaviIspit(
+			@RequestBody 	
 			List<SubjectDTO> checkedSubjects, 
-			@RequestParam("totalPrice") Double totalPrice) {
+			@RequestParam("totalPrice") 
+			Double totalPrice,
+			@RequestParam("examPeriodName")
+			String examPeriodName
+			) {
 		//List<Subject> convertedSubjects = dtoToSubject.convert(checkedSubjects);
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String loggedStudentUsername = authentication.getName();
 		Student loggedStudent = studentRepository.getByUsername(loggedStudentUsername);
 		
+		ExamPeriod examPeriod = examPeriodRepository.findByExamPeriodName(examPeriodName);
+		
 		for(SubjectDTO subject : checkedSubjects) {
 			
 			StudentHasSubject shs = studentHasSubjectRepository.findStudentHasSubjectByStudentIdAndSubjectId(loggedStudent.getId(), subject.getId());
 			shs.setPrijavio(true);
+			shs.setExamPeriodName(examPeriod.getExamPeriodName());
 			studentHasSubjectRepository.save(shs);
 			
 		}

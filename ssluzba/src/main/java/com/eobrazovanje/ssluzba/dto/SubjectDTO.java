@@ -28,8 +28,7 @@ public class SubjectDTO implements Serializable {
 	private List<ColloqiumDTO> colloqiumsDTO;
 	private List<StudentHasSubjectDTO> studentHasSubDTO;
 	private Date examDate;
-	private String placeOfExam;
-	
+	private String placeOfExam;	
 	
 	
 	public SubjectDTO() {

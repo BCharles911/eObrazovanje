@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.eobrazovanje.ssluzba.dto.ExamRecordDTO;
 import com.eobrazovanje.ssluzba.entities.ExamRecord;
+import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
+import com.eobrazovanje.ssluzba.repository.StudentHasSubjectRepository;
 
 
 
@@ -21,6 +23,9 @@ public class ExamRecordToDTO  implements Converter<ExamRecord, ExamRecordDTO>  {
 	
 	@Autowired
 	LecturerToDTO lecturerToDTO;
+	
+	@Autowired
+	StudentHasSubjectRepository sthsRepository;
 	
 	
 
@@ -40,7 +45,7 @@ public class ExamRecordToDTO  implements Converter<ExamRecord, ExamRecordDTO>  {
 		exRecordDTO.setSubjectId(source.getSubject().getId());
 		exRecordDTO.setSubjectShortName(source.getSubject().getShortName());
 		exRecordDTO.setSubjectName(source.getSubject().getSubjectName());
-		
+		exRecordDTO.setPassed(source.isPassed());
 		
 		exRecordDTO.setLecturerName(source.getLecturer().getFirstName() + " " + source.getLecturer().getLastName());
 		//exRecordDTO.setLecturers(lecturerToDTO.convert(lecturerToDTO.convertSetToList(source.getSubject().getLecturer())));

@@ -33,7 +33,7 @@ public class ExamRecordDTO implements Serializable{
 	private Long subjectId;
 	private String subjectShortName;
 	private String subjectName;
-	
+	private boolean passed;
 	private Long lecturerId;	
 	private String lecturerName;
 	
@@ -50,7 +50,7 @@ public class ExamRecordDTO implements Serializable{
 	}
 
 
-	public ExamRecordDTO(String id, String note, /*StudentHasSubjectDTO studentHasSubject */ Long studentId, Long subjectId, String subjectShortName, String subjectName, Long lecturerId, String lecturerName, ExamPeriod examPeriod, Date examDate, Integer ocena) {
+	public ExamRecordDTO(String id, String note, /*StudentHasSubjectDTO studentHasSubject */ boolean passed, Long studentId, Long subjectId, String subjectShortName, String subjectName, Long lecturerId, String lecturerName, ExamPeriod examPeriod, Date examDate, Integer ocena) {
 		super();
 		this.id = id;
 		this.note = note;
@@ -62,6 +62,7 @@ public class ExamRecordDTO implements Serializable{
 		
 		this.lecturerId = lecturerId;
 		this.lecturerName = lecturerName;
+		this.passed = passed;
 		
 		
 		//this.student = student;
@@ -73,7 +74,7 @@ public class ExamRecordDTO implements Serializable{
 
 
 	public ExamRecordDTO(String id, String note, Student student, Subject subject, String subjectShortName,
-			String subjectName, Long lecturerId, String lecturerName, ExamPeriod examPeriod, Date examDate, int ocena) {
+			String subjectName, Long lecturerId, String lecturerName, ExamPeriod examPeriod, Date examDate, int ocena, boolean passed) {
 		super();
 		this.id = id;
 		this.note = note;
@@ -86,6 +87,7 @@ public class ExamRecordDTO implements Serializable{
 		this.examPeriod = examPeriod;
 		this.examDate = examDate;
 		this.ocena = ocena;
+		this.passed = passed;
 	}
 	
 	

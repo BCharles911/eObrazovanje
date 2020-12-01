@@ -83,6 +83,9 @@ public class ExamRecord {
 	@Column(name= "ocena")
 	private int ocena;
 	
+	@Column(name =  "passed", nullable = false, columnDefinition = "TINYINT(1)")
+	private boolean passed;
+	
 	public ExamRecord() {
 		super();
 	}

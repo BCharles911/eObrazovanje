@@ -55,6 +55,9 @@ public class StudentHasSubject {
 	private int brPokusaja;
 	
 	
+	@Column(name = "ime_ispitnog_roka")
+	private String examPeriodName;
+	
 	@Column(name = "lecturer_name")
 	private String lecturerName;
 	
@@ -86,13 +89,14 @@ public class StudentHasSubject {
 		
 	}
 	
-	public StudentHasSubject(StudentSubjectKey id, Student student, Subject subject, int ocena, int brPokusaja) {
+	public StudentHasSubject(StudentSubjectKey id, Student student, Subject subject, int ocena, int brPokusaja, String examPeriodName) {
 		super();
 		this.id = id;
 		this.student = student;
 		this.subject = subject;
 		this.ocena = ocena;
 		this.brPokusaja = brPokusaja;
+		this.examPeriodName = examPeriodName;
 	}
 
 
@@ -103,7 +107,7 @@ public class StudentHasSubject {
 	}
 
 	public StudentHasSubject(StudentSubjectKey id, Student student, Subject subject, int ocena, int brPokusaja,
-			String lecturerName, boolean prijavio, boolean passed, Set<Exam> exam, Date examDate) {
+			String lecturerName, boolean prijavio, boolean passed, Set<Exam> exam, Date examDate, String examPeriodName) {
 		super();
 		this.id = id;
 		this.student = student;
@@ -115,6 +119,7 @@ public class StudentHasSubject {
 		this.passed = passed;
 		this.exam = exam;
 		this.examDate = examDate;
+		this.examPeriodName = examPeriodName;
 	}
 
 	

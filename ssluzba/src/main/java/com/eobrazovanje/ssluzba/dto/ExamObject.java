@@ -15,14 +15,16 @@ public class ExamObject {
 	private int grade;
 	private int pointNumber;
 	private boolean passed;
+	private String note;
 	
 	
-	public ExamObject(Long studentId, int grade, boolean passed, int pointNumber) {
+	public ExamObject(Long studentId, int grade, boolean passed, int pointNumber, String note) {
 		super();
 		this.studentId = studentId;
 		this.grade = grade;
 		this.pointNumber = pointNumber;
 		this.passed = passed;
+		this.note = note;
 	}
 	
 	

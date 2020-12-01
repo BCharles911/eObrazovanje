@@ -19,11 +19,13 @@ import com.eobrazovanje.ssluzba.dto.SubjectDTO;
 import com.eobrazovanje.ssluzba.dto.converter.ExamRecordToDTO;
 import com.eobrazovanje.ssluzba.dto.converter.StudentHasSubjectToDTO;
 import com.eobrazovanje.ssluzba.dto.converter.SubjectToDTO;
+import com.eobrazovanje.ssluzba.entities.ExamPeriod;
 import com.eobrazovanje.ssluzba.entities.ExamRecord;
 import com.eobrazovanje.ssluzba.entities.Lecturer;
 import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
 import com.eobrazovanje.ssluzba.entities.Subject;
+import com.eobrazovanje.ssluzba.repository.ExamPeriodRepository;
 import com.eobrazovanje.ssluzba.repository.ExamRecordRepository;
 import com.eobrazovanje.ssluzba.repository.LecturerRepository;
 import com.eobrazovanje.ssluzba.repository.StudentHasSubjectRepository;
@@ -61,9 +63,15 @@ public class ExamRecordController {
 	@Autowired
 	private LecturerRepository lecturerRepository;
 	
+	@Autowired
+	private ExamPeriodRepository examPeriodRepository;
+	
 	
 	@Autowired
 	private StudentRepository studentRepository;
+	
+	@Autowired
+	private StudentHasSubjectToDTO sthsToDTO;
 	
 	@GetMapping("/get-all")
 	public ResponseEntity<List<ExamRecordDTO>> getAllExamRecord(){
@@ -87,7 +95,8 @@ public class ExamRecordController {
 	}
 	
 	@PostMapping(value="/send-students", consumes="application/json")
-	public ResponseEntity<?> sendStudents(@RequestBody 
+	public ResponseEntity<?> sendStudents(
+			@RequestBody 
 			List<ExamObject> examObjectList, @RequestParam("subjectId") Long subjectId){
 		Long idd = (long) 3;
 		Subject subject = subjectRepository.getOne(subjectId);
@@ -99,17 +108,24 @@ public class ExamRecordController {
 			examRecord.setLecturer(lecturer);
 			examRecord.setOcena(examObject.getGrade());
 			examRecord.setSubject(subject);
+			examRecord.setNote(examObject.getNote());
+			examRecord.setPassed(examObject.isPassed());
 			
 			StudentHasSubject sths = studentHasSubjectRepository.findStudentHasSubjectByStudentIdAndSubjectId(examObject.getStudentId(), subjectId);
 			sths.setBrPokusaja(sths.getBrPokusaja() + 1);
 			sths.setOcena(examObject.getGrade());
 			sths.setPrijavio(false);
 			sths.setPassed(examObject.isPassed());
+			ExamPeriod examPeriod = examPeriodRepository.findByExamPeriodName(sths.getExamPeriodName());
+			examRecord.setExamPeriod(examPeriod);
 			studentHasSubjectRepository.save(sths);
 			examRecordRepository.save(examRecord);
 			
+			
+			
 		}
+		return new ResponseEntity<ExamObject>(examObjectList.get(0), HttpStatus.OK);
 		
-		return null;
+		
 	}
 }
