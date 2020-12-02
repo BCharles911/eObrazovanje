@@ -2,13 +2,12 @@ package com.eobrazovanje.ssluzba.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Time;
-import java.util.List;
+
 
 import com.eobrazovanje.ssluzba.entities.ExamPeriod;
 import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.entities.Subject;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import lombok.Getter;
 import lombok.Setter;
