@@ -118,7 +118,9 @@ public class AdminController {
 	public ResponseEntity<?> AddRole(){
 		Role r = roleRepository.findByName("STUDENT");
 		Student loggedStudent = studentRepository.getByUsername("milan");
-		loggedStudent.getRoles().add(r);
+		Collection<Role> list = new LinkedList<Role>(); 
+		list.add(r);
+		loggedStudent.setRoles(list);
 		studentRepository.save(loggedStudent);
 		
 		return new ResponseEntity<String>("alooo", HttpStatus.OK);

@@ -26,5 +26,8 @@ public interface LecturerRepository extends JpaRepository<Lecturer, Long> {
 			"from lecturer l\r\n" + 
 			"where l.id not in (SELECT a.lecturer_id from subject_lecturer a where a.subject_id = :id)")
 	public Optional<Lecturer> findById(@Param("id") Long id);
+	
+	
+
 
 }
