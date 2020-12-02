@@ -2,6 +2,7 @@ package com.eobrazovanje.ssluzba.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import com.eobrazovanje.ssluzba.entities.ExamPeriod;
@@ -36,10 +37,6 @@ public class ExamRecordDTO implements Serializable{
 	private boolean passed;
 	private Long lecturerId;	
 	private String lecturerName;
-	
-	
-	//private Student student;
-	//private Subject subject;
 	private ExamPeriod examPeriod;
 	private Date examDate;
 	private int ocena;
@@ -54,19 +51,13 @@ public class ExamRecordDTO implements Serializable{
 		super();
 		this.id = id;
 		this.note = note;
-		//this.studentHasSubject = studentHasSubject;
 		this.studentId = studentId;
 		this.subjectId = subjectId;
 		this.subjectShortName = subjectShortName;
 		this.subjectName = subjectName;
-		
 		this.lecturerId = lecturerId;
 		this.lecturerName = lecturerName;
 		this.passed = passed;
-		
-		
-		//this.student = student;
-		//subject = subject;
 		this.examPeriod = examPeriod;
 		this.examDate = examDate;
 		this.ocena = ocena;
@@ -88,6 +79,7 @@ public class ExamRecordDTO implements Serializable{
 		this.examDate = examDate;
 		this.ocena = ocena;
 		this.passed = passed;
+
 	}
 	
 	

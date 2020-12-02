@@ -2,6 +2,7 @@ package com.eobrazovanje.ssluzba.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class SubjectDTO implements Serializable {
 	private List<StudentHasSubjectDTO> studentHasSubDTO;
 	private Date examDate;
 	private String placeOfExam;	
+	private Time examTime;
 	
 	
 	public SubjectDTO() {
@@ -39,7 +41,7 @@ public class SubjectDTO implements Serializable {
 
 	public SubjectDTO(Long id, String subjectName, String shortName, int ectsPoints, List<LecturerDTO> lecturerDTO,
 			List<CourseDTO> coursesDTO, List<ColloqiumDTO> colloqiumsDTO, List<StudentHasSubjectDTO> studentHasSubDTO,
-			Date examDate, String placeOfExam) {
+			Date examDate, String placeOfExam, Time examTime) {
 		super();
 		this.id = id;
 		this.subjectName = subjectName;
@@ -51,6 +53,7 @@ public class SubjectDTO implements Serializable {
 		this.studentHasSubDTO = studentHasSubDTO;
 		this.examDate = examDate;
 		this.placeOfExam = placeOfExam;
+		this.examTime = examTime;
 	}
 
 

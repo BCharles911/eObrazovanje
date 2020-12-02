@@ -1,6 +1,7 @@
 package com.eobrazovanje.ssluzba.entities;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 import java.util.Set;
 
@@ -53,6 +54,9 @@ public class Subject {
 	
 	@Column(name = "exam_date")
 	private Date examDate;
+	
+	@Column(name= "exam_time")
+	private Time examTime;
 
 	@ManyToMany
 	@JoinTable(
@@ -107,7 +111,7 @@ public class Subject {
 
 	public Subject(Long id, String subjectName, String shortName, int ectsPoints, String description,
 			String placeOfExam, Date examDate, Set<Lecturer> lecturer, Set<Course> course, Set<Colloqium> colloqium,
-			Set<StudentHasSubject> studentHasSubject) {
+			Set<StudentHasSubject> studentHasSubject, Time examTime ) {
 		super();
 		this.id = id;
 		this.subjectName = subjectName;
@@ -120,6 +124,7 @@ public class Subject {
 		this.course = course;
 		this.colloqium = colloqium;
 		this.studentHasSubject = studentHasSubject;
+		this.examTime = examTime;
 	}
 
 }

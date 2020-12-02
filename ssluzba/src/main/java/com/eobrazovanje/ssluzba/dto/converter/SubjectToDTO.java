@@ -41,6 +41,7 @@ public class SubjectToDTO implements Converter<Subject, SubjectDTO> {
 		subjectDTO.setEctsPoints(source.getEctsPoints());
 		subjectDTO.setExamDate(source.getExamDate());
 		subjectDTO.setPlaceOfExam(source.getPlaceOfExam());
+		subjectDTO.setExamTime(source.getExamTime());
 		
 		if(source.getLecturer() != null) {
 			subjectDTO.setLecturerDTO(lecturerToDTO.convert(lecturerToDTO.convertSetToList(source.getLecturer())));

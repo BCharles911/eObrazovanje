@@ -1,6 +1,7 @@
 package com.eobrazovanje.ssluzba.controller;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,12 +116,13 @@ public class SubjectController {
 	}
 	
 	@PutMapping(value="/update-place-date")
-	public ResponseEntity<?> updatePlaceDate(
-			@RequestParam("subjectId") Long id,
-			@RequestParam("examPlace") String place){
-		
-		Subject subject = subjectRepository.getOne(id);
-		subject.setPlaceOfExam(place);
+	public ResponseEntity<?> updatePlaceDate(@RequestBody SubjectDTO subjectDTO, @RequestParam("hour") String hour, @RequestParam("minute") String minute){
+		String t = hour + ":" + minute + ":00";
+		Time sqlTime = Time.valueOf(t);
+		Subject subject = subjectRepository.getOne(subjectDTO.getId());
+		subject.setPlaceOfExam(subjectDTO.getPlaceOfExam());
+		subject.setExamDate(subjectDTO.getExamDate());
+		subject.setExamTime(sqlTime);
 		subjectRepository.save(subject);
 		
 		
