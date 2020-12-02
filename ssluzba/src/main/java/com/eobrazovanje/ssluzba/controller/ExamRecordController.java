@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -99,9 +101,11 @@ public class ExamRecordController {
 			@RequestBody 
 			List<ExamObject> examObjectList, 
 			@RequestParam("subjectId") Long subjectId){
-		Long idd = (long) 3;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String loggedLecturer = authentication.getName();
+		Lecturer lecturer = lecturerRepository.getByUsername(loggedLecturer);
 		Subject subject = subjectRepository.getOne(subjectId);
-		Lecturer lecturer = lecturerRepository.getOne(idd);
+		//Lecturer lecturer = lecturerRepository.getOne(idd);
 		for(ExamObject examObject : examObjectList) {
 			Student student = studentRepository.getOne(examObject.getStudentId());
 			ExamRecord examRecord = new ExamRecord();

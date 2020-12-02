@@ -116,8 +116,8 @@ public class AdminController {
 	
 	@PostMapping(value="/add-role")
 	public ResponseEntity<?> AddRole(){
-		Role r = roleRepository.findByName("ROLE_ADMIN");
-		Student loggedStudent = studentRepository.getByUsername("adapic");
+		Role r = roleRepository.findByName("STUDENT");
+		Student loggedStudent = studentRepository.getByUsername("milan");
 		loggedStudent.getRoles().add(r);
 		studentRepository.save(loggedStudent);
 		
@@ -126,7 +126,7 @@ public class AdminController {
 	
 	
 	@PostMapping(value="/create-user", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> createNewUser(@RequestBody Person person,@RequestParam("indexNumber") String indexNumber, @RequestParam("courseName") String courseName,@RequestParam("role") String role, @RequestParam("cardType") String cardType){
+	public ResponseEntity<?> createNewUser(@RequestBody Student person, @RequestParam("indexNumber") String indexNumber, @RequestParam("courseName") String courseName,@RequestParam("role") String role, @RequestParam("cardType") String cardType){
 
 			System.out.println(person.getFirstName() + "HAHASHAHs");
 			System.out.println(person.getDateOfBirth().toString());
@@ -160,8 +160,11 @@ public class AdminController {
 			student.setCitizenship(person.getCitizenship());
 			student.setStudentStatus(STUDENT_STATUS.REGULAR);
 			student.setCourse(course);
-			student.getRoles().add(r);
+			//student.getRoles().add(r);
 			student.setHighSchool("Srednja skola");
+			Collection<Role> list = new LinkedList<Role>(); 
+			list.add(r);
+			student.setRoles(list);
 			//student.getRoles().add(studentRole);
 			student.setUsername(person.getUsername());		
 			studentRepository.save(student);			
