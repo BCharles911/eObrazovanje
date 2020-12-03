@@ -1,5 +1,6 @@
 package com.eobrazovanje.ssluzba.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,21 @@ public class LecturerController {
 		subject.getLecturer().remove(lecturer);
 		subjectRepository.save(subject);
 		
+	}
+	
+	//return all not in subject
+	@GetMapping(value="/get-not-in-subject")
+	public ResponseEntity<List<LecturerDTO>> returnAllNotInSubject(@RequestParam("subjectId")Long id){
+		List<Lecturer> lecturers = lecturerRepository.findAll();
+		Subject subject = subjectRepository.getOne(id);
+		List<Lecturer> toReturnLecturers = new ArrayList<Lecturer>();
+		for(Lecturer lecturer : lecturers) {
+			if(!lecturer.getSubjects().contains(subject)) {
+				toReturnLecturers.add(lecturer);
+			}
+		}
+		
+		return new ResponseEntity<List<LecturerDTO>>(lecturerToDTO.convert(toReturnLecturers), HttpStatus.OK);
 	}
 
 
