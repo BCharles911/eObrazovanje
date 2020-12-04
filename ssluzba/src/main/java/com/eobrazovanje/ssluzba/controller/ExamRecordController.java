@@ -3,6 +3,7 @@ package com.eobrazovanje.ssluzba.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.GenericApplicationContextExtensionsKt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -94,6 +95,14 @@ public class ExamRecordController {
 		List<ExamRecord> studentPassedSubjects = studentHasSubjectRepository.findPassedSubjectHistory(id);
 		
 		return new ResponseEntity<List<ExamRecordDTO>>(examRecordToDTO.convert(studentPassedSubjects), HttpStatus.OK);
+	}
+	
+	@GetMapping("/get-non-passed-subjects")
+	public ResponseEntity<List<StudentHasSubjectDTO>> getNonPassedSubject(@RequestParam("id") Long id) {
+		
+		List<StudentHasSubject> studentNonPassedSubject = studentHasSubjectRepository.findNonPassedSubjects(id);
+		
+		return new ResponseEntity<List<StudentHasSubjectDTO>>(subToDTO.convert(studentNonPassedSubject), HttpStatus.OK);
 	}
 	
 	@PostMapping(value="/send-students", consumes="application/json", produces="application/json")
