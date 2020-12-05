@@ -84,6 +84,7 @@ public class LecturerController {
 		return new ResponseEntity<List<LecturerDTO>>(lecturerToDTO.convert(toReturnLecturers), HttpStatus.OK);
 	}
 	
+	//ispraviti serijalizaciju, upise nastavnike na predmet ali negde udje u beskonacnu petlju i jackson se spetlja 
 	@PostMapping(value="add-to-subject", consumes="application/json")
 	public ResponseEntity<?> addToSubject(@RequestBody List<LecturerDTO> lecturersToAdd, @RequestParam("subjectId") Long id){
 		Subject subject = subjectRepository.getOne(id);
