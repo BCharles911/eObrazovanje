@@ -311,7 +311,7 @@ public class StudentController {
 		
 		for(Student s : students) {
 			for(StudentHasSubject st : sths) {
-				if(s.getId() != st.getStudent().getId()) {
+				if(!st.getStudent().equals(s)) {
 					studentsToReturn.add(s);
 				}
 			}

@@ -1,10 +1,14 @@
 package com.eobrazovanje.ssluzba.configurations;
 
+import java.util.Properties;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
+
 import org.springframework.http.HttpMethod;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -67,6 +71,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	return new CustomLogoutSuccessHandler();
     }
 
+    @Bean
+    public JavaMailSender getJavaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+        
+        mailSender.setUsername("ssluzbasf@gmail.com");
+        mailSender.setPassword("sluzba2016");
+        
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+        
+        return mailSender;
+    }
+    
+
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -97,7 +120,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                     .antMatchers("/api/auth/**")
                         .permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
-						.permitAll()
+						.permitAll().antMatchers("/api/reset/**").
+						permitAll()
 					.antMatchers("/swagger-ui/html",
 							"/swagger-resources/**",
 							"/v2/api-docs",

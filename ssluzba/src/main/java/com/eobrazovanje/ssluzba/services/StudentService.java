@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.eobrazovanje.ssluzba.dto.StudentDTO;
 import com.eobrazovanje.ssluzba.dto.toEntityConverters.DTOToStudent;
 import com.eobrazovanje.ssluzba.entities.Student;
+import com.eobrazovanje.ssluzba.entities.StudentPasswordResetToken;
 import com.eobrazovanje.ssluzba.interfaces.CustomMapper;
 import com.eobrazovanje.ssluzba.interfaces.StudentInterface;
+import com.eobrazovanje.ssluzba.repository.StudentPasswordResetRepository;
 import com.eobrazovanje.ssluzba.repository.StudentRepository;
 
 @Service
@@ -22,6 +24,9 @@ public class StudentService implements StudentInterface {
 	
 	@Autowired
 	DTOToStudent toStudent;
+	
+	@Autowired
+	StudentPasswordResetRepository studentPasswordResetRepository;
 	
 
 
@@ -66,6 +71,11 @@ public class StudentService implements StudentInterface {
 		studentEdit.setParentName(student.getParentName());
 		studentRepository.save(studentEdit);
 		return studentEdit;
+	}
+	
+	public void createPasswordResetTokenForStudent(Student student, String token) {
+		StudentPasswordResetToken myToken = new StudentPasswordResetToken(student,token);
+		studentPasswordResetRepository.save(myToken);
 	}
 	
 
