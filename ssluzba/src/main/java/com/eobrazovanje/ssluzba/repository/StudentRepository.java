@@ -1,5 +1,8 @@
+
 package com.eobrazovanje.ssluzba.repository;
 
+
+import java.util.List;
 
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,8 +21,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 	boolean existsByUsername(@Param("username") String username);
 	
 	
-	@Query("select s from student s where s.email_address = :email")
-	Student getByEmailAddress(@Param("email") String email);
-	
+	@Query("SELECT s FROM student s WHERE s.deleted = 0")
+	List<Student> findByDeletedFalse();
 
 }

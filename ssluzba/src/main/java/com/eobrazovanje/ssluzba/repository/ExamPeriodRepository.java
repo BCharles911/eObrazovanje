@@ -16,5 +16,6 @@ public interface ExamPeriodRepository extends JpaRepository<ExamPeriod, Long> {
 
 	
 	
+	
 	Optional<List<ExamPeriod>> findByIsActiveTrue();
 }

@@ -1,3 +1,4 @@
+
 package com.eobrazovanje.ssluzba.controller;
 
 import java.util.ArrayList;
@@ -320,6 +321,16 @@ public class StudentController {
 		
 		return new ResponseEntity<List<StudentDTO>>(studentToDTO.convert(studentsToReturn), HttpStatus.OK);
 		
+	}
+	
+	@DeleteMapping(value="/delete")
+	public void deleteStudent(@RequestParam("studentId") Long studentId) {
+		Student student = studentRepository.getOne(studentId);
+		/*if(student == null) {
+			return new ResponseEntity<StudentDTO>(HttpStatus.NOT_FOUND);
+		}*/
+		studentService.delete(studentId);
+		//return new ResponseEntity<String>("Student obrisan", HttpStatus.OK);
 	}
 	
 	
