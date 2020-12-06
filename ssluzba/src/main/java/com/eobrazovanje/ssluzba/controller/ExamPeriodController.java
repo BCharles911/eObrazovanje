@@ -84,6 +84,11 @@ public class ExamPeriodController {
 		
 	}
 	
+	@GetMapping("/get-all")
+	public ResponseEntity<List<ExamPeriod>> getAllExamPeriod() {
+		List<ExamPeriod> examPeriod = examPeriodRepository.findAll();
+		return new ResponseEntity<List<ExamPeriod>>(examPeriod, HttpStatus.OK);
+	}
 	
 	
 	@GetMapping("/get-active-exam-period")
@@ -98,6 +103,18 @@ public class ExamPeriodController {
 		
 	}
 	
+	@PostMapping(value="/activate")
+	public ResponseEntity<?> activateExamPeriod(@RequestParam("examPeriodId") Long examPeriodId){
+		
+		ExamPeriod examPeriod = examPeriodRepository.getOne(examPeriodId);
+		examPeriod.setActive(true);
+		
+		examPeriodRepository.save(examPeriod);
+		
+		return new ResponseEntity<ExamPeriod>(examPeriod, HttpStatus.OK);		
+	}
+	
+	
 	@PostMapping(value="/deactivate")
 	public ResponseEntity<?> deactivateExamPeriod(@RequestParam("examPeriodId") Long examPeriodId){
 		
@@ -110,10 +127,7 @@ public class ExamPeriodController {
 		}
 		examPeriodRepository.save(examPeriod);
 		
-		return new ResponseEntity<ExamPeriod>(examPeriod, HttpStatus.OK);
-		
-		
-		
+		return new ResponseEntity<ExamPeriod>(examPeriod, HttpStatus.OK);		
 	}
 	
 	

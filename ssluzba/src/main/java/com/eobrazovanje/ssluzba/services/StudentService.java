@@ -45,7 +45,9 @@ public class StudentService implements StudentInterface {
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
+		Student student = studentRepository.findStudentById(id);
+		student.setDeleted(true);
+		studentRepository.save(student);
 		
 	}
 	

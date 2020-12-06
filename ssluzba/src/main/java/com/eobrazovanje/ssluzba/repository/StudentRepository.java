@@ -1,6 +1,8 @@
 package com.eobrazovanje.ssluzba.repository;
 
 
+import java.util.List;
+
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +20,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 	boolean existsByUsername(@Param("username") String username);
 	
 	
-
-	
+	@Query("SELECT s FROM student s WHERE s.deleted = 0")
+	List<Student> findByDeletedFalse();
 
 }

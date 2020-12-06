@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,7 +89,7 @@ public class StudentController {
 	
 	@GetMapping("/get-all")
 	public ResponseEntity<List<StudentDTO>> getAllStudents(){
-		return new ResponseEntity<>(studentToDTO.convert(studentRepository.findAll()), HttpStatus.OK);
+		return new ResponseEntity<>(studentToDTO.convert(studentRepository.findByDeletedFalse()), HttpStatus.OK);
 	}
 	
 	
@@ -143,7 +144,15 @@ public class StudentController {
 		
 	}
 	
-	
+	@DeleteMapping(value="/delete")
+	public void deleteStudent(@RequestParam("studentId") Long studentId) {
+		Student student = studentRepository.getOne(studentId);
+		/*if(student == null) {
+			return new ResponseEntity<StudentDTO>(HttpStatus.NOT_FOUND);
+		}*/
+		studentService.delete(studentId);
+		//return new ResponseEntity<String>("Student obrisan", HttpStatus.OK);
+	}
 	
 	
 	@PutMapping(value="/update/{id}", consumes="application/json")
