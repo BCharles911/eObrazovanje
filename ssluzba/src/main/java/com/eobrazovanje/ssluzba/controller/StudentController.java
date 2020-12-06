@@ -1,5 +1,6 @@
 package com.eobrazovanje.ssluzba.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,12 +35,14 @@ import com.eobrazovanje.ssluzba.entities.Student;
 import com.eobrazovanje.ssluzba.entities.StudentHasSubject;
 import com.eobrazovanje.ssluzba.entities.Subject;
 import com.eobrazovanje.ssluzba.entities.Transaction;
+import com.eobrazovanje.ssluzba.entities.compositeKeys.StudentSubjectKey;
 import com.eobrazovanje.ssluzba.entities.enumerations.STUDENT_STATUS;
 import com.eobrazovanje.ssluzba.interfaces.CustomMapper;
 import com.eobrazovanje.ssluzba.repository.ExamPeriodRepository;
 import com.eobrazovanje.ssluzba.repository.FinancialCardRepository;
 import com.eobrazovanje.ssluzba.repository.StudentHasSubjectRepository;
 import com.eobrazovanje.ssluzba.repository.StudentRepository;
+import com.eobrazovanje.ssluzba.repository.SubjectRepository;
 import com.eobrazovanje.ssluzba.repository.TransactionRepository;
 import com.eobrazovanje.ssluzba.services.StudentService;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -81,7 +85,13 @@ public class StudentController {
 	TransactionRepository transactionRepository;
 	
 	@Autowired
+	SubjectRepository subjectRepository;
+	
+	@Autowired
 	ExamPeriodRepository examPeriodRepository;
+	
+	@Autowired
+	DTOToStudent dtoToStudent;
 
 	
 	//brat moooj
@@ -159,6 +169,13 @@ public class StudentController {
 
 	}
 	
+	
+	@DeleteMapping(value="delete-from-subject")
+	public void deleteFromSubject(@RequestParam("studentId") Long studentId, @RequestParam("subjectId") Long subjectId){
+		StudentHasSubject sths = studentHasSubjectRepository.findStudentHasSubjectByStudentIdAndSubjectId(studentId, subjectId);
+		studentHasSubjectRepository.delete(sths);
+	
+	}
 	
 	@PutMapping(value="/update-partial/{id}", consumes="application/json")
 	public ResponseEntity<StudentDTO> updatePartial(@RequestBody StudentDTO studentDTO, @PathVariable("id") Long id){
@@ -280,6 +297,47 @@ public class StudentController {
 
 		
 		return new ResponseEntity<String>("ispiti odjavljeni", HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/get-not-in-subject")
+	public ResponseEntity<List<StudentDTO>> returnAllNotInSubject(@RequestParam("subjectId") Long id){
+		List<Student> students = studentRepository.findAll();
+		List<StudentHasSubject> sths = studentHasSubjectRepository.findAllBySubjectId(id);
+		List<Student> studentsToReturn = new ArrayList<Student>();
+		if(sths == null || sths.isEmpty()) {
+			studentsToReturn = students;
+		}else {
+			
+		
+		for(Student s : students) {
+			for(StudentHasSubject st : sths) {
+				if(s.getId() != st.getStudent().getId()) {
+					studentsToReturn.add(s);
+				}
+			}
+		}
+		}
+		
+		return new ResponseEntity<List<StudentDTO>>(studentToDTO.convert(studentsToReturn), HttpStatus.OK);
+		
+	}
+	
+	
+	@PostMapping(value="/add-to-subject", consumes="application/json")
+	public ResponseEntity<?> addToSubject(@RequestBody List<StudentDTO> studentsToAdd, @RequestParam("subjectId") Long subjectId){
+		Subject subject = subjectRepository.getOne(subjectId);
+		for(StudentDTO s : studentsToAdd) {
+			StudentHasSubject sths = new StudentHasSubject();
+			sths.setStudent(dtoToStudent.convert(s));
+			sths.setSubject(subject);
+			StudentSubjectKey ssId = new StudentSubjectKey();
+			ssId.setStudentId(s.getId());
+			ssId.setSubjectId(subject.getId());
+			sths.setId(ssId);
+			studentHasSubjectRepository.save(sths);
+		}
+		
+		return new ResponseEntity<Subject>(subject,HttpStatus.OK);
 	}
 	
 	

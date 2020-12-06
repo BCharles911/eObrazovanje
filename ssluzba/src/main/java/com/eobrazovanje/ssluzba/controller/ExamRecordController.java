@@ -131,6 +131,7 @@ public class ExamRecordController {
 			sths.setPrijavio(false);
 			sths.setPassed(examObject.isPassed());
 			ExamPeriod examPeriod = examPeriodRepository.findByExamPeriodName(sths.getExamPeriodName());
+			sths.setExamDate(subject.getExamDate());
 			examRecord.setExamPeriod(examPeriod);
 			studentHasSubjectRepository.save(sths);
 			examRecordRepository.save(examRecord);
