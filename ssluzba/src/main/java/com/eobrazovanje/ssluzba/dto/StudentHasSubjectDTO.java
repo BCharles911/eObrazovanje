@@ -21,7 +21,7 @@ public class StudentHasSubjectDTO implements Serializable {
 	private static final long serialVersionUID = -3594709586318176040L;
 	
 	
-	private Long studentId;
+	private String studentId;
 	private Long subjectId;
 	private String studentName;
 	private int ocena;
@@ -45,7 +45,7 @@ public class StudentHasSubjectDTO implements Serializable {
 
 
 
-	public StudentHasSubjectDTO(Long studentId, Long subjectId, String studentName, int ocena, int brPokusaja,
+	public StudentHasSubjectDTO(String studentId, Long subjectId, String studentName, int ocena, int brPokusaja,
 			boolean passed, String indexNumber, String shortName, String subjectName, String lecturerName,
 			Date examDate, List<ExamDTO> exams, boolean prijavio, int ectsPoints) {
 		super();

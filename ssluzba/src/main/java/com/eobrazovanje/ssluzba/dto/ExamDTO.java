@@ -22,7 +22,7 @@ public class ExamDTO implements Serializable {
 	private Date examDate;
 	private String examPlace;
 	private String examName;
-	private Long studentId;
+	private String studentId;
 	private Long subjectId;
 	
 	//private StudentHasSubjectDTO studentHasSubject;

@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.eobrazovanje.ssluzba.entities.Lecturer;
 
-public interface LecturerRepository extends JpaRepository<Lecturer, Long> {
+public interface LecturerRepository extends JpaRepository<Lecturer, String> {
 
 	Lecturer findByEmailAddress(String username);
 

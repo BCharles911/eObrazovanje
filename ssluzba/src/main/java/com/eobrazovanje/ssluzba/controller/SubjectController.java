@@ -132,7 +132,7 @@ public class SubjectController {
 	
 	
 	@PostMapping(value="/admin/add-lecturer")
-	public ResponseEntity<?> addLecturerToSubject(@RequestParam Long subjectId, @RequestParam Long id){
+	public ResponseEntity<?> addLecturerToSubject(@RequestParam Long subjectId, @RequestParam String id){
 		Lecturer lecturer = lecturerService.getOne(id);
 		Subject subject = subjectService.getOne(subjectId);
 		subject.getLecturer().add(lecturer);

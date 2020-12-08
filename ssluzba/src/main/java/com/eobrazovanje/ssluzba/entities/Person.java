@@ -1,8 +1,8 @@
+
 package com.eobrazovanje.ssluzba.entities;
 
 import java.sql.Date;
 import java.util.Collection;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,72 +41,110 @@ import lombok.Setter;
 public class Person {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Long id;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Getter
+	@Setter
+	private String id;
 	
 	@NotNull
 	@NotBlank
 	@Column(name = "first_name", nullable = false)
+	@Getter
+	@Setter
 	private String firstName;
 	
 
 	@NotBlank
 	@Column(name = "last_name", nullable = false)
+	@Getter
+	@Setter
 	private String lastName;
 	
 	//@JsonIgnore
 	@Column(name = "password", length=250)
+	@Getter
+	@Setter
 	private String password;
 	
 	
 	@Column(nullable = false, columnDefinition = "TINYINT(1)")
+	@Getter
+	@Setter
 	private boolean deleted;
 	
 	
 	@Column
+	@Getter
+	@Setter
 	private String username;
 	
 	@Column(name = "gender")
+	@Getter
+	@Setter
 	private String gender;
 	
 	
 	@Column(name = "date_of_birth")
+	@Getter
+	@Setter
 	private Date dateOfBirth;
 	
 	@Column(name = "place_of_birth")
+	@Getter
+	@Setter
 	private String placeOfBirth;
 	
 	@Column(name = "state_of_birth")
+	@Getter
+	@Setter
 	private String stateOfBirth;
 	
 	@Column(name = "residence_address")
+	@Getter
+	@Setter
 	private String residence_address;
 	
 	@Column(name = "township")
+	@Getter
+	@Setter
 	private String township;
 	
 	@Column(name = "city")
+	@Getter
+	@Setter
 	private String city;
 	
 	@Column(name = "phone_number")
+	@Getter
+	@Setter
 	private String phoneNumber;
 	
 	@Column(name = "mobile_phone_number")
+	@Getter
+	@Setter
 	private String mobilePhoneNumber;
 	
 	@Column(name = "email_address")
+	@Getter
+	@Setter
 	private String emailAddress;
 	
 	@Column(name = "citizenship")
+	@Getter
+	@Setter
 	private String citizenship;
 	
 	@Column(name = "ethnicity")
+	@Getter
+	@Setter
 	private String ethnicity;
 	
 	@Column(name = "is_deleted", nullable = false, columnDefinition = "TINYINT(1)")
+	@Getter
+	@Setter
 	private boolean isDeleted;
 	
-
 	@ManyToMany
 	@JoinTable(
 			name = "users_roles",
@@ -119,6 +156,7 @@ public class Person {
 					)
 			)
 	private Collection<Role> roles;
+	
 	
 	
 	

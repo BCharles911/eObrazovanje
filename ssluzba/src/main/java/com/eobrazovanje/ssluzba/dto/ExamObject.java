@@ -17,7 +17,7 @@ public class ExamObject implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 7048479579756780512L;
-	private Long studentId;
+	private String studentId;
 	private int grade;
 	private int pointNumber;
 	private boolean passed;
@@ -28,7 +28,7 @@ public class ExamObject implements Serializable {
 	}
 	
 	
-	public ExamObject(Long studentId, int grade, boolean passed, int pointNumber, String note) {
+	public ExamObject(String studentId, int grade, boolean passed, int pointNumber, String note) {
 		super();
 		this.studentId = studentId;
 		this.grade = grade;

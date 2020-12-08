@@ -1,6 +1,5 @@
-package com.eobrazovanje.ssluzba.repository;
 
-import java.util.UUID;
+package com.eobrazovanje.ssluzba.repository;
 
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +12,6 @@ public interface FinancialCardRepository extends JpaRepository<FinancialCard, Lo
 	FinancialCard findFinancialCardById(Long id);
 	
 	@Query("select fc from financial_card fc where fc.student.student_id = ?1")
-	FinancialCard findFinancialCardByStudentId(Long id);
+	FinancialCard findFinancialCardByStudentId(String id);
 }
+

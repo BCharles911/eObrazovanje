@@ -16,7 +16,7 @@ public class StudentSubjectKey implements Serializable {
 
 	@Column(name = "student_id")
 	@Setter
-	private Long studentId;
+	private String studentId;
 	
 	@Column(name = "subject_id")
 	@Setter

@@ -23,7 +23,7 @@ public class StudentDTO implements Serializable {
 	private static final long serialVersionUID = -8381966922184846861L;
 
 	
-	private Long id;
+	private String id;
 	private String firstName;
 	private String lastName;
 	private boolean deleted;
@@ -55,7 +55,7 @@ public class StudentDTO implements Serializable {
 		
 	}
 
-	public StudentDTO(Long id, String firstName, String lastName, boolean deleted, String username, String gender,
+	public StudentDTO(String id, String firstName, String lastName, boolean deleted, String username, String gender,
 			Date dateOfBirth, String placeOfBirth, String stateOfBirth, String residence_address, String township,
 			String city, String phoneNumber, String mobilePhoneNumber, String citizenship, String ethnicity,
 			String indexNumber, String highSchool, String hsFinishYear, String parentName, int currentYear,

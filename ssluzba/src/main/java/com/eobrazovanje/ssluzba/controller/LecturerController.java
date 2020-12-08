@@ -60,7 +60,7 @@ public class LecturerController {
 	
 	
 	@DeleteMapping(value="/delete-from-subject")
-	public void delete(@RequestParam("lecturerId") Long lecturerId, @RequestParam("subjectId") Long subjectId) {
+	public void delete(@RequestParam("lecturerId") String lecturerId, @RequestParam("subjectId") Long subjectId) {
 		
 		Subject subject = subjectRepository.getOne(subjectId);
 		Lecturer lecturer = lecturerRepository.getOne(lecturerId);

@@ -116,7 +116,7 @@ public class StudentController {
 	
 	
 	@GetMapping(value="/get-financial-card")
-		public ResponseEntity<FinancialCardDTO> getFinancialCard(@RequestParam("studentId") Long id){
+		public ResponseEntity<FinancialCardDTO> getFinancialCard(@RequestParam("studentId") String id){
 			
 			FinancialCard financialCard = financialRepository.findFinancialCardByStudentId(id);
 		
@@ -158,7 +158,7 @@ public class StudentController {
 	
 	
 	@PutMapping(value="/update/{id}", consumes="application/json")
-	public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO, @PathVariable("id") Long id){
+	public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO, @PathVariable("id") String id){
 		Student student = studentRepository.getOne(id);
 		if(student == null){
 			return new ResponseEntity<StudentDTO>(HttpStatus.NOT_FOUND);
@@ -172,14 +172,14 @@ public class StudentController {
 	
 	
 	@DeleteMapping(value="delete-from-subject")
-	public void deleteFromSubject(@RequestParam("studentId") Long studentId, @RequestParam("subjectId") Long subjectId){
+	public void deleteFromSubject(@RequestParam("studentId") String studentId, @RequestParam("subjectId") Long subjectId){
 		StudentHasSubject sths = studentHasSubjectRepository.findStudentHasSubjectByStudentIdAndSubjectId(studentId, subjectId);
 		studentHasSubjectRepository.delete(sths);
 	
 	}
 	
 	@PutMapping(value="/update-partial/{id}", consumes="application/json")
-	public ResponseEntity<StudentDTO> updatePartial(@RequestBody StudentDTO studentDTO, @PathVariable("id") Long id){
+	public ResponseEntity<StudentDTO> updatePartial(@RequestBody StudentDTO studentDTO, @PathVariable("id") String id){
 		Student student = studentRepository.getOne(id);
 		if(student == null){
 			return new ResponseEntity<StudentDTO>(HttpStatus.NOT_FOUND);
@@ -210,7 +210,7 @@ public class StudentController {
 	
 	@PutMapping(value="/exam-check-test")
 	public void testIspit() {
-		Long id = (long) 2;
+		String id = "2";
 		Long id2 = (long) 8;
 		StudentHasSubject shs = studentHasSubjectRepository.findStudentHasSubjectByStudentIdAndSubjectId(id,id2);
 		shs.setPrijavio(true);
@@ -324,7 +324,7 @@ public class StudentController {
 	}
 	
 	@DeleteMapping(value="/delete")
-	public void deleteStudent(@RequestParam("studentId") Long studentId) {
+	public void deleteStudent(@RequestParam("studentId") String studentId) {
 		Student student = studentRepository.getOne(studentId);
 		/*if(student == null) {
 			return new ResponseEntity<StudentDTO>(HttpStatus.NOT_FOUND);

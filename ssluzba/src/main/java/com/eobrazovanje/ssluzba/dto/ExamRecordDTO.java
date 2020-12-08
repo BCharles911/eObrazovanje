@@ -29,7 +29,7 @@ public class ExamRecordDTO implements Serializable{
 	//private StudentHasSubjectDTO studentHasSubject;
 	private Student student;
 	private Subject subject;
-	private Long studentId;
+	private String studentId;
 	private Long subjectId;
 	private String subjectShortName;
 	private String subjectName;
@@ -46,7 +46,7 @@ public class ExamRecordDTO implements Serializable{
 	}
 
 
-	public ExamRecordDTO(String id, String note, /*StudentHasSubjectDTO studentHasSubject */ boolean passed, Long studentId, Long subjectId, String subjectShortName, String subjectName, Long lecturerId, String lecturerName, ExamPeriod examPeriod, Date examDate, Integer ocena) {
+	public ExamRecordDTO(String id, String note, /*StudentHasSubjectDTO studentHasSubject */ boolean passed, String studentId, Long subjectId, String subjectShortName, String subjectName, Long lecturerId, String lecturerName, ExamPeriod examPeriod, Date examDate, Integer ocena) {
 		super();
 		this.id = id;
 		this.note = note;

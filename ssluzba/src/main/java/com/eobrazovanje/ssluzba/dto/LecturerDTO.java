@@ -21,7 +21,7 @@ public class LecturerDTO implements Serializable {
 	private static final long serialVersionUID = 4676112629393183460L;
 
 	
-	private Long id;
+	private String id;
 	private String firstName;
 	private String lastName;	
 	private boolean deleted;
@@ -45,7 +45,7 @@ public class LecturerDTO implements Serializable {
 		super();
 	}
 
-	public LecturerDTO(Long id, String firstName, String lastName, boolean deleted, String username, String gender,
+	public LecturerDTO(String id, String firstName, String lastName, boolean deleted, String username, String gender,
 			Date dateOfBirth, String placeOfBirth, String stateOfBirth, String residence_address, String township,
 			String city, String phoneNumber, String mobilePhoneNumber, String emailAddress, String citizenship,
 			String ethnicity, Collection<Role> roles) {

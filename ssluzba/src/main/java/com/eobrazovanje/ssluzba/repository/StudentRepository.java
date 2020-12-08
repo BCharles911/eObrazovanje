@@ -10,9 +10,9 @@ import org.springframework.data.repository.query.Param;
 
 import com.eobrazovanje.ssluzba.entities.Student;
 
-public interface StudentRepository extends JpaRepository<Student, Long> {
+public interface StudentRepository extends JpaRepository<Student, String> {
 
-	Student findStudentById(Long id);
+	Student findStudentById(String id);
 
 	Student getByUsername(String username);
 	

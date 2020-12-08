@@ -23,7 +23,7 @@ public class LecturerService implements LecturerInterface {
 	DTOToLecturer toLecturer;
 
 	@Override
-	public Lecturer getOne(Long lecturerId) {
+	public Lecturer getOne(String lecturerId) {
 		return lecturerRepository.getOne(lecturerId);
 	}
 
@@ -38,7 +38,7 @@ public class LecturerService implements LecturerInterface {
 	}
 
 	@Override
-	public Lecturer edit(LecturerDTO lecturer, Long id) {
+	public Lecturer edit(LecturerDTO lecturer, String id) {
 		
 		lecturer.setId(id);
 		Lecturer editedLecturer = toLecturer.convert(lecturer);
@@ -47,7 +47,7 @@ public class LecturerService implements LecturerInterface {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(String id) {
 	
 		Lecturer deletedLecturer = getOne(id);
 		if(deletedLecturer != null) {

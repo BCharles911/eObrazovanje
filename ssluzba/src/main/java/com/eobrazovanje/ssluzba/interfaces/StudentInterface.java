@@ -8,11 +8,11 @@ import com.eobrazovanje.ssluzba.entities.Student;
 
 public interface StudentInterface {
 
-	Student getOne(Long studentId);
+	Student getOne(String studentId);
 	Student getByFirstName(String firstname);
 	Student save(Student student);
-	Student edit(StudentDTO student, Long id);
-	void delete(Long id);
+	Student edit(StudentDTO student, String id);
+	void delete(String id);
 	//Page<Student> getAllPaged(Pageable pageRequest);
 	//List<Student> getAll();
 	

@@ -6,7 +6,7 @@ import java.util.List;
 public class JwtAuthenticationResponse {
     private String accessToken;
     private String tokenType = "Bearer";
-    private Long id;
+    private String id;
     private String username;
     private String firstname;
     private String lastname;
@@ -20,7 +20,7 @@ public class JwtAuthenticationResponse {
     
     
 
-	public JwtAuthenticationResponse(String accessToken, Long id, String username, String firstname,
+	public JwtAuthenticationResponse(String accessToken, String id, String username, String firstname,
 			String lastname, List<String> authorities) {
 		super();
 		this.accessToken = accessToken;
@@ -65,7 +65,7 @@ public class JwtAuthenticationResponse {
 
 
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 

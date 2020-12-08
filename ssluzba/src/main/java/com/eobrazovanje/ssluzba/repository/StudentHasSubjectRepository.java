@@ -30,7 +30,8 @@ public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSub
 	
 	
 	@Query("SELECT s FROM student_has_subject s WHERE s.student.id = ?1 and s.subject.id = ?2")
-	StudentHasSubject findStudentHasSubjectByStudentIdAndSubjectId(Long uuid, Long id2);
+	StudentHasSubject findStudentHasSubjectByStudentIdAndSubjectId(String id, Long id2);
+
 	
 	
 	

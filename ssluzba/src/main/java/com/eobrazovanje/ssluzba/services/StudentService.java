@@ -33,7 +33,7 @@ public class StudentService implements StudentInterface {
 
 	
 	@Override
-	public Student getOne(Long studentId) {
+	public Student getOne(String studentId) {
 		return studentRepository.getOne(studentId);
 	}
 
@@ -50,13 +50,13 @@ public class StudentService implements StudentInterface {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(String id) {
 		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
-	public Student edit(StudentDTO student, Long id) {
+	public Student edit(StudentDTO student, String id) {
 		
 		Student studentEdit = studentRepository.findStudentById(student.getId());
 		studentEdit.setAvgGrade(student.getAvgGrade());
