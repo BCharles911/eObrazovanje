@@ -73,7 +73,7 @@ public class SubjectController {
 	
 	
 	@GetMapping(value="/get-subjects-for-lecturer")
-	public ResponseEntity<List<SubjectDTO>> getAllForLecturer(@RequestParam("lecturerId") Long id){
+	public ResponseEntity<List<SubjectDTO>> getAllForLecturer(@RequestParam("lecturerId") String id){
 		List<Subject> subjects = subjectRepository.findAllByLecturerId(id);
 		
 		return new ResponseEntity<List<SubjectDTO>>(subjectToDTO.convert(subjects), HttpStatus.OK);
