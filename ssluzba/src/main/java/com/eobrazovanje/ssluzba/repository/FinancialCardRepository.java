@@ -1,5 +1,7 @@
 package com.eobrazovanje.ssluzba.repository;
 
+import java.util.UUID;
+
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 

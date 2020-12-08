@@ -3,18 +3,23 @@ package com.eobrazovanje.ssluzba.entities;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -28,12 +33,10 @@ import lombok.Setter;
 
 @Entity(name = "student")
 @Table(name = "student")
-@Getter
-@Setter
 @DynamicUpdate
 public class Student extends Person {
 
-	
+
 
 	
 	@NotBlank
@@ -83,6 +86,8 @@ public class Student extends Person {
 	
 	
 	@Enumerated(EnumType.STRING)
+	@Getter
+	@Setter
 	private STUDENT_STATUS studentStatus;
 	
  
@@ -99,20 +104,14 @@ public class Student extends Person {
 	private Set<StudentHasColloqium> studentHasColloqium;
 	
 	@OneToMany(mappedBy="student")
+	@Getter
+	@Setter
 	private Set<Document> documents;
 
-	@ManyToMany
-	@JoinTable(
-			name = "student_roles",
-			joinColumns = @JoinColumn(
-					name = "id", referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(
-					name = "role_id", referencedColumnName = "id"
-					
-					)
-			)
-	private Collection<Role> roles;
+
 	
+	@Getter
+	@Setter
 	@OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "student")
@@ -124,7 +123,7 @@ public class Student extends Person {
 	}
 	
 	
-	
+
 	
 
 	public Student( @NotBlank String indexNumber,

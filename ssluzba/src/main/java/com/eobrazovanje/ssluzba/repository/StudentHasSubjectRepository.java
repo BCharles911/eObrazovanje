@@ -3,6 +3,7 @@ package com.eobrazovanje.ssluzba.repository;
 
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,7 +30,7 @@ public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSub
 	
 	
 	@Query("SELECT s FROM student_has_subject s WHERE s.student.id = ?1 and s.subject.id = ?2")
-	StudentHasSubject findStudentHasSubjectByStudentIdAndSubjectId(Long id, Long id2);
+	StudentHasSubject findStudentHasSubjectByStudentIdAndSubjectId(Long uuid, Long id2);
 	
 	
 	
