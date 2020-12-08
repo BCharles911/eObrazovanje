@@ -42,7 +42,7 @@ public class ExamPeriodController {
 	private SubjectToDTO subjectToDTO;
 	
 	@GetMapping("/subjects")
-	public ResponseEntity<List<StudentHasSubjectDTO>> getAllSubjectsForActiveExamPeriod(@RequestParam("id") Long id){
+	public ResponseEntity<List<StudentHasSubjectDTO>> getAllSubjectsForActiveExamPeriod(@RequestParam("id") String id){
 		
 		List<StudentHasSubject> studentSubjects = studentHasSubjectRepository.findByStudentId(id);
 		
@@ -57,7 +57,7 @@ public class ExamPeriodController {
 	
 	
 	@GetMapping("/get-subjects")
-	public ResponseEntity<List<SubjectDTO>> getSubjects(@RequestParam("id") Long id){
+	public ResponseEntity<List<SubjectDTO>> getSubjects(@RequestParam("id") String id){
 		
 		List<Subject> studentSubjects = studentHasSubjectRepository.findSubjects(id);
 		
@@ -71,7 +71,7 @@ public class ExamPeriodController {
 	}
 	
 	@GetMapping("/get-subjects-prijavio")
-	public ResponseEntity<List<SubjectDTO>> getSubjectsPrijavio(@RequestParam("id") Long id){
+	public ResponseEntity<List<SubjectDTO>> getSubjectsPrijavio(@RequestParam("id") String id){
 		
 		List<Subject> studentSubjects = studentHasSubjectRepository.findSubjectsPrijavioTrue(id);
 		

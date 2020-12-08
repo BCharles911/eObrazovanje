@@ -18,7 +18,7 @@ public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSub
 	
 	
 	@Query("SELECT s FROM student_has_subject s WHERE s.student = ?1")
-	StudentHasSubject findStudentHasSubjectByStudentId(Long id);
+	StudentHasSubject findStudentHasSubjectByStudentId(String id);
 	
 	
 	@Query("SELECT s FROM student_has_subject s where s.subject.id = ?1")
@@ -26,7 +26,7 @@ public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSub
 	
 
 	@Query("SELECT s FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 0")
-	List<StudentHasSubject> findByStudentId(Long id);
+	List<StudentHasSubject> findByStudentId(String id);
 	
 	
 	@Query("SELECT s FROM student_has_subject s WHERE s.student.id = ?1 and s.subject.id = ?2")
@@ -37,20 +37,20 @@ public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSub
 	
 	
 	@Query("SELECT s.subject FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 0 and s.prijavio = 0")
-	List<Subject> findSubjects(Long id);
+	List<Subject> findSubjects(String id);
 	
 	@Query("SELECT s.subject FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 0 and s.prijavio = 1")
-	List<Subject> findSubjectsPrijavioTrue(Long id);
+	List<Subject> findSubjectsPrijavioTrue(String id);
 	
 	
 	@Query("SELECT s FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 1 and s.prijavio = 0")
 	List<StudentHasSubject> findPassedSubject(Long id);
 	
 	@Query("SELECT s FROM exam_record s WHERE s.student.id = ?1")
-	List<ExamRecord> findPassedSubjectHistory(Long id);
+	List<ExamRecord> findPassedSubjectHistory(String id);
 	
 	@Query("SELECT s FROM student_has_subject s WHERE s.student.id = ?1 and s.passed = 0")
-	List<StudentHasSubject> findNonPassedSubjects(Long id);
+	List<StudentHasSubject> findNonPassedSubjects(String id);
 	
 		
 	
@@ -63,7 +63,7 @@ public interface StudentHasSubjectRepository extends JpaRepository<StudentHasSub
 	
 	
 	@Query("UPDATE student_has_subject s set s.prijavio = 1 where s.student.id = :studentId and s.subject.id = :subjectId")
-	void updatePrijavio(@Param("studentId") Long studentId, @Param("subjectId") Long subjectId);
+	void updatePrijavio(@Param("studentId") String studentId, @Param("subjectId") Long subjectId);
 
 
 	@Query("SELECT s.student from student_has_subject s where prijavio = 1 and s.subject.id= ?1")

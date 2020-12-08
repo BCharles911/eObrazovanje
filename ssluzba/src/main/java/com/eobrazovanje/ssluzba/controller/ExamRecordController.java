@@ -90,7 +90,7 @@ public class ExamRecordController {
 	}
 	
 	@GetMapping("/get-passed-subjects-history")
-	public ResponseEntity<List<ExamRecordDTO>> getSubjectsPassedHistory(@RequestParam("id") Long id) {
+	public ResponseEntity<List<ExamRecordDTO>> getSubjectsPassedHistory(@RequestParam("id") String id) {
 		
 		List<ExamRecord> studentPassedSubjects = studentHasSubjectRepository.findPassedSubjectHistory(id);
 		
@@ -98,7 +98,7 @@ public class ExamRecordController {
 	}
 	
 	@GetMapping("/get-non-passed-subjects")
-	public ResponseEntity<List<StudentHasSubjectDTO>> getNonPassedSubject(@RequestParam("id") Long id) {
+	public ResponseEntity<List<StudentHasSubjectDTO>> getNonPassedSubject(@RequestParam("id") String id) {
 		
 		List<StudentHasSubject> studentNonPassedSubject = studentHasSubjectRepository.findNonPassedSubjects(id);
 		
