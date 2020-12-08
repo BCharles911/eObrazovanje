@@ -56,11 +56,11 @@ public class DocumentService  {
 		    return documentRepository.findAll().stream();
 		  }
 		  
-		  public Stream<Document> getAllStudentFiles(Long id) {
+		  public Stream<Document> getAllStudentFiles(String id) {
 			  return documentRepository.findDocumentByStudentId(id).stream();
 		  }
 		  
-		  public Stream<Document> getAllLecturerFiles(Long id){
+		  public Stream<Document> getAllLecturerFiles(String id){
 			  return documentRepository.findDocumentByLecturerId(id).stream();
 		  }
 	

@@ -103,7 +103,7 @@ public class DocumentController {
 	 
 	 
 	 @GetMapping("/files-for-student")
-	  public ResponseEntity<List<DocumentResponseDTO>> getStudentFiles(@RequestParam("id") Long id) {
+	  public ResponseEntity<List<DocumentResponseDTO>> getStudentFiles(@RequestParam("id") String id) {
 	    List<DocumentResponseDTO> files = documentService.getAllStudentFiles(id).map(dbFile -> {
 	      String fileDownloadUri = ServletUriComponentsBuilder
 	          .fromCurrentContextPath()
@@ -122,7 +122,7 @@ public class DocumentController {
 	  }
 	 
 	 @GetMapping("/files-for-lecturer")
-	  public ResponseEntity<List<DocumentResponseDTO>> getLecturerFiles(@RequestParam("id") Long id) {
+	  public ResponseEntity<List<DocumentResponseDTO>> getLecturerFiles(@RequestParam("id") String id) {
 	    List<DocumentResponseDTO> files = documentService.getAllLecturerFiles(id).map(dbFile -> {
 	      String fileDownloadUri = ServletUriComponentsBuilder
 	          .fromCurrentContextPath()

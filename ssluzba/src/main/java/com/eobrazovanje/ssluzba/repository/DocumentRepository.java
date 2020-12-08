@@ -11,8 +11,8 @@ import com.eobrazovanje.ssluzba.entities.Document;
 public interface DocumentRepository extends JpaRepository<Document, String> {
 	
 	
-	List<Document> findDocumentByStudentId(Long id);
+	List<Document> findDocumentByStudentId(String id);
 	
-	List<Document> findDocumentByLecturerId(Long id);
+	List<Document> findDocumentByLecturerId(String id);
 
 }
